@@ -8,23 +8,6 @@
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
 
-    <!-- Preconnect para recursos externos críticos -->
-    <link rel="preconnect" href="https://cdn.tailwindcss.com" crossorigin>
-    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
-
-    <!-- DNS Prefetch para otros recursos -->
-    <link rel="dns-prefetch" href="https://cdn.tailwindcss.com">
-    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
-    
-    <!-- Preload de imagen LCP (foto de perfil) con fetchpriority -->
-    <link rel="preload" as="image" href="src/img/Foto.webp" fetchpriority="high">
-    
-    <!-- Preload de CSS crítico -->
-    <link rel="preload" href="src/css/Styles_Arbuz.css" as="style">
-    <link rel="preload" href="src/css/optimizaciones.css" as="style">
-
     <script>
         tailwind.config = {
             theme: {
@@ -137,15 +120,17 @@
         defer></script>
 
 
-    <!-- Fonts con display=swap para evitar FOIT -->
-    <link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Expletus+Sans:ital@0;1&family=Macondo&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
-    <noscript>
-        <link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Expletus+Sans:ital@0;1&family=Macondo&display=swap" rel="stylesheet">
-    </noscript>
+    <!-- Fonts & Icons -->
+    <link rel="preload" href="fonts/MiFuente.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Audiowide&family=Expletus+Sans:ital@0;1&family=Macondo&display=swap"
+        rel="stylesheet">
 
     <link rel="stylesheet" href="src/css/Styles_Arbuz.css">
     <!-- Nueva hoja de estilos para optimizaciones -->
-    
+    <link rel="stylesheet" href="src/css/optimizaciones.css">
     <script src="src/js/app_Arbuz.js"></script>
 
 </head>
@@ -503,19 +488,18 @@
                 <div class="flex flex-col lg:flex-row items-center gap-10 lg:gap-16">
 
 
-                    <!-- Foto optimizada con loading eager y srcset -->
+                    <!-- Foto a la derecha -->
                     <div class="lg:w-2/5 flex justify-center lg:justify-end">
                         <div class="relative">
-                            <div class="w-72 h-72 md:w-72 md:h-72 rounded-full overflow-hidden border-4 border-medium-gray shadow-2xl">
-                                <img src="src/img/Foto .webp" 
-                                     alt="Foto de Franly Alvarez Varona"
-                                     width="288" 
-                                     height="288"
-                                     loading="eager"
-                                     fetchpriority="high"
-                                     class="w-full h-full object-cover hover:scale-110 transition-transform duration-700">
+                            <div
+                                class="w-72 h-72 md:w-72 md:h-72 rounded-full overflow-hidden border-4 border-medium-gray shadow-2xl">
+                                <img src="src/img/Foto .webp" alt="Foto de Franly Alvarez Varona"
+                                    class="w-full h-full object-cover hover:scale-110 transition-transform duration-700">
                             </div>
-                            <div class="absolute -z-10 top-4 -right-4 w-full h-full rounded-full border-2 border-cyan-500/20"></div>
+                            <!-- Elemento decorativo sutil -->
+                            <div
+                                class="absolute -z-10 top-4 -right-4 w-full h-full rounded-full border-2 border-cyan-500/20">
+                            </div>
                         </div>
                     </div>
 
