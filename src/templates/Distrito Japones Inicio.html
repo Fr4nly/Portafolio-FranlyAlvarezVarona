@@ -1,0 +1,2166 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Distrito Japonés</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/css/flag-icon.min.css" />
+    <!-- CSS para vidrio estatico -->
+    <style>
+        .vidrio-estatico {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .line-clamp-1 {
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 1;
+        }
+
+        .line-clamp-2 {
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+        }
+
+        .carousel-container {
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .search-input {
+            transition: all 0.3s ease;
+        }
+
+        .search-input.hidden {
+            width: 0;
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .search-input.visible {
+            width: 16rem;
+            opacity: 1;
+            visibility: visible;
+        }
+
+        @media (max-width: 640px) {
+            .search-input.visible {
+                width: 8rem;
+            }
+        }
+
+        .modal-overlay {
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+        }
+
+        .volume-slider {
+            -webkit-appearance: none;
+            appearance: none;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 2px;
+            outline: none;
+        }
+
+        .volume-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 16px;
+            height: 16px;
+            background: white;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .volume-slider::-moz-range-thumb {
+            width: 16px;
+            height: 16px;
+            background: white;
+            border-radius: 50%;
+            cursor: pointer;
+            border: none;
+        }
+
+        .chat-messages {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .chat-messages::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .chat-messages::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+        }
+
+        .chat-messages::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 2px;
+        }
+
+        .chat-messages::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.5);
+        }
+    </style>
+    <!-- CSS para mensajes responsivos tipo WhatsApp -->
+    <style>
+        /* Mejoras para mensajes responsivos tipo WhatsApp con LÍMITES ESTRICTOS */
+        .chat-message-bubble {
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            word-break: break-word;
+            hyphens: auto;
+            max-width: 100%;
+        }
+
+        /* Forzar wrap en elementos de texto */
+        .chat-messages p {
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            word-break: break-word;
+            white-space: pre-wrap;
+            max-width: 100%;
+        }
+
+        /* Animaciones suaves para los mensajes */
+        .chat-message-enter {
+            animation: messageSlideIn 0.3s ease-out;
+        }
+
+        @keyframes messageSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px) scale(0.95);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* Mejoras para scroll del chat */
+        .chat-messages {
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+            /* Prevenir scroll horizontal */
+        }
+
+        /* Responsive para mensajes - LÍMITES MÁS ESTRICTOS */
+        @media (max-width: 640px) {
+            .min-w-\[60px\] {
+                min-width: 50px;
+            }
+
+            .min-w-\[80px\] {
+                min-width: 60px;
+            }
+
+            .min-w-\[100px\] {
+                min-width: 80px;
+            }
+
+            .min-w-\[120px\] {
+                min-width: 100px;
+            }
+
+            .min-w-\[150px\] {
+                min-width: 120px;
+            }
+
+            .min-w-\[200px\] {
+                min-width: 140px;
+            }
+
+            /* Forzar límites máximos en móvil */
+            .max-w-\[280px\] {
+                max-width: 280px !important;
+            }
+        }
+
+        @media (min-width: 641px) {
+
+            /* Forzar límites máximos en desktop */
+            .sm\:max-w-\[400px\] {
+                max-width: 400px !important;
+            }
+        }
+
+        /* Clase utilitaria para forzar wrap */
+        .word-wrap-break-word {
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            word-break: break-word;
+        }
+    </style>
+    <!-- Estilos para respuestas tipo WhatsApp -->
+    <style>
+        .line-clamp-2 {
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+        }
+
+        /* Preview de respuesta en el input */
+        #replyPreview {
+            animation: slideDown 0.2s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Efecto hover en previews de respuesta */
+        .reply-preview:hover {
+            background-color: rgba(255, 255, 255, 0.15) !important;
+        }
+
+        /* Highlight temporal para mensajes */
+        .message-highlight {
+            background: rgba(255, 255, 255, 0.15) !important;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+    </style>
+</head>
+
+<body class="min-h-screen bg-cover bg-center bg-fixed relative" style="
+      background-image: url('https://w.wallhaven.cc/full/1k/wallhaven-1k6ljv.jpg');
+    ">
+    <!-- Navbar -->
+    <nav class="fixed top-0 right-0 z-50">
+        <div
+            class="flex items-center space-x-1 sm:space-x-2 lg:space-x-3 vidrio-estatico rounded-none rounded-bl-2xl sm:rounded-bl-3xl px-2 sm:px-3 lg:px-4 shadow-lg max-w-[95vw] overflow-hidden">
+            <!-- Search -->
+            <div class="flex items-center space-x-1 sm:space-x-2">
+                <button id="searchBtn"
+                    class="bg-transparent hover:bg-white/10 border-0 p-1.5 sm:p-2 h-auto rounded transition-colors flex-shrink-0">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="#ffffff" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"
+                        class="lucide lucide-search-icon lucide-search">
+                        <path d="m21 21-4.34-4.34" />
+                        <circle cx="11" cy="11" r="8" />
+                    </svg>
+                </button>
+                <input type="text" id="searchInput"
+                    class="search-input hidden h-6 sm:h-8 px-1 sm:px-2 py-1 text-xs sm:text-sm bg-transparent border border-white/30 text-white placeholder-white/70 focus:ring-1 focus:ring-white/50 focus:border-white/50 focus:outline-none rounded" />
+            </div>
+
+            <!-- Chat -->
+            <button id="chatBtn"
+                class="bg-transparent hover:bg-white/10 border-0 p-1.5 sm:p-2 h-auto rounded transition-colors flex-shrink-0">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                    stroke="#ffffff" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"
+                    class="lucide lucide-messages-square-icon lucide-messages-square">
+                    <path d="M14 9a2 2 0 0 1-2 2H6l-4 4V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2z" />
+                    <path d="M18 9h2a2 2 0 0 1 2 2v11l-4-4h-6a2 2 0 0 1-2-2v-1" />
+                </svg>
+            </button>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <!-- ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+            <!-- ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+
+            <!-- ARREGLO DE EL MODAL DE MUSICA Y MODAL DE DESICIÔNES (VOLUMEN O ADMINISTRAR) -->
+
+            <!-- ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+            <!-- ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+
+            <!-- Radio/Music Player -->
+            <button id="musicBtn"
+                class="bg-transparent hover:bg-white/10 border-0 p-1.5 sm:p-2 h-auto rounded transition-colors flex-shrink-0"
+                aria-label="Abrir opciones de música">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                    stroke="#ffffff" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"
+                    class="lucide lucide-radio-tower-icon lucide-radio-tower">
+                    <path d="M4.9 16.1C1 12.2 1 5.8 4.9 1.9" />
+                    <path d="M7.8 4.7a6.14 6.14 0 0 0-.8 7.5" />
+                    <circle cx="12" cy="9" r="2" />
+                    <path d="M16.2 4.8c2 2 2.26 5.11.8 7.47" />
+                    <path d="M19.1 1.9a9.96 9.96 0 0 1 0 14.1" />
+                    <path d="M9.5 18h5" />
+                    <path d="m8 22 4-11 4 11" />
+                </svg>
+            </button>
+            <!-- ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+            <!-- ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+            <!-- ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+            <!-- ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <!-- Orders -->
+            <a id="orderBtn"
+                class="bg-transparent hover:bg-white/10 border-0 p-1.5 sm:p-2 h-auto rounded transition-colors flex-shrink-0"
+                href="Distrito Japones Pedido.html">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                    stroke="#ffffff" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"
+                    class="lucide lucide-shopping-basket-icon lucide-shopping-basket">
+                    <path d="m15 11-1 9" />
+                    <path d="m19 11-4-7" />
+                    <path d="M2 11h20" />
+                    <path d="m3.5 11 1.6 7.4a2 2 0 0 0 2 1.6h9.8a2 2 0 0 0 2-1.6l1.7-7.4" />
+                    <path d="M4.5 15.5h15" />
+                    <path d="m5 11 4-7" />
+                    <path d="m9 11 1 9" />
+                </svg>
+            </a>
+
+            <!-- ===================  BOTÓN DE IDIOMA CORREGIDO  =================== -->
+
+            <button id="languageBtn"
+                class="bg-transparent hover:bg-white/10 border-0 p-1.5 sm:p-2 h-auto rounded transition-colors flex-shrink-0">
+                <span id="langCode" class="flag-icon flag-icon-es"></span>
+            </button>
+
+            <script>
+                // --- 1. Configuración con clases de flag-icon-css -------------------------------------------
+                const languages = ["es", "en", "jp"]; // orden de rotación
+                const flags = {
+                    es: "flag-icon-es", // España
+                    en: "flag-icon-gb", // Reino Unido
+                    jp: "flag-icon-jp", // Japón
+                };
+
+                let currentIndex = 0; // idioma inicial
+                const $btn = document.getElementById("languageBtn");
+                const $flag = document.getElementById("langCode");
+
+                // Al cargar la página aplicamos el idioma por defecto
+                setLanguage(languages[currentIndex]);
+
+                // --- 2. Cambiar idioma al hacer clic -----------------------------
+                $btn.addEventListener("click", () => {
+                    currentIndex = (currentIndex + 1) % languages.length;
+                    const lang = languages[currentIndex];
+                    setLanguage(lang);
+                });
+
+                // --- 3. Función principal ----------------------------------------
+                function setLanguage(lang) {
+                    // 3.1 Actualizar la bandera - cambiar clases CSS
+                    $flag.className = `flag-icon ${flags[lang]}`;
+
+                    // 3.2 Actualizar todo el texto traducible
+                    const traducibles = document.querySelectorAll(
+                        "[data-es],[data-en],[data-jp]"
+                    );
+                    traducibles.forEach((node) => {
+                        const txt = node.getAttribute(`data-${lang}`);
+                        if (txt === null) return;
+
+                        if (node.tagName === "INPUT" || node.tagName === "TEXTAREA") {
+                            if (node.hasAttribute("placeholder")) node.placeholder = txt;
+                            if (node.type !== "password") node.value = txt; // opcional
+                        } else {
+                            node.textContent = txt;
+                        }
+                    });
+                }
+            </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <!-- ///////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+            <!-- ///////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+            <!-- ///////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+
+            <!-- Boton de usuario que lanza el modal de desición de cerrar sesión o ver perfil -->
+
+            <!-- ///////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+            <!-- ///////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+            <!-- ///////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+
+            <!-- Botón de perfil -->
+            <button onclick="openProfileModal()"
+                class="bg-transparent hover:bg-white/10 border-0 p-1 sm:p-2 h-auto flex items-center space-x-1 flex-shrink-0 cursor-pointer relative"
+                aria-label="Abrir perfil de usuario">
+                <div
+                    class="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-gradient-to-r from-purple-600 to-cyan-200 flex items-center justify-center">
+                </div>
+                <span class="hidden sm:inline text-white font-medium text-xs sm:text-sm" data-en="User"
+                    data-es="Usuario" data-jp="ユーザー">Usuario</span>
+
+                <!-- flecha indicadora dentro de círculo gris -->
+                <div
+                    class="absolute right-0.5 bottom-0.5 w-4 h-4 rounded-full bg-neutral-700 flex items-center justify-center pointer-events-none">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none"
+                        stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="m6 9 6 6 6-6" />
+                    </svg>
+                </div>
+            </button>
+
+
+            <!-- Script del modal -->
+            <script>
+                // Modal Functions
+                function openProfileModal() {
+                    document.getElementById('profileModal').classList.remove('hidden');
+                    document.body.style.overflow = 'hidden';
+                }
+
+                function closeProfileModal() {
+                    document.getElementById('profileModal').classList.add('hidden');
+                    document.body.style.overflow = 'auto';
+                }
+
+                function showLogoutConfirmation() {
+                    document.getElementById('logoutModal').classList.remove('hidden');
+                }
+
+                function closeLogoutModal() {
+                    document.getElementById('logoutModal').classList.add('hidden');
+                }
+
+                function viewProfile() {
+                    alert('Redirigiendo al perfil...');
+                    closeProfileModal();
+                }
+
+                function confirmLogout() {
+                    alert('Sesión cerrada exitosamente');
+                    closeLogoutModal();
+                    closeProfileModal();
+                }
+
+                // Close modals with Escape key
+                document.addEventListener('keydown', function (event) {
+                    if (event.key === 'Escape') {
+                        closeProfileModal();
+                        closeLogoutModal();
+                    }
+                });
+            </script>
+
+            <!-- ///////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+            <!-- ///////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+            <!-- ///////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <!-- Coins -->
+            <div class="flex items-center space-x-0.5 sm:space-x-1 flex-shrink-0">
+                <div class="w-5 h-5 sm:w-6 sm:h-6 rounded-full overflow-hidden flex items-center justify-center">
+                    <img src="/src/img/Moneda.png" alt="Moneda" class="h-6 w-6 object-cover" />
+                </div>
+                <span class="text-white font-medium text-xs sm:text-sm">100</span>
+                <a href="Distrito Japones Moneda.html"
+                    class="relative w-5 h-5 sm:w-6 sm:h-6 flex items-center justify-center rounded-full vidrio-estatico shadow-lg hover:bg-white/20 transition p-0">
+
+                    <svg class="w-3 h-3 sm:w-4 sm:h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                    </svg>
+
+                </a>
+            </div>
+        </div>
+    </nav>
+
+
+
+
+
+
+
+    <!-- ///////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+    <!-- ///////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+    <!-- ///////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+
+    <!-- Modal de el boton usuario -->
+
+    <!-- ///////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+    <!-- ///////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+    <!-- ///////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+
+    <!-- Modal Overlay -->
+    <div id="profileModal" class="fixed inset-0 z-50 hidden">
+        <!-- Background Overlay with Blur -->
+        <div class="absolute inset-0 bg-black/40 modal-overlay" onclick="closeProfileModal()"></div>
+
+        <!-- Modal Container -->
+        <div class="relative z-10 flex items-center justify-center min-h-screen p-4">
+            <!-- Modal Content -->
+            <div class="vidrio-estatico rounded-2xl p-8 w-full max-w-md modal-animate">
+                <!-- Modal Header -->
+                <div class="text-center mb-8">
+                    <div
+                        class="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-r from-purple-600 to-cyan-200 flex items-center justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none"
+                            stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                            <circle cx="12" cy="7" r="4" />
+                        </svg>
+                    </div>
+                    <h2 class="text-xl font-semibold text-white mb-2">Perfil de Usuario</h2>
+
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="flex space-x-4 mb-6">
+                    <!-- Ver Perfil Button -->
+                     <a href="Distrito Japones Perfil.html" class="flex-1 vidrio-estatico hover:bg-white/20 rounded-xl p-4 text-white font-medium transition-all duration-300 hover-lift ripple group">
+                    <div class="flex flex-col items-center space-y-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="#ffffff" stroke-width="1.75" stroke-linecap="round"
+                                stroke-linejoin="round" class="lucide lucide-user-icon lucide-user">
+                                <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+                                <circle cx="12" cy="7" r="4" />
+                            </svg>
+                            <span class="text-sm">Ver perfil</span>
+                        </div>
+                    
+                    </a>
+
+                    <!-- Cerrar Sesión Button -->
+                    <a href="Distrito Japones Login.html" onclick="showLogoutConfirmation()"
+                        class="flex-1 bg-red-500/20 hover:bg-red-500/30 border border-red-400/30 rounded-xl p-4 text-white font-medium transition-all duration-300 hover-lift ripple group">
+                    <div class="flex flex-col items-center space-y-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"
+                                stroke-linejoin="round"
+                                class="lucide lucide-log-out-icon lucide-log-out group-hover:scale-110 transition-transform">
+                                <path d="m16 17 5-5-5-5" />
+                                <path d="M21 12H9" />
+                                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                            </svg>
+                            <span class="text-sm">Cerrar sesión</span>
+                        </div>
+                    
+                    </a>
+                </div>
+
+                <!-- Close Button -->
+                <button onclick="closeProfileModal()"
+                    class="w-full bg-white/5 hover:bg-white/10 vidrio-estatico rounded-xl p-3 text-white/70 hover:text-white font-medium transition-all duration-300">
+                    Cancelar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ///////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+    <!-- ///////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+    <!-- ///////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+    <!-- ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+
+    <!-- ARREGLO DE EL MODAL DE MUSICA Y MODAL DE DESICIÔNES (VOLUMEN O ADMINISTRAR) -->
+
+    <!-- ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+    <!-- ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+
+
+    <!-- Music Modal -->
+    <div id="musicModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/50 modal-overlay">
+        <div class="vidrio-estatico w-full max-w-md mx-4 p-6 text-white">
+            <div class="space-y-6">
+                <div class="text-center">
+                    <h4 class="text-lg font-semibold mb-2" data-en="🎵 Now playing:" data-es="🎵 Reproduciendo ahora:"
+                        data-jp="🎵 現在再生中:">
+                        🎵 Reproduciendo ahora:
+                    </h4>
+                    <p id="currentTrack" class="text-purple-300 font-medium">
+                        Gurenge - LiSA (Demon Slayer OP)
+                    </p>
+                </div>
+                <div class="space-y-3">
+                    <div class="flex items-center justify-between">
+                        <label class="text-sm font-medium" data-en="Volume" data-es="Volumen"
+                            data-jp="音量">Volumen</label>
+                        <span id="volumeDisplay" class="text-sm text-white/70">75%</span>
+                    </div>
+                    <input type="range" id="volumeSlider" min="0" max="100" value="75" class="w-full volume-slider"
+                        aria-label="Control de volumen" />
+                </div>
+                <button id="closeModal" class="w-full py-2 bg-white/20 hover:bg-white/30 rounded-lg transition"
+                    data-en="Close" data-es="Cerrar" data-jp="近い">
+                    Cerrar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mini-Actions Modal (Modal de deciciones de volumen o administracion) -->
+    <div id="miniActionsModal"
+        class="fixed inset-0 z-[60] hidden items-center justify-center bg-black/50 modal-overlay">
+        <div class="vidrio-estatico w-auto p-4 text-white flex flex-col space-y-3">
+            <h4 class="text-sm font-semibold mb-1 text-center">Opciones de Audio</h4>
+
+            <!-- Volume button (opens the existing modal) -->
+            <button id="openVolumeBtn"
+                class="flex items-center space-x-2 w-full px-3 py-2 bg-white/20 hover:bg-white/30 rounded-lg transition-all"
+                aria-label="Ajustar volumen">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                    stroke="#ffffff" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"
+                    class="lucide lucide-volume-2">
+                    <path
+                        d="M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z" />
+                    <path d="M16 9a5 5 0 0 1 0 6" />
+                    <path d="M19.364 18.364a9 9 0 0 0 0-12.728" />
+                </svg>
+                <span>Volúmen</span>
+            </button>
+
+            <!-- Administer button (placeholder) -->
+            <a href="Distrito Japones Playlist.html"
+                class="flex items-center space-x-2 w-full px-3 py-2 bg-white/20 hover:bg-white/30 rounded-lg transition-all"
+                aria-label="Administrar opciones de audio">
+
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" Franly
+                    Álvarez, [22/7/25 18:06] stroke="#ffffff" stroke-width="1.75" stroke-linecap="round"
+                    stroke-linejoin="round" class="lucide lucide-file-sliders">
+                    <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z" />
+                    <path d="M14 2v4a2 2 0 0 0 2 2h4" />
+                    <path d="M8 12h8" />
+                    <path d="M10 11v2" />
+                    <path d="M8 17h8" />
+                    <path d="M14 16v2" />
+                </svg>
+                <span>Playlist</span>
+
+            </a>
+
+            <!-- Close mini-modal -->
+            <button onclick="closeMiniActionsModal()"
+                class="w-full py-1.5 bg-white/10 hover:bg-white/20 rounded-lg text-sm transition"
+                aria-label="Cerrar opciones de audio">
+                Cancelar
+            </button>
+        </div>
+    </div>
+
+
+
+
+
+
+
+    <!-- ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+    <!-- ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+
+    <!-- CODIGO JS CON TODO EL CODIGO DE MODAL DE MUSICA Y MINI MODAL DE DESICIONES (VOLUMEN O ADMINISTRACION) 
+        
+
+    NOTA IMPORTANTE
+    /////////////////////////////////
+    BORRAR DEL JS DE LA PÂGINA DE INICIO LAS SIGUIENTES LINAS DE CODIGO (YA ESTAN AQUI INTEGRADAS Y SEPARADAS)
+
+
+
+    musicBtn.addEventListener('click', openMusicModal);
+    const musicBtn = document.getElementById('musicBtn');
+
+
+    /////////////////////////////////
+    -->
+
+    <!-- ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+    <!-- ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+
+    <script>
+        // Open the mini-actions modal when clicking the music button
+        document.getElementById("musicBtn").addEventListener("click", openMiniActionsModal);
+
+        function openMiniActionsModal() {
+            document.getElementById("miniActionsModal").classList.remove("hidden");
+            document.getElementById("miniActionsModal").classList.add("flex");
+        }
+
+        function closeMiniActionsModal() {
+            document.getElementById("miniActionsModal").classList.add("hidden");
+            document.getElementById("miniActionsModal").classList.remove("flex");
+        }
+
+        // Open volume modal and close mini-actions modal
+        document.getElementById("openVolumeBtn").addEventListener("click", function () {
+            closeMiniActionsModal();
+            openMusicModal();
+        });
+
+        // Open the existing music modal
+        function openMusicModal() {
+            document.getElementById("musicModal").classList.remove("hidden");
+            document.getElementById("musicModal").classList.add("flex");
+        }
+
+        // Close music modal
+        document.getElementById("closeModal").addEventListener("click", function () {
+            document.getElementById("musicModal").classList.add("hidden");
+        });
+
+        // Close mini-modal when clicking outside
+        document.getElementById("miniActionsModal").addEventListener("click", function (e) {
+            if (e.target === this) closeMiniActionsModal();
+        });
+    </script>
+
+
+    <!-- ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+    <!-- ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+    <!-- ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+    <!-- ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Chat Modal -->
+    <div id="chatModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/50 modal-overlay">
+        <div
+            class="vidrio-estatico w-[95vw] max-w-md lg:max-w-xl mx-4 max-h-[90vh] lg:max-h-[65vh] h-full text-white flex flex-col">
+            <!-- Header -->
+            <div class="flex items-center justify-between p-4 border-b border-white/20">
+                <div class="flex items-center space-x-3">
+                    <div
+                        class="w-10 h-10 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 flex items-center justify-center">
+                        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z">
+                            </path>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold" data-en="Japanese District Chat" data-es="Chat Distrito Japonés"
+                            data-jp="日本の地区チャット">
+                            Chat Distrito Japonés
+                        </h3>
+                        <p class="text-xs text-white/70" data-en="On line" data-es="En línea" data-jp="オンライン">
+                            En línea
+                        </p>
+                    </div>
+                </div>
+                <button id="closeChatModal" class="text-white hover:bg-white/10 p-2 rounded transition">
+                    ✕
+                </button>
+            </div>
+
+            <!-- Messages -->
+            <div id="chatMessages"
+                class="flex-1 overflow-y-auto p-3 sm:p-4 space-y-2 scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent">
+                <!-- Messages will be populated by JavaScript -->
+            </div>
+
+            <!-- Input -->
+            <div class="p-4 border-t border-white/20">
+                <div class="flex items-center space-x-2">
+                    <input type="text" id="chatInput"
+                        class="flex-1 bg-white/10 border border-white/30 text-white placeholder-white/70 focus:ring-1 focus:ring-white/50 focus:border-white/50 rounded-full px-4 py-2 text-sm focus:outline-none" />
+                    <button id="sendMessage"
+                        class="bg-purple-500/80 hover:bg-purple-600/80 text-white rounded-full p-2 w-10 h-10 flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed transition">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="pt-20 px-6 pb-8">
+        <!-- Navigation Links -->
+        <div class="flex justify-center mb-8 px-4">
+            <div class="flex flex-wrap justify-center gap-2 sm:gap-3 max-w-4xl">
+                <button
+                    class="nav-link active px-4 py-3 sm:px-6 sm:py-3 rounded-xl text-white font-medium text-sm sm:text-base transition-all duration-300 hover:bg-white/30 hover:scale-105 hover:shadow-lg border-2 vidrio-estatico active:scale-95 focus:outline-none focus:ring-2 focus:ring-white/50 focus:ring-offset-2 focus:ring-offset-transparent min-w-[80px] text-center whitespace-nowrap bg-white/25 border-white/30">
+                    <span class="flex items-center justify-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                            stroke="#ffffff" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"
+                            class="lucide lucide-house-icon lucide-house">
+                            <path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8" />
+                            <path
+                                d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                        </svg>
+                        <span class="hidden sm:inline" data-en="Home" data-es="Inicio" data-jp="ホーム">Inicio</span>
+                        <span class="sm:hidden" data-en="Home" data-es="Inicio" data-jp="ホーム">Inicio</span>
+                    </span>
+                </button>
+                <button
+                    class="nav-link px-4 py-3 sm:px-6 sm:py-3 rounded-xl text-white font-medium text-sm sm:text-base transition-all duration-300 hover:bg-white/30 hover:scale-105 hover:shadow-lg border-2 vidrio-estatico active:scale-95 focus:outline-none focus:ring-2 focus:ring-white/50 focus:ring-offset-2 focus:ring-offset-transparent min-w-[80px] text-center whitespace-nowrap bg-white/10 border-white/20">
+                    <span class="flex items-center justify-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                            stroke="#ffffff" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"
+                            class="lucide lucide-tv-icon lucide-tv">
+                            <path d="m17 2-5 5-5-5" />
+                            <rect width="20" height="15" x="2" y="7" rx="2" />
+                        </svg>
+                        <span class="hidden sm:inline" data-en="Anime" data-es="Anime" data-jp="アニメ">Anime</span>
+                        <span class="sm:hidden" data-en="Anime" data-es="Anime" data-jp="アニメ">Anime</span>
+                    </span>
+                </button>
+
+                <button
+                    class="nav-link px-4 py-3 sm:px-6 sm:py-3 rounded-xl text-white font-medium text-sm sm:text-base transition-all duration-300 hover:bg-white/30 hover:scale-105 hover:shadow-lg border-2 vidrio-estatico active:scale-95 focus:outline-none focus:ring-2 focus:ring-white/50 focus:ring-offset-2 focus:ring-offset-transparent min-w-[80px] text-center whitespace-nowrap bg-white/10 border-white/20">
+                    <span class="flex items-center justify-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                            stroke="#ffffff" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"
+                            class="lucide lucide-music-icon lucide-music">
+                            <path d="M9 18V5l12-2v13" />
+                            <circle cx="6" cy="18" r="3" />
+                            <circle cx="18" cy="16" r="3" />
+                        </svg>
+                        <span class="hidden sm:inline" data-en="Music" data-es="Música" data-jp="音楽">Música</span>
+                        <span class="sm:hidden" data-en="Music" data:es="Música" data-jp="音楽">Música</span>
+                    </span>
+                </button>
+                <button
+                    class="nav-link px-4 py-3 sm:px-6 sm:py-3 rounded-xl text-white font-medium text-sm sm:text-base transition-all duration-300 hover:bg-white/30 hover:scale-105 hover:shadow-lg border-2 vidrio-estatico active:scale-95 focus:outline-none focus:ring-2 focus:ring-white/50 focus:ring-offset-2 focus:ring-offset-transparent min-w-[80px] text-center whitespace-nowrap bg-white/10 border-white/20">
+                    <span class="flex items-center justify-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="#ffffff" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"
+                            class="lucide lucide-video-icon lucide-video">
+                            <path d="m16 13 5.223 3.482a.5.5 0 0 0 .777-.416V7.87a.5.5 0 0 0-.752-.432L16 10.5" />
+                            <rect x="2" y="6" width="14" height="12" rx="2" />
+                        </svg>
+                        <span class="hidden sm:inline" data-en="videography" data-es="Videografías"
+                            data-jp="ビデオ撮影">Videografías</span>
+                        <span class="sm:hidden" data-en="videography" data-es="Videografías"
+                            data-jp="ビデオ撮影">Videografías</span>
+                    </span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Carousel Section -->
+        <div class="max-w-6xl mx-auto mb-8">
+            <div class="vidrio-estatico p-6 shadow-lg">
+                <div id="carousel" class="flex flex-col md:flex-row items-center gap-6">
+                    <!-- Image -->
+                    <div class="w-full md:w-1/2 lg:w-2/5">
+                        <div class="relative overflow-hidden rounded-xl">
+                            <img id="carouselImage"
+                                src="https://sphinxanime.com/wp-content/uploads/2022/01/shingekinokyojinfinalwallpapersphinxanime-1050x525.jpg"
+                                alt="Attack on Titan: Final Season"
+                                class="w-full h-48 md:h-56 lg:h-64 object-cover transition-transform duration-500" />
+                            <div class="absolute top-3 left-3">
+                                <span id="carouselCategory"
+                                    class="bg-purple-500/80 backdrop-blur-sm text-white text-xs px-2 py-1 rounded-full">Destacado</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Content -->
+                    <div class="w-full md:w-1/2 lg:w-3/5 text-center md:text-left">
+                        <h2 id="carouselTitle"
+                            class="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-4 leading-tight">
+                            Attack on Titan: Final Season
+                        </h2>
+                        <p id="carouselDescription" class="text-white/80 text-base md:text-lg mb-6 leading-relaxed">
+                            La batalla final por la humanidad ha comenzado
+                        </p>
+
+                        <!-- Carousel Indicators -->
+                        <div id="carouselIndicators" class="flex justify-center md:justify-start space-x-2 mb-4">
+                            <button class="carousel-indicator w-8 h-2 rounded-full bg-white transition-all duration-300"
+                                data-index="1"></button>
+                            <button
+                                class="carousel-indicator w-2 h-2 rounded-full bg-white/40 hover:bg-white/60 transition-all duration-300"
+                                data-index="2"></button>
+                            <button
+                                class="carousel-indicator w-2 h-2 rounded-full bg-white/40 hover:bg-white/60 transition-all duration-300"
+                                data-index="3"></button>
+                            <button
+                                class="carousel-indicator w-2 h-2 rounded-full bg-white/40 hover:bg-white/60 transition-all duration-300"
+                                data-index="4"></button>
+                            <button
+                                class="carousel-indicator w-2 h-2 rounded-full bg-white/40 hover:bg-white/60 transition-all duration-300"
+                                data-index="5"></button>
+                            <button
+                                class="carousel-indicator w-2 h-2 rounded-full bg-white/40 hover:bg-white/60 transition-all duration-300"
+                                data-index="6"></button>
+                            <button
+                                class="carousel-indicator w-2 h-2 rounded-full bg-white/40 hover:bg-white/60 transition-all duration-300"
+                                data-index="7"></button>
+                            <button
+                                class="carousel-indicator w-2 h-2 rounded-full bg-white/40 hover:bg-white/60 transition-all duration-300"
+                                data-index="8"></button>
+                        </div>
+
+                        <button
+                            class="bg-white/20 hover:bg-white/30 text-white border border-white/30 px-6 py-2 rounded-xl transition-all duration-300 hover:scale-105">
+                            Ver Ahora
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Genre Filter Section -->
+        <div class="max-w-7xl mx-auto mb-8">
+            <div class="vidrio-estatico p-4 shadow-lg">
+                <h3 class="text-white font-semibold text-lg mb-4 text-center">
+                    Filtrar por Género
+                </h3>
+                <div id="genreFilters" class="flex flex-wrap justify-center gap-2">
+                    <!-- Genre buttons will be populated by JavaScript -->
+                </div>
+                <div id="resultsCount" class="text-center mt-3 hidden">
+                    <span class="text-white/70 text-sm"></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Anime Grid -->
+        <div class="max-w-7xl mx-auto">
+            <div id="animeGrid"
+                class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+                <!-- Anime cards will be populated by JavaScript -->
+            </div>
+
+            <div id="noResults" class="text-center py-12 hidden">
+                <div class="vidrio-estatico p-8 shadow-lg">
+                    <h3 class="text-white text-xl font-semibold mb-2">
+                        No se encontraron resultados
+                    </h3>
+                    <p class="text-white/70">
+                        No hay anime que coincida con los filtros seleccionados.
+                    </p>
+                    <button id="clearFilters"
+                        class="mt-4 bg-white/20 hover:bg-white/30 text-white border border-white/30 px-6 py-2 rounded-xl transition-all duration-300 hover:scale-105">
+                        Limpiar Filtros
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Data completa
+        const animeData = [
+            {
+                id: 1,
+                title: "Attack on Titan",
+                description: "Serie épica de acción y drama",
+                image:
+                    "https://sphinxanime.com/wp-content/uploads/2022/01/shingekinokyojinfinalwallpapersphinxanime-1050x525.jpg",
+                genres: ["Acción", "Drama", "Fantasía"],
+            },
+            {
+                id: 2,
+                title: "Studio Ghibli",
+                description: "Películas clásicas de animación",
+                image:
+                    "https://lafrikileria.com/blog/wp-content/uploads/2024/09/frases-peliculas-studio-ghibli-640x506.png",
+                genres: ["Aventura", "Familia", "Fantasía"],
+            },
+            {
+                id: 3,
+                title: "Demon Slayer",
+                description: "Aventuras de cazadores",
+                image:
+                    "https://alfabetajuega.com/hero/2021/08/20214279452633_1.jpeg?width=768&aspect_ratio=16:9&format=nowebp",
+                genres: ["Acción", "Sobrenatural", "Shonen"],
+            },
+            {
+                id: 4,
+                title: "Your Name",
+                description: "Romance sobrenatural",
+                image:
+                    "https://www.intofilm.org/intofilm-production/3612/scaledcropped/3000x1688/resources/3612/your-name-ep-funimation-entertainment.jpg",
+                genres: ["Romance", "Drama", "Sobrenatural"],
+            },
+            {
+                id: 5,
+                title: "One Piece",
+                description: "Aventuras piratas",
+                image: "https://labandadiario.com/wp-content/uploads/2022/11/Red.jpg",
+                genres: ["Aventura", "Comedia", "Shonen"],
+            },
+            {
+                id: 6,
+                title: "Spirited Away",
+                description: "Mundo mágico",
+                image:
+                    "https://www.tallengestore.com/cdn/shop/files/SpiritedAway-HayaoMiyazaki-StudioGhibli-JapaneseAnimationMoviePoster_f3d94aad-1702-4676-9f76-4cb3a4e55622.jpg?v=1733380930",
+                genres: ["Aventura", "Familia", "Fantasía"],
+            },
+            {
+                id: 7,
+                title: "Naruto",
+                description: "Ninja legendario",
+                image:
+                    "https://occ-0-8407-90.1.nflxso.net/dnm/api/v6/Z-WHgqd_TeJxSuha8aZ5WpyLcX8/AAAABdIFYfkylotuQsosH1WlGXHoouJSR59IKXL-xHz1EBGnDra3h7PiJ0E7Oe8wZzKk0hpHSKQGHi7VrGSs64kozAD0u9dXXKO-T4SM.jpg?r=33e",
+                genres: ["Acción", "Aventura", "Shonen"],
+            },
+            {
+                id: 8,
+                title: "Death Note",
+                description: "Thriller psicológico",
+                image:
+                    "https://beam-images.warnermediacdn.com/BEAM_LWM_DELIVERABLES/fabd8a3d-dd29-4f94-bc46-55941b14eacf/99a2519ee9858a5034b55c255159a21eda0a9b43.jpg?host=wbd-images.prod-vod.h264.io&partner=beamcom",
+                genres: ["Thriller", "Psicológico", "Sobrenatural"],
+            },
+            {
+                id: 9,
+                title: "My Hero Academia",
+                description: "Superhéroes en formación",
+                image:
+                    "https://m.media-amazon.com/images/S/pv-target-images/c5b267aeb5b6882024f75db745bb009c8fd7a95dfdd2743105f3ea6132d434d7.jpg",
+                genres: ["Acción", "Superhéroes", "Shonen"],
+            },
+            {
+                id: 10,
+                title: "Jujutsu Kaisen",
+                description: "Hechiceros vs maldiciones",
+                image:
+                    "https://i.blogs.es/1a7682/jujutsu-kaisen-temporada-2-estreno-6-julio-mexico-crunchyroll/1366_2000.jpeg",
+                genres: ["Acción", "Sobrenatural", "Shonen"],
+            },
+            {
+                id: 11,
+                title: "Tokyo Ghoul",
+                description: "Horror urbano moderno",
+                image:
+                    "https://wallpapercat.com/w/full/f/9/7/1560444-2560x1440-desktop-hd-tokyo-ghoul-background-image.jpg",
+                genres: ["Horror", "Acción", "Sobrenatural"],
+            },
+            {
+                id: 12,
+                title: "Fullmetal Alchemist",
+                description: "Alquimia y hermandad",
+                image:
+                    "https://e00-xlk-ue-marca.uecdn.es/uploads/2025/03/26/67e3fac983b10.jpeg",
+                genres: ["Aventura", "Drama", "Fantasía"],
+            },
+            {
+                id: 13,
+                title: "Hunter x Hunter",
+                description: "Cazadores profesionales",
+                image:
+                    "https://occ-0-8407-90.1.nflxso.net/dnm/api/v6/Z-WHgqd_TeJxSuha8aZ5WpyLcX8/AAAABUcxQKlprFercybpwvw-RDdcrXN--LDU8qlUYOZTF43xu3I3v_-RE3eRazF_1U4IOTvkfMjRftwavd1q9k2cC0338ayxRG5x4041.jpg?r=d3e",
+                genres: ["Aventura", "Acción", "Shonen"],
+            },
+            {
+                id: 14,
+                title: "Mob Psycho 100",
+                description: "Poderes psíquicos",
+                image:
+                    "https://static1.srcdn.com/wordpress/wp-content/uploads/2025/01/mob-psycho-100-anime.jpg",
+                genres: ["Comedia", "Sobrenatural", "Acción"],
+            },
+            {
+                id: 15,
+                title: "Violet Evergarden",
+                description: "Drama emocional",
+                image:
+                    "https://mahoganyreviews.com/wp-content/uploads/2022/01/VioletEvergardenMovie_BackgroundwLogo.jpg",
+                genres: ["Drama", "Romance", "Slice of Life"],
+            },
+            {
+                id: 16,
+                title: "Jojo's bizarre adventure",
+                description: "Familia Joestar",
+                image:
+                    "https://i.kinja-img.com/image/upload/c_fit,q_60,w_645/3403984c00db62389e225eac46008f21.jpg",
+                genres: ["Acción", "Sobrenatural", "Shonen"],
+            },
+            {
+                id: 17,
+                title: "Akira",
+                description: "Cyberpunk clásico",
+                image: "https://i.blogs.es/d0dcfa/akira/1366_2000.jpeg",
+                genres: ["Sci-Fi", "Acción", "Thriller"],
+            },
+            {
+                id: 18,
+                title: "Ghost in the Shell",
+                description: "Ciencia ficción",
+                image:
+                    "https://occ-0-8407-90.1.nflxso.net/dnm/api/v6/E8vDc_W8CLv7-yMQu8KMEC7Rrr8/AAAABZePze9LdWtTMBWLUYb9JHsgWdt6khBHKP3QLIsfBP5Hu2Ym8fq1vGA_KFnUj38cBJK1vYRNcjVO_csMLTfXll9TrJ3sXQBQIdSD.jpg?r=ab3",
+                genres: ["Sci-Fi", "Acción", "Cyberpunk"],
+            },
+            {
+                id: 19,
+                title: "Princess Mononoke",
+                description: "Fantasía épica",
+                image:
+                    "https://www.cinemamoderne.com/wp-content/uploads/2025/04/princess-mononoke-still-siteweb.jpg",
+                genres: ["Aventura", "Drama", "Fantasía"],
+            },
+            {
+                id: 20,
+                title: "Cowboy Bebop",
+                description: "Space western",
+                image:
+                    "https://hips.hearstapps.com/hmg-prod/images/cowboy-bebop-1-1634908344.jpg?crop=0.765625xw:1xh;center,top&resize=1200:*",
+                genres: ["Acción", "Drama", "Sci-Fi"],
+            },
+            {
+                id: 21,
+                title: "Evangelion",
+                description: "Mecha psicológico",
+                image:
+                    "https://i.blogs.es/dc27ba/rebuild_of_eva_todos_los_pilotos/1366_2000.jpg",
+                genres: ["Mecha", "Psicológico", "Drama"],
+            },
+            {
+                id: 22,
+                title: "One Punch Man",
+                description: "Superhéroe invencible",
+                image:
+                    "https://alfabetajuega.com/hero/2021/03/one-punch-man-1575372411.jpg?width=768&aspect_ratio=16:9&format=nowebp",
+                genres: ["Comedia", "Acción", "Superhéroes"],
+            },
+            {
+                id: 23,
+                title: "Dragon Ball Z",
+                description: "Batallas épicas",
+                image:
+                    "https://m.media-amazon.com/images/S/pv-target-images/60584038eb68581eb517142cd2e75cf10fd54303bcd539d52d3dce7de09d04f5.jpg",
+                genres: ["Acción", "Aventura", "Shonen"],
+            },
+            {
+                id: 24,
+                title: "Bleach",
+                description: "Shinigamis y hollows",
+                image:
+                    "https://fotografias-neox.atresmedia.com/clipping/cmsimages01/2022/04/29/818748E7-9226-44E1-AAA8-71F64FF25EBC/guia-relleno-bleach-capitulos-mas-importantes-centrarse-solo-historia_69.jpg?crop=558,314,x22,y0&width=1280&height=720&optimize=low&format=jpg",
+                genres: ["Acción", "Sobrenatural", "Shonen"],
+            },
+            {
+                id: 25,
+                title: "Code Geass",
+                description: "Estrategia y rebelión",
+                image:
+                    "https://occ-0-8407-90.1.nflxso.net/dnm/api/v6/E8vDc_W8CLv7-yMQu8KMEC7Rrr8/AAAABcEXJRHDMvWDoCn3shb0-LC7kPE6reaeSw7JtWOMu01hOhZ2mWC-QbWFfGKznZAQCKCrRw2akMYxixh1y4-ZdZ59Xkn8m04Gz2Rl.jpg?r=b6a",
+                genres: ["Drama", "Mecha", "Thriller"],
+            },
+        ];
+
+        const carouselData = [
+            {
+                title: "Attack on Titan: Final Season",
+                description: "La batalla final por la humanidad ha comenzado",
+                image:
+                    "https://sphinxanime.com/wp-content/uploads/2022/01/shingekinokyojinfinalwallpapersphinxanime-1050x525.jpg",
+                category: "Destacado",
+            },
+            {
+                title: "Demon Slayer: Mugen Train",
+                description: "La película más taquillera del anime",
+                image:
+                    "https://thewindyhill.org/wp-content/uploads/2021/05/Demon-Slayer-900x507.jpeg",
+                category: "Película",
+            },
+            {
+                title: "Jujutsu Kaisen Season 2",
+                description: "Los hechiceros regresan con más poder",
+                image:
+                    "https://i.blogs.es/1a7682/jujutsu-kaisen-temporada-2-estreno-6-julio-mexico-crunchyroll/1366_2000.jpeg",
+                category: "Nueva Temporada",
+            },
+            {
+                title: "Spirited Away",
+                description: "La obra maestra de Studio Ghibli",
+                image:
+                    "https://www.tallengestore.com/cdn/shop/files/SpiritedAway-HayaoMiyazaki-StudioGhibli-JapaneseAnimationMoviePoster_f3d94aad-1702-4676-9f76-4cb3a4e55622.jpg?v=1733380930",
+                category: "Clásico",
+            },
+            {
+                title: "Your Name",
+                description: "Una historia de amor que trasciende el tiempo",
+                image:
+                    "https://www.intofilm.org/intofilm-production/3612/scaledcropped/3000x1688/resources/3612/your-name-ep-funimation-entertainment.jpg",
+                category: "Romance",
+            },
+            {
+                title: "One Piece: Red",
+                description: "La nueva aventura de los Sombreros de Paja",
+                image: "https://labandadiario.com/wp-content/uploads/2022/11/Red.jpg",
+                category: "Aventura",
+            },
+            {
+                title: "Violet Evergarden: The Movie",
+                description: "El emotivo final de la serie",
+                image:
+                    "https://mahoganyreviews.com/wp-content/uploads/2022/01/VioletEvergardenMovie_BackgroundwLogo.jpg",
+                category: "Drama",
+            },
+            {
+                title: "Ghost in the Shell: SAC_2045",
+                description: "Cyberpunk del futuro",
+                image:
+                    "https://occ-0-8407-90.1.nflxso.net/dnm/api/v6/E8vDc_W8CLv7-yMQu8KMEC7Rrr8/AAAABZePze9LdWtTMBWLUYb9JHsgWdt6khBHKP3QLIsfBP5Hu2Ym8fq1vGA_KFnUj38cBJK1vYRNcjVO_csMLTfXll9TrJ3sXQBQIdSD.jpg?r=ab3",
+                category: "Sci-Fi",
+            },
+        ];
+
+        const availableGenres = [
+            "Todos",
+            "Acción",
+            "Aventura",
+            "Comedia",
+            "Drama",
+            "Fantasía",
+            "Romance",
+            "Sci-Fi",
+            "Horror",
+            "Thriller",
+            "Sobrenatural",
+            "Shonen",
+            "Slice of Life",
+            "Mecha",
+            "Superhéroes",
+            "Psicológico",
+            "Familia",
+            "Cyberpunk",
+        ];
+
+        // State
+        let currentCarouselIndex = 0;
+        let selectedGenre = "Todos";
+        let searchQuery = "";
+        let searchOpen = false;
+        let carouselInterval;
+        let chatMessages = [
+            {
+                id: 1,
+                text: "¡Bienvenido a Distrito Japonés! 🎌",
+                sender: "system",
+                username: "Sistema",
+                country: "🌐",
+                timestamp: new Date(Date.now() - 60000),
+                replyTo: null, // Nuevo campo para respuestas
+            },
+            {
+                id: 2,
+                text: "Aquí puedes chatear con otros usuarios de todo el mundo. 🌍",
+                sender: "system",
+                username: "Sistema",
+                country: "🌐",
+                timestamp: new Date(Date.now() - 30000),
+                replyTo: null,
+            },
+        ];
+
+        // Variable para almacenar el mensaje que se está respondiendo
+        let replyingTo = null;
+
+        // Translation cache
+        const translationCache = {};
+
+        // DOM Elements
+        const searchBtn = document.getElementById("searchBtn");
+        const searchInput = document.getElementById("searchInput");
+        const chatBtn = document.getElementById("chatBtn");
+        const chatModal = document.getElementById("chatModal");
+        const closeChatModal = document.getElementById("closeChatModal");
+        const chatInput = document.getElementById("chatInput");
+        const sendMessage = document.getElementById("sendMessage");
+        const chatMessagesContainer = document.getElementById("chatMessages");
+
+        const musicModal = document.getElementById("musicModal");
+        const closeModal = document.getElementById("closeModal");
+        const volumeSlider = document.getElementById("volumeSlider");
+        const volumeDisplay = document.getElementById("volumeDisplay");
+        const carouselImage = document.getElementById("carouselImage");
+        const carouselTitle = document.getElementById("carouselTitle");
+        const carouselDescription = document.getElementById(
+            "carouselDescription"
+        );
+        const carouselCategory = document.getElementById("carouselCategory");
+        const carouselIndicators = document.getElementById("carouselIndicators");
+        const genreFilters = document.getElementById("genreFilters");
+        const animeGrid = document.getElementById("animeGrid");
+        const noResults = document.getElementById("noResults");
+        const resultsCount = document.getElementById("resultsCount");
+        const clearFilters = document.getElementById("clearFilters");
+
+        // Initialize
+        document.addEventListener("DOMContentLoaded", function () {
+            initializeGenreFilters();
+            renderAnimeGrid();
+            startCarousel();
+            renderChatMessages();
+
+            // Event listeners
+            searchBtn.addEventListener("click", toggleSearch);
+            searchInput.addEventListener("input", handleSearch);
+            chatBtn.addEventListener("click", openChatModal);
+            closeChatModal.addEventListener("click", closeChatModalFunc);
+            sendMessage.addEventListener("click", sendChatMessage);
+            chatInput.addEventListener("keypress", handleChatKeyPress);
+
+            closeModal.addEventListener("click", closeMusicModal);
+            volumeSlider.addEventListener("input", updateVolume);
+            clearFilters.addEventListener("click", resetFilters);
+
+            // Carousel indicators
+            document
+                .querySelectorAll(".carousel-indicator")
+                .forEach((indicator, index) => {
+                    indicator.addEventListener("click", () => setCarouselIndex(index));
+                });
+
+            // Navigation links
+            document.querySelectorAll(".nav-link").forEach((link, index) => {
+                link.addEventListener("click", () => setActiveNavLink(index));
+            });
+
+            // Close modals when clicking outside
+            musicModal.addEventListener("click", function (e) {
+                if (e.target === musicModal) {
+                    closeMusicModal();
+                }
+            });
+
+            chatModal.addEventListener("click", function (e) {
+                if (e.target === chatModal) {
+                    closeChatModalFunc();
+                }
+            });
+        });
+
+        // Chat Functions
+        function openChatModal() {
+            chatModal.classList.remove("hidden");
+            chatModal.classList.add("flex");
+            chatInput.focus();
+            scrollChatToBottom();
+        }
+
+        function closeChatModalFunc() {
+            chatModal.classList.add("hidden");
+            chatModal.classList.remove("flex");
+        }
+
+        function sendChatMessage() {
+            const message = chatInput.value.trim();
+            if (message) {
+                const newMessage = {
+                    id: Date.now() + Math.random(),
+                    text: message,
+                    sender: "user",
+                    username: "Usuario",
+                    country: "🇲🇽",
+                    timestamp: new Date(),
+                    replyTo: replyingTo ? replyingTo.id : null, // Agregar referencia si está respondiendo
+                };
+
+                chatMessages.push(newMessage);
+                chatInput.value = "";
+
+                // Limpiar respuesta
+                cancelReply();
+
+                renderChatMessages();
+                scrollChatToBottom();
+            }
+        }
+
+        // Función para agregar mensajes de prueba con respuestas
+        function addTestMessagesWithReplies() {
+            // Mensaje original
+            chatMessages.push({
+                id: 100,
+                text: "¿Cuál es tu anime favorito?",
+                sender: "other",
+                username: "Otaku_Master",
+                country: "🇯🇵",
+                timestamp: new Date(Date.now() - 120000),
+                replyTo: null,
+            });
+
+            // Respuesta al mensaje anterior
+            chatMessages.push({
+                id: 101,
+                text: "Definitivamente Attack on Titan! La historia es increíble",
+                sender: "user",
+                username: "Usuario",
+                country: "🇲🇽",
+                timestamp: new Date(Date.now() - 60000),
+                replyTo: 100, // Responde al mensaje con ID 100
+            });
+
+            renderChatMessages();
+            scrollChatToBottom();
+        }
+
+        // Llamar para probar: addTestMessagesWithReplies();
+        function handleChatKeyPress(e) {
+            if (e.key === "Enter" && !e.shiftKey) {
+                e.preventDefault();
+                sendChatMessage();
+            }
+        }
+
+        function renderChatMessages() {
+            chatMessagesContainer.innerHTML = "";
+            chatMessages.forEach((message, index) => {
+                const messageElement = createMessageElement(message);
+
+                // Agregar animación de entrada
+                messageElement.classList.add("chat-message-enter");
+
+                // Delay progresivo para mensajes múltiples
+                messageElement.style.animationDelay = `${index * 0.05}s`;
+
+                chatMessagesContainer.appendChild(messageElement);
+            });
+        }
+
+        function createMessageElement(message) {
+            // Análisis inteligente del contenido
+            const text = message.text.trim();
+            const wordCount = text.split(/\s+/).length;
+            const charCount = text.length;
+            const lineCount = text.split("\n").length;
+            const hasEmojis =
+                /[\u{1F600}-\u{1F64F}]|[\u{1F300}-\u{1F5FF}]|[\u{1F680}-\u{1F6FF}]|[\u{1F1E0}-\u{1F1FF}]|[\u{2600}-\u{26FF}]|[\u{2700}-\u{27BF}]/u.test(
+                    text
+                );
+
+            // Lógica de tamaños tipo WhatsApp con LÍMITES MÁXIMOS
+            let widthClass = "";
+            let paddingClass = "px-3 py-2";
+            let textSizeClass = "text-sm";
+            let minWidthClass = "";
+
+            // LÍMITES MÁXIMOS ABSOLUTOS
+            const maxWidthMobile = "max-w-[280px]";
+            const maxWidthDesktop = "sm:max-w-[400px]";
+            const absoluteMaxWidth = `${maxWidthMobile} ${maxWidthDesktop}`;
+
+            // Lógica de tamaños (igual que antes)
+            if (wordCount <= 3 && charCount <= 20 && lineCount === 1) {
+                widthClass = `max-w-[120px] sm:max-w-[140px] ${absoluteMaxWidth}`;
+                minWidthClass = "min-w-[80px]";
+                paddingClass = "px-3 py-1.5";
+                textSizeClass = "text-sm";
+            } else if (wordCount <= 8 && charCount <= 50 && lineCount <= 2) {
+                widthClass = `max-w-[160px] sm:max-w-[200px] ${absoluteMaxWidth}`;
+                minWidthClass = "min-w-[100px]";
+                paddingClass = "px-3 py-2";
+                textSizeClass = "text-sm";
+            } else if (wordCount <= 20 && charCount <= 120 && lineCount <= 3) {
+                widthClass = `max-w-[220px] sm:max-w-[280px] ${absoluteMaxWidth}`;
+                minWidthClass = "min-w-[120px]";
+                paddingClass = "px-3 py-2";
+                textSizeClass = "text-sm";
+            } else if (wordCount <= 40 && charCount <= 250) {
+                widthClass = `max-w-[260px] sm:max-w-[350px] ${absoluteMaxWidth}`;
+                minWidthClass = "min-w-[150px]";
+                paddingClass = "px-3 py-2.5";
+                textSizeClass = "text-sm leading-relaxed";
+            } else {
+                widthClass = absoluteMaxWidth;
+                minWidthClass = "min-w-[200px]";
+                paddingClass = "px-4 py-3";
+                textSizeClass = "text-sm leading-relaxed";
+            }
+
+            // Ajustes para mensajes con respuesta
+            if (message.replyTo) {
+                paddingClass = "px-3 py-2";
+            }
+
+            // Ajustes especiales para emojis
+            if (hasEmojis && wordCount <= 2 && charCount <= 10) {
+                widthClass = `max-w-[100px] sm:max-w-[120px] ${absoluteMaxWidth}`;
+                paddingClass = "px-2 py-1";
+                minWidthClass = "min-w-[60px]";
+            }
+
+            // Mensajes del sistema
+            if (message.sender === "system") {
+                widthClass = `max-w-[260px] sm:max-w-[350px] mx-auto`;
+                minWidthClass = "min-w-[150px]";
+                paddingClass = "px-4 py-2";
+                textSizeClass = "text-xs sm:text-sm text-center";
+            }
+
+            // Contenedor principal del mensaje
+            const messageDiv = document.createElement("div");
+            messageDiv.className = `flex flex-col ${message.sender === "user" ? "items-end" : "items-start"
+                } mb-2`;
+
+            // Solo mostrar info de usuario si no es sistema
+            if (message.sender !== "system") {
+                const userInfo = document.createElement("div");
+                userInfo.className = `flex items-center space-x-1 mb-1 ${message.sender === "user" ? "justify-end" : ""
+                    } px-1`;
+                userInfo.innerHTML = `
+            <span class="text-xs text-white/70 font-medium truncate max-w-[120px]">${message.username}</span>
+            <span class="text-xs opacity-70">${message.country}</span>
+            `;
+                messageDiv.appendChild(userInfo);
+            }
+
+            // Contenedor del mensaje y acciones
+            const bubbleContainer = document.createElement("div");
+            bubbleContainer.className = `flex items-end ${message.sender === "user" ? "flex-row-reverse" : ""
+                } gap-1`;
+
+            // Burbuja del mensaje
+            const messageBubble = document.createElement("div");
+            messageBubble.className = `
+            ${widthClass} ${minWidthClass} ${paddingClass} rounded-2xl
+            ${message.sender === "user"
+                    ? "bg-purple-500/80 text-white rounded-br-md"
+                    : message.sender === "system"
+                        ? "bg-white/10 text-white/90 rounded-xl"
+                        : "bg-white/20 text-white rounded-bl-md"
+                }
+                ${textSizeClass} shadow-sm transition-all duration-200 hover:shadow-md
+                relative inline-block word-wrap-break-word overflow-wrap-break-word hyphens-auto
+                `
+                .replace(/\s+/g, " ")
+                .trim();
+
+            // Contenido del mensaje
+            const messageContent = document.createElement("div");
+            messageContent.className = "flex flex-col w-full";
+
+            // Mostrar mensaje respondido si existe
+            if (message.replyTo) {
+                const repliedMessage = chatMessages.find(
+                    (msg) => msg.id === message.replyTo
+                );
+                if (repliedMessage) {
+                    const replyPreview = document.createElement("div");
+                    replyPreview.className = `
+            mb-2 p-2 rounded-lg border-l-4 
+            ${message.sender === "user"
+                            ? "bg-purple-400/30 border-purple-200/50"
+                            : "bg-white/20 border-white/40"
+                        }
+            cursor-pointer hover:bg-opacity-40 transition-all duration-200
+        `;
+
+                    // Truncar texto a 12 caracteres + ...
+                    const truncatedText =
+                        repliedMessage.text.length > 12
+                            ? repliedMessage.text.substring(0, 12) + "..."
+                            : repliedMessage.text;
+
+                    replyPreview.innerHTML = `
+            <div class="flex items-center space-x-2 mb-1">
+                <svg class="w-3 h-3 text-white/70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6"/>
+                </svg>
+                <span class="text-xs text-white/70 font-medium">${repliedMessage.username}</span>
+            </div>
+            <p class="text-xs text-white/80 leading-relaxed">
+                ${truncatedText}
+            </p>
+        `;
+
+                    // Click para scroll al mensaje original
+                    replyPreview.addEventListener("click", () =>
+                        scrollToMessage(message.replyTo)
+                    );
+
+                    messageContent.appendChild(replyPreview);
+                }
+            }
+
+            // Texto del mensaje
+            const textElement = document.createElement("p");
+            textElement.className = `
+        whitespace-pre-wrap break-words w-full
+        ${lineCount > 1 ? "leading-relaxed" : "leading-normal"}
+        overflow-hidden
+    `
+                .replace(/\s+/g, " ")
+                .trim();
+            textElement.textContent = message.text;
+
+            // Timestamp
+            const timeElement = document.createElement("p");
+            timeElement.className = `
+        text-right mt-1 text-xs opacity-60 flex-shrink-0
+        ${message.sender === "system" ? "text-center" : ""}
+    `;
+            timeElement.textContent = message.timestamp.toLocaleTimeString([], {
+                hour: "2-digit",
+                minute: "2-digit",
+            });
+
+            messageContent.appendChild(textElement);
+            messageContent.appendChild(timeElement);
+            messageBubble.appendChild(messageContent);
+
+            bubbleContainer.appendChild(messageBubble);
+
+            // Acciones para todos los mensajes (excepto sistema)
+            if (message.sender !== "system") {
+                const actionsDiv = document.createElement("div");
+                actionsDiv.className = "flex flex-col space-y-1 self-end mb-6";
+
+                // Botón de responder
+                const replyBtn = document.createElement("button");
+                replyBtn.className =
+                    "w-6 h-6 p-0 bg-white/10 hover:bg-white/20 text-white/70 hover:text-white rounded-full transition-all duration-200 hover:scale-110";
+                replyBtn.innerHTML = `<svg class="w-3 h-3 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6"/></svg>`;
+                replyBtn.addEventListener("click", () => startReply(message));
+                actionsDiv.appendChild(replyBtn);
+
+                bubbleContainer.appendChild(actionsDiv);
+            }
+
+            // Agregar ID único para poder scrollear al mensaje
+            messageDiv.setAttribute("data-message-id", message.id);
+
+            messageDiv.appendChild(bubbleContainer);
+            return messageDiv;
+        }
+
+        // Función para agregar mensajes de prueba con respuestas y textos largos
+        function addTestMessagesWithReplies() {
+            // Mensaje original largo
+            chatMessages.push({
+                id: 100,
+                text: "¿Cuál es tu anime favorito de todos los tiempos y por qué crees que es el mejor?",
+                sender: "other",
+                username: "Otaku_Master",
+                country: "🇯🇵",
+                timestamp: new Date(Date.now() - 120000),
+                replyTo: null,
+            });
+
+            // Respuesta al mensaje anterior
+            chatMessages.push({
+                id: 101,
+                text: "Definitivamente Attack on Titan! La historia es increíble y los personajes están muy bien desarrollados",
+                sender: "user",
+                username: "Usuario",
+                country: "🇲🇽",
+                timestamp: new Date(Date.now() - 60000),
+                replyTo: 100, // Responde al mensaje con ID 100
+            });
+
+            // Otro mensaje original corto
+            chatMessages.push({
+                id: 102,
+                text: "Genial!",
+                sender: "other",
+                username: "Otaku_Master",
+                country: "🇯🇵",
+                timestamp: new Date(Date.now() - 30000),
+                replyTo: null,
+            });
+
+            // Respuesta al mensaje corto
+            chatMessages.push({
+                id: 103,
+                text: "Sí, es mi favorito",
+                sender: "user",
+                username: "Usuario",
+                country: "🇲🇽",
+                timestamp: new Date(Date.now() - 15000),
+                replyTo: 102, // Responde al mensaje corto
+            });
+
+            renderChatMessages();
+            scrollChatToBottom();
+        }
+
+        // Llamar para probar: addTestMessagesWithReplies();
+
+        // Función para iniciar respuesta
+        function startReply(message) {
+            replyingTo = message;
+            showReplyPreview();
+            chatInput.focus();
+        }
+
+        // Mostrar preview de respuesta en el input
+        function showReplyPreview() {
+            if (!replyingTo) return;
+
+            // Crear o actualizar el preview de respuesta
+            let replyPreview = document.getElementById("replyPreview");
+
+            if (!replyPreview) {
+                replyPreview = document.createElement("div");
+                replyPreview.id = "replyPreview";
+                replyPreview.className =
+                    "mb-2 p-3 bg-white/10 border-l-4 border-purple-400/60 rounded-r-lg backdrop-blur-sm";
+
+                // Insertar antes del input
+                const chatInputContainer = chatInput.parentElement;
+                chatInputContainer.insertBefore(
+                    replyPreview,
+                    chatInputContainer.firstChild
+                );
+            }
+
+            // Truncar texto a 12 caracteres + ...
+            const truncatedText =
+                replyingTo.text.length > 12
+                    ? replyingTo.text.substring(0, 12) + "..."
+                    : replyingTo.text;
+
+            replyPreview.innerHTML = `
+        <div class="flex items-center justify-between">
+            <div class="flex-1 min-w-0">
+                <div class="flex items-center space-x-2 mb-1">
+                    <svg class="w-4 h-4 text-purple-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6"/>
+                    </svg>
+                    <span class="text-sm text-purple-300 font-medium">Respondiendo a ${replyingTo.username}</span>
+                </div>
+                <p class="text-sm text-white/80">${truncatedText}</p>
+            </div>
+            <button onclick="cancelReply()" class="ml-3 text-white/70 hover:text-white transition-colors">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                </svg>
+            </button>
+        </div>
+    `;
+
+            replyPreview.style.display = "block";
+        }
+
+        // Cancelar respuesta
+        function cancelReply() {
+            replyingTo = null;
+            const replyPreview = document.getElementById("replyPreview");
+            if (replyPreview) {
+                replyPreview.remove();
+            }
+        }
+
+        // Scroll a un mensaje específico
+        function scrollToMessage(messageId) {
+            const messageElement = document.querySelector(
+                `[data-message-id="${messageId}"]`
+            );
+            if (messageElement) {
+                messageElement.scrollIntoView({
+                    behavior: "smooth",
+                    block: "center",
+                });
+
+                // Efecto de highlight temporal
+                messageElement.style.background = "rgba(255, 255, 255, 0.1)";
+                messageElement.style.borderRadius = "12px";
+                messageElement.style.transition = "all 0.3s ease";
+
+                setTimeout(() => {
+                    messageElement.style.background = "";
+                    messageElement.style.borderRadius = "";
+                }, 1500);
+            }
+        }
+
+        function handleReplyMessage(message) {
+            const replyText = `@${message.username}: "${message.text.substring(
+                0,
+                30
+            )}${message.text.length > 30 ? "..." : ""}" `;
+            chatInput.value = replyText;
+            chatInput.focus();
+            chatInput.setSelectionRange(replyText.length, replyText.length);
+        }
+
+        function handleDeleteMessage(messageId) {
+            chatMessages = chatMessages.filter((msg) => msg.id !== messageId);
+            renderChatMessages();
+        }
+
+        function scrollChatToBottom() {
+            setTimeout(() => {
+                chatMessagesContainer.scrollTop = chatMessagesContainer.scrollHeight;
+            }, 100);
+        }
+
+        // Other Functions
+        function toggleSearch() {
+            searchOpen = !searchOpen;
+            if (searchOpen) {
+                searchInput.classList.remove("hidden");
+                searchInput.classList.add("visible");
+                searchInput.focus();
+            } else {
+                searchInput.classList.remove("visible");
+                searchInput.classList.add("hidden");
+            }
+        }
+
+        function handleSearch(e) {
+            searchQuery = e.target.value;
+            renderAnimeGrid();
+        }
+
+        function openMusicModal() {
+            musicModal.classList.remove("hidden");
+            musicModal.classList.add("flex");
+        }
+
+        function closeMusicModal() {
+            musicModal.classList.add("hidden");
+            musicModal.classList.remove("flex");
+        }
+
+        function updateVolume(e) {
+            volumeDisplay.textContent = e.target.value + "%";
+        }
+
+        function setActiveNavLink(activeIndex) {
+            document.querySelectorAll(".nav-link").forEach((link, index) => {
+                if (index === activeIndex) {
+                    link.classList.add("bg-white/25", "border-white/30");
+                    link.classList.remove("bg-white/10", "border-white/20");
+                } else {
+                    link.classList.remove("bg-white/25", "border-white/30");
+                    link.classList.add("bg-white/10", "border-white/20");
+                }
+            });
+        }
+
+        function initializeGenreFilters() {
+            genreFilters.innerHTML = "";
+            availableGenres.forEach((genre) => {
+                const button = document.createElement("button");
+                button.className = `px-3 py-2 rounded-lg text-sm font-medium transition-all duration-300 hover:scale-105 border vidrio-estatico ${selectedGenre === genre
+                    ? "bg-white/25 border-white/40 text-white shadow-lg"
+                    : "bg-white/10 border-white/20 text-white/80 hover:bg-white/20 hover:text-white"
+                    }`;
+                button.textContent = genre;
+                button.addEventListener("click", () => selectGenre(genre));
+                genreFilters.appendChild(button);
+            });
+        }
+
+        function selectGenre(genre) {
+            selectedGenre = genre;
+            initializeGenreFilters();
+            renderAnimeGrid();
+        }
+
+        function renderAnimeGrid() {
+            const filteredAnime = animeData.filter((anime) => {
+                const matchesSearch =
+                    anime.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                    anime.description.toLowerCase().includes(searchQuery.toLowerCase());
+                const matchesGenre =
+                    selectedGenre === "Todos" || anime.genres.includes(selectedGenre);
+                return matchesSearch && matchesGenre;
+            });
+
+            animeGrid.innerHTML = "";
+
+            if (filteredAnime.length === 0) {
+                noResults.classList.remove("hidden");
+                resultsCount.classList.add("hidden");
+            } else {
+                noResults.classList.add("hidden");
+
+                if (selectedGenre !== "Todos") {
+                    resultsCount.classList.remove("hidden");
+                    resultsCount.querySelector("span").textContent = `Mostrando ${filteredAnime.length
+                        } resultado${filteredAnime.length !== 1 ? "s" : ""
+                        } para "${selectedGenre}"`;
+                } else {
+                    resultsCount.classList.add("hidden");
+                }
+
+                filteredAnime.forEach((anime) => {
+                    const animeCard = createAnimeCard(anime);
+                    animeGrid.appendChild(animeCard);
+                });
+            }
+        }
+
+        function createAnimeCard(anime) {
+            const card = document.createElement("button");
+            card.className =
+                "vidrio-estatico p-4 rounded-lg text-left hover:scale-105 hover:bg-white/20 transition-all duration-200 group focus:outline-none focus:ring-2 focus:ring-white/50 h-auto flex flex-col items-start shadow-lg hover:shadow-xl";
+
+            card.innerHTML = `
+            <div class="relative overflow-hidden rounded-lg mb-3 w-full">
+                <img src="${anime.image}" alt="${anime.title
+                }" class="w-full h-28 object-cover group-hover:scale-110 transition-transform duration-300">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <div class="absolute top-2 left-2">
+                    <span class="bg-purple-500/80 backdrop-blur-sm text-white text-xs px-2 py-1 rounded-full">${anime.genres[0]
+                }</span>
+                </div>
+            </div>
+            <h3 class="text-white font-bold text-sm mb-1 group-hover:text-purple-300 transition-colors line-clamp-1 w-full text-left">${anime.title
+                }</h3>
+            <p class="text-white/80 text-xs leading-relaxed line-clamp-2 w-full text-left mb-2">${anime.description
+                }</p>
+            <div class="flex flex-wrap gap-1 w-full">
+                ${anime.genres
+                    .slice(0, 2)
+                    .map(
+                        (genre) =>
+                            `<span class="text-xs bg-white/20 text-white/90 px-2 py-1 rounded-full">${genre}</span>`
+                    )
+                    .join("")}
+                ${anime.genres.length > 2
+                    ? `<span class="text-xs text-white/60">+${anime.genres.length - 2
+                    }</span>`
+                    : ""
+                }
+            </div>
+        `;
+
+            return card;
+        }
+
+        function startCarousel() {
+            updateCarousel();
+            carouselInterval = setInterval(() => {
+                currentCarouselIndex =
+                    (currentCarouselIndex + 1) % carouselData.length;
+                updateCarousel();
+            }, 5000);
+        }
+
+        function setCarouselIndex(index) {
+            currentCarouselIndex = index;
+            updateCarousel();
+            // Reset interval
+            clearInterval(carouselInterval);
+            carouselInterval = setInterval(() => {
+                currentCarouselIndex =
+                    (currentCarouselIndex + 1) % carouselData.length;
+                updateCarousel();
+            }, 5000);
+        }
+
+        function updateCarousel() {
+            const currentItem = carouselData[currentCarouselIndex];
+            carouselImage.src = currentItem.image;
+            carouselImage.alt = currentItem.title;
+            carouselTitle.textContent = currentItem.title;
+            carouselDescription.textContent = currentItem.description;
+            carouselCategory.textContent = currentItem.category;
+
+            // Update indicators
+            document
+                .querySelectorAll(".carousel-indicator")
+                .forEach((indicator, index) => {
+                    if (index === currentCarouselIndex) {
+                        indicator.className =
+                            "carousel-indicator w-8 h-2 rounded-full bg-white transition-all duration-300";
+                    } else {
+                        indicator.className =
+                            "carousel-indicator w-2 h-2 rounded-full bg-white/40 hover:bg-white/60 transition-all duration-300";
+                    }
+                });
+        }
+
+        function resetFilters() {
+            selectedGenre = "Todos";
+            searchQuery = "";
+            searchInput.value = "";
+            if (searchOpen) {
+                toggleSearch();
+            }
+            initializeGenreFilters();
+            renderAnimeGrid();
+        }
+
+        // Keyboard shortcuts
+        document.addEventListener("keydown", function (e) {
+            // ESC to close modals
+            if (e.key === "Escape") {
+                if (!musicModal.classList.contains("hidden")) {
+                    closeMusicModal();
+                }
+                if (!chatModal.classList.contains("hidden")) {
+                    closeChatModalFunc();
+                }
+                if (searchOpen) {
+                    toggleSearch();
+                }
+            }
+
+            // Ctrl/Cmd + K to open search
+            if ((e.ctrlKey || e.metaKey) && e.key === "k") {
+                e.preventDefault();
+                if (!searchOpen) {
+                    toggleSearch();
+                }
+            }
+        });
+
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,37 @@
+/* src/css/optimizaciones.css */
+/* Desactiva las animaciones más pesadas en tablets y móviles */
+
+@media (max-width: 1024px) {
+  /* Afecta tablets y móviles */
+  .space-bg [class*="star-twinkle"],
+  .space-bg [class*="stars-drift"],
+  .space-bg [class*="nebula-glow"],
+  .space-bg .shooting-star {
+    /* Pausa o reemplaza las animaciones por un efecto estático más simple */
+    animation: none !important;
+    opacity: 0.7; /* Mantiene visibilidad pero sin movimiento */
+  }
+
+  .nebula {
+    filter: blur(40px) brightness(0.8) !important; /* Reduce el desenfoque pesado */
+    animation: none !important;
+  }
+
+  /* Opcional: Reduce la densidad de estrellas en móviles muy pequeños */
+  @media (max-width: 640px) {
+    .starfield-2,
+    .constellation .constellation-line {
+      display: none;
+    }
+  }
+}
+
+/* Refuerza las optimizaciones si JS detectó un móvil */
+body.es-movil .space-bg {
+  /* Asegura que las animaciones estén desactivadas */
+  animation: none !important;
+}
+
+body.es-movil .shooting-star {
+  display: none !important; /* Oculta estrella fugaz en móviles */
+}

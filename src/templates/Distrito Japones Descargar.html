@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Descargar Música - But By Fall</title>
+
+    <!-- Tailwind vía CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+        /* Estilo glassmorphism base */
+        .vidrio-estatico {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        /* Botón con efecto vidrio (se mantiene la clase pero se sobrescriben estilos en el HTML) */
+        .btn-glass {
+            @apply vidrio-estatico text-white font-semibold py-2 px-4 rounded transition hover:bg-white/20;
+        }
+    </style>
+</head>
+
+<body class="min-h-screen bg-cover bg-center bg-fixed relative"
+    style="background-image: url('https://w.wallhaven.cc/full/1k/wallhaven-1k6ljv.jpg');">
+    <!-- Fondo de Attack on Titan -->
+
+    <div class="pt-20 px-6 pb-8 flex flex-col items-center">
+        <div class="vidrio-estatico w-full max-w-3xl mx-auto p-6 text-white">
+
+            <!-- INFORMACIÓN DE LA BANDA (PORTADA) ---------------------------------------------------------->
+            <div class="flex flex-col items-center mb-6">
+                <!-- Portada de la banda (imagen principal del txt) -->
+                <img src="https://www.billboard-japan.com/common/sys/img/news/00000026/26539/image.jpg"
+                    alt="Portada de But By Fall" class="w-90 h-auto rounded-2xl mb-4 shadow-lg">
+
+                <h2 class="text-3xl font-bold mb-2">But By Fall</h2>
+                <h2 class="text-3xl font-bold mb-2">オフィシャル</h2>
+                <p class="text-sm text-white/85 mb-4 text-center">
+                    <!-- Biografía resumida o descripción de la banda -->
+                    Esta estupenda banda fue formada en el verano del 2008. Inspirados en EMO, Fall Out Boy, Panic At
+                    The Disco, All American Rejects, Boys Like Girls, y sus estilos de sistema americano. Fuertemente
+                    inspirados en el Punk Rock, armado con melodías pegadizas y ritmos bailables.
+                </p>
+
+                <!-- Géneros como “píldoras” estilo glass -->
+                <div class="flex flex-wrap justify-center gap-2 mb-2">
+                    <span class="vidrio-estatico px-3 py-1 text-xs rounded-full backdrop-blur">Japón Rock</span>
+                    <span class="vidrio-estatico px-3 py-1 text-xs rounded-full backdrop-blur">Japón Punk</span>
+                </div>
+
+                <p class="text-sm text-white/85">Periodo Activo: 2011 - Actualidad</p>
+            </div>
+
+            <!-- INTEGRANTES ------------------------------------------------------->
+            <div class="mb-6">
+                <h3 class="text-lg font-semibold mb-4">Integrantes</h3>
+                <div class="vidrio-estatico p-5">
+                    <ul class="text-sm text-white/85 leading-relaxed list-disc pl-5">
+                        <li>Kento (Vo&Gt.)</li>
+                        <li>Kazuya (Gt&Cho.)</li>
+                        <li>Touch (Dr&Cho.)</li>
+                        <li>Akkie (Ba&Cho.) - Se unió en primavera de 2012</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- ÁLBUMES (SECCIONES DE DESCARGA) ------------------------------------------------------->
+            <div class="mb-6">
+                <h3 class="text-lg font-semibold mb-4">Álbumes</h3>
+                <div class="space-y-4">
+
+                    <!-- Álbum: Take Back Your Romance [2011.04.20] -->
+                    <div class="vidrio-estatico p-5">
+                        <div class="flex items-center mb-3">
+                            <img src="https://is1-ssl.mzstatic.com/image/thumb/Music114/v4/cc/31/8d/cc318d80-0f80-2c31-1f19-94e545d889a7/4538182870549_cov.jpg/1200x630bb.jpg"
+                                class="w-24 h-24 rounded-lg mr-4 shadow-md">
+
+                            <div>
+                                <h4 class="font-bold text-xl">Take Back Your Romance</h4>
+                                <p class="text-sm text-white/85">Fecha de Lanzamiento: 2011.04.20</p>
+                            </div>
+                        </div>
+                        <ul class="text-sm text-white/85 leading-relaxed list-disc pl-5">
+                            <!-- //////////////////////////////////////// -->
+                            <li>
+                                <button
+                                    class="mb-1.5 ml-2 text-xs bg-white/20 hover:bg-white/30 px-2 py-1 rounded-full transition"
+                                    onclick="playPreview('i-want-preview.mp3')">
+                                    ▶ 30s
+                                </button>
+                                I Want</li>
+                            <!-- //////////////////////////////////////// -->
+                            <li>
+                                <button
+                                    class="mb-1.5 ml-2 text-xs bg-white/20 hover:bg-white/30 px-2 py-1 rounded-full transition"
+                                    onclick="playPreview('i-want-preview.mp3')">
+                                    ▶ 30s
+                                </button>
+                                Quattro Knives VS the World</li>
+                            <!-- //////////////////////////////////////// -->
+                            <li>
+                                <button
+                                    class="mb-1.5 ml-2 text-xs bg-white/20 hover:bg-white/30 px-2 py-1 rounded-full transition"
+                                    onclick="playPreview('i-want-preview.mp3')">
+                                    ▶ 30s
+                                </button>
+                                My December</li>
+                            <!-- //////////////////////////////////////// -->
+                            <li>
+                                <button
+                                    class="mb-1.5 ml-2 text-xs bg-white/20 hover:bg-white/30 px-2 py-1 rounded-full transition"
+                                    onclick="playPreview('i-want-preview.mp3')">
+                                    ▶ 30s
+                                </button>
+                                Every Single Day</li>
+                            <!-- //////////////////////////////////////// -->
+                            <li>
+                                <button
+                                    class="mb-1.5 ml-2 text-xs bg-white/20 hover:bg-white/30 px-2 py-1 rounded-full transition"
+                                    onclick="playPreview('i-want-preview.mp3')">
+                                    ▶ 30s
+                                </button>
+                                Romance Never Goes Pop</li>
+                            <!-- //////////////////////////////////////// -->
+                            <li>
+                                <button
+                                    class="mb-1.5 ml-2 text-xs bg-white/20 hover:bg-white/30 px-2 py-1 rounded-full transition"
+                                    onclick="playPreview('i-want-preview.mp3')">
+                                    ▶ 30s
+                                </button>
+                                Com'on Com'on</li>
+                            <!-- //////////////////////////////////////// -->
+                            <li>
+                                <button
+                                    class="mb-1.5 ml-2 text-xs bg-white/20 hover:bg-white/30 px-2 py-1 rounded-full transition"
+                                    onclick="playPreview('i-want-preview.mp3')">
+                                    ▶ 30s
+                                </button>
+                                For All the Highflyers Who Don't Know Giving Up</li>
+                            <!-- //////////////////////////////////////// -->
+                            <li>
+                                <button
+                                    class="mb-1.5 ml-2 text-xs bg-white/20 hover:bg-white/30 px-2 py-1 rounded-full transition"
+                                    onclick="playPreview('i-want-preview.mp3')">
+                                    ▶ 30s
+                                </button>
+                                Dance & Bounce</li>
+                            <!-- //////////////////////////////////////// -->
+                            <li>
+                                <button
+                                    class="mb-1.5 ml-2 text-xs bg-white/20 hover:bg-white/30 px-2 py-1 rounded-full transition"
+                                    onclick="playPreview('i-want-preview.mp3')">
+                                    ▶ 30s
+                                </button>
+                                Take it Away</li>
+                            <!-- //////////////////////////////////////// -->
+                            <li>
+                                <button
+                                    class="mb-1.5 ml-2 text-xs bg-white/20 hover:bg-white/30 px-2 py-1 rounded-full transition"
+                                    onclick="playPreview('i-want-preview.mp3')">
+                                    ▶ 30s
+                                </button>
+                                Boys Are Back in Town for Something Sexy</li>
+                            <!-- //////////////////////////////////////// -->
+                            <li>
+                                <button
+                                    class="mb-1.5 ml-2 text-xs bg-white/20 hover:bg-white/30 px-2 py-1 rounded-full transition"
+                                    onclick="playPreview('i-want-preview.mp3')">
+                                    ▶ 30s
+                                </button>
+                                JOIN THE PARADE</li>
+                            <!-- //////////////////////////////////////// -->
+                            <li>
+                                <button
+                                    class="mb-1.5 ml-2 text-xs bg-white/20 hover:bg-white/30 px-2 py-1 rounded-full transition"
+                                    onclick="playPreview('i-want-preview.mp3')">
+                                    ▶ 30s
+                                </button>
+                                Message Hides in Your Bedroom</li>
+                            <!-- //////////////////////////////////////// -->
+                        </ul>
+
+                        <!-- Botón y contador -->
+                        <div class="flex items-center mt-4">
+                            <!-- Botón glass -->
+                            <button
+                                class=" hover:bg-white/30 text-white border border-white/30 px-6 py-2 rounded-xl transition-all duration-30 hover:scale-105">
+                                Descargar
+                            </button>
+
+                            <!-- Moneda + cantidad -->
+                            <span class="inline-flex items-center text-sm">
+                                <img src="/src/img/Moneda.png" alt="Moneda" class=" h-7 ">
+                                10
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Álbum: A Bloody Love Letter [2012.04.06] -->
+                    <div class="vidrio-estatico p-5">
+                        <div class="flex items-center mb-3">
+                            <img src="https://m.media-amazon.com/images/I/61ZZfvdJEgL._UF1000,1000_QL80_.jpg"
+                                alt="Portada A Bloody Love Letter" class="w-24 h-24 rounded-lg mr-4 shadow-md">
+                            <div>
+                                <h4 class="font-bold text-xl">A Bloody Love Letter</h4>
+                                <p class="text-sm text-white/85">Fecha de Lanzamiento: 2012.04.06</p>
+                            </div>
+                        </div>
+                        <ul class="text-sm text-white/85 leading-relaxed list-disc pl-5">
+                            <!-- //////////////////////////////////////// -->
+                            <li>
+                                <button
+                                    class="mb-1.5 ml-2 text-xs bg-white/20 hover:bg-white/30 px-2 py-1 rounded-full transition"
+                                    onclick="playPreview('i-want-preview.mp3')">
+                                    ▶ 30s
+                                </button>
+                                One More Time
+                            </li>
+                            <!-- //////////////////////////////////////// -->
+                            <li>
+                                <button
+                                    class="mb-1.5 ml-2 text-xs bg-white/20 hover:bg-white/30 px-2 py-1 rounded-full transition"
+                                    onclick="playPreview('i-want-preview.mp3')">
+                                    ▶ 30s
+                                </button>
+                                Heart Stop</li>
+                            <!-- //////////////////////////////////////// -->
+                            <li>
+                                <button
+                                    class="mb-1.5 ml-2 text-xs bg-white/20 hover:bg-white/30 px-2 py-1 rounded-full transition"
+                                    onclick="playPreview('i-want-preview.mp3')">
+                                    ▶ 30s
+                                </button>
+                                Romeo & Juliet</li>
+                            <!-- //////////////////////////////////////// -->
+                            <li>
+                                <button
+                                    class="mb-1.5 ml-2 text-xs bg-white/20 hover:bg-white/30 px-2 py-1 rounded-full transition"
+                                    onclick="playPreview('i-want-preview.mp3')">
+                                    ▶ 30s
+                                </button>
+                                25 -Twenty Five-</li>
+                            <!-- //////////////////////////////////////// -->
+                            <li>
+                                <button
+                                    class="mb-1.5 ml-2 text-xs bg-white/20 hover:bg-white/30 px-2 py-1 rounded-full transition"
+                                    onclick="playPreview('i-want-preview.mp3')">
+                                    ▶ 30s
+                                </button>
+                                Before Daylight</li>
+                            <!-- //////////////////////////////////////// -->
+                            <li>
+                                <button
+                                    class="mb-1.5 ml-2 text-xs bg-white/20 hover:bg-white/30 px-2 py-1 rounded-full transition"
+                                    onclick="playPreview('i-want-preview.mp3')">
+                                    ▶ 30s
+                                </button>
+                                I'm With U</li>
+                            <!-- //////////////////////////////////////// -->
+                            <li>
+                                <button
+                                    class="mb-1.5 ml-2 text-xs bg-white/20 hover:bg-white/30 px-2 py-1 rounded-full transition"
+                                    onclick="playPreview('i-want-preview.mp3')">
+                                    ▶ 30s
+                                </button>
+                                DOWN</li>
+                            <!-- //////////////////////////////////////// -->
+                            <li>
+                                <button
+                                    class="mb-1.5 ml-2 text-xs bg-white/20 hover:bg-white/30 px-2 py-1 rounded-full transition"
+                                    onclick="playPreview('i-want-preview.mp3')">
+                                    ▶ 30s
+                                </button>
+                                Beautiful Mess</li>
+                            <!-- //////////////////////////////////////// -->
+                            <li>
+                                <button
+                                    class="mb-1.5 ml-2 text-xs bg-white/20 hover:bg-white/30 px-2 py-1 rounded-full transition"
+                                    onclick="playPreview('i-want-preview.mp3')">
+                                    ▶ 30s
+                                </button>
+                                Lost in Memory</li>
+                            <!-- //////////////////////////////////////// -->
+                            <li>
+                                <button
+                                    class="mb-1.5 ml-2 text-xs bg-white/20 hover:bg-white/30 px-2 py-1 rounded-full transition"
+                                    onclick="playPreview('i-want-preview.mp3')">
+                                    ▶ 30s
+                                </button>
+                                Shake on the Floor</li>
+                            <!-- //////////////////////////////////////// -->
+                            <li>
+                                <button
+                                    class="mb-1.5 ml-2 text-xs bg-white/20 hover:bg-white/30 px-2 py-1 rounded-full transition"
+                                    onclick="playPreview('i-want-preview.mp3')">
+                                    ▶ 30s
+                                </button>
+                                A Thousand Miles Away</li>
+                            <!-- //////////////////////////////////////// -->
+                            <li>
+                                <button
+                                    class="mb-1.5 ml-2 text-xs bg-white/20 hover:bg-white/30 px-2 py-1 rounded-full transition"
+                                    onclick="playPreview('i-want-preview.mp3')">
+                                    ▶ 30s
+                                </button>
+                                I Can't Take It Anymore</li>
+                            <!-- //////////////////////////////////////// -->
+                            <li>
+                                <button
+                                    class="mb-1.5 ml-2 text-xs bg-white/20 hover:bg-white/30 px-2 py-1 rounded-full transition"
+                                    onclick="playPreview('i-want-preview.mp3')">
+                                    ▶ 30s
+                                </button>
+                                Disco Hall Messiah</li>
+                            <!-- //////////////////////////////////////// -->
+                        </ul>
+
+                        <!-- Botón y contador -->
+                        <div class="flex items-center mt-4">
+                            <!-- Botón glass -->
+                            <button
+                                class=" hover:bg-white/30 text-white border border-white/30 px-6 py-2 rounded-xl transition-all duration-30 hover:scale-105">
+                                Descargar
+                            </button>
+
+                            <!-- Moneda + cantidad -->
+                            <span class="inline-flex items-center text-sm">
+                                <img src="/src/img/Moneda.png" alt="Moneda" class=" h-7 ">
+                                15
+                            </span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+
+
+            <!-- BOTÓN ATRÁS ------------------------------------------------------->
+            <div class="flex justify-start w-full">
+                <button
+                    class="bg-white/20 hover:bg-white/30 text-white border border-white/30 px-6 py-2 rounded-xl transition-all duration-300 hover:scale-105">
+                    Atrás
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <script>
+    let currentAudio = null;
+    function playPreview(src) {
+        if (currentAudio) {
+            currentAudio.pause();
+            currentAudio.currentTime = 0;
+        }
+        currentAudio = new Audio(src);
+        currentAudio.play();
+        setTimeout(() => currentAudio.pause(), 30000);
+    }
+</script>
+
+
+<!-- ///////////////////////////////////////////////////////////////////////////////////////////////// -->
+<!-- ///////////////////////////////////////////////////////////////////////////////////////////////// -->
+    <!-- NOTA DE CAMBIOS  -->
+
+    <!-- SE AÑADIERON BOTONES DE REPRODUCCIÓN DE 30 SEGUNDOS A LAS CANCIONES Y 
+        SE SEPARARON ENTRE SI UN 1.5 DE ESPACIO EN LAS LISTAS DE LAS CANCIONES-->
+<!-- ///////////////////////////////////////////////////////////////////////////////////////////////// -->
+<!-- ///////////////////////////////////////////////////////////////////////////////////////////////// -->
+
+
+</body>
+
+
+</html>

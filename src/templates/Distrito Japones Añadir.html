@@ -1,0 +1,1219 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Añadir nuevo elemento</title>
+
+    <!-- Tailwind vía CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+        /* ---------------  ESTILOS BÁSICOS  --------------- */
+        .vidrio-estatico {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .aparecer {
+            animation: aparecer 0.5s ease-out forwards;
+            transform: translateY(20px);
+            opacity: 0;
+        }
+
+        @keyframes aparecer {
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .radio-glass {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            cursor: pointer;
+            transition: all .3s;
+            position: relative;
+        }
+
+        .radio-glass:hover {
+            box-shadow: 0 0 15px rgba(168, 85, 247, 0.5);
+            border-color: rgba(85, 198, 247, 0.6);
+        }
+
+        .radio-glass.checked {
+            background: linear-gradient(135deg, rgba(85, 193, 247, .8), rgba(233, 72, 236, .8));
+            border: 2px solid rgba(255, 255, 255, .4);
+        }
+
+        .radio-glass.checked::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 10px;
+            height: 10px;
+            background: white;
+            border-radius: 50%;
+        }
+
+        .input-glass,
+        .select-glass {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 8px;
+            color: white;
+        }
+
+        .input-glass::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .input-glass:focus,
+        .select-glass:focus {
+            outline: none;
+            border-color: rgba(255, 255, 255, 0.6);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .select-glass option {
+            background: rgba(17, 24, 39, 0.95);
+            color: white;
+        }
+
+        .genre-chip {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 20px;
+            padding: 4px 12px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all .3s;
+            user-select: none;
+        }
+
+        .genre-chip:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-2px);
+        }
+
+        .genre-chip.selected {
+            background: linear-gradient(135deg, rgba(85, 193, 247, .6), rgba(233, 72, 236, .6));
+            border-color: rgba(255, 255, 255, .5);
+        }
+
+        .selected-genres-area {
+            min-height: 80px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px dashed rgba(255, 255, 255, 0.3);
+            border-radius: 8px;
+            padding: 12px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, .3);
+            border-radius: 4px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.5);
+        }
+    </style>
+</head>
+
+<body class="min-h-screen bg-cover bg-center bg-fixed"
+    style="background-image:url('https://w.wallhaven.cc/full/1k/wallhaven-1k6ljv.jpg')">
+
+    <div class="pt-20 px-6 pb-8 flex flex-col items-center">
+        <div class="vidrio-estatico w-full max-w-2xl mx-auto p-6 text-white">
+
+            <!-- ---------------  TÍTULO  --------------- -->
+            <div class="vidrio-estatico w-full p-4 mb-8 text-center">
+                <h1 class="text-2xl font-bold">Añadir nuevo elemento</h1>
+            </div>
+
+            <!-- ---------------  FORMULARIO  --------------- -->
+            <form class="space-y-6">
+
+                <!-- Tipo principal -->
+                <div class="vidrio-estatico p-4">
+                    <h2 class="text-lg font-semibold mb-4">Seleccione el tipo de contenido</h2>
+                    <div class="space-y-3">
+                        <label class="flex items-center cursor-pointer">
+                            <input type="radio" name="tipo" id="anime" class="sr-only"
+                                onchange="toggleContentType('anime')" />
+                            <div class="radio-glass" id="anime-radio"></div>
+                            <span class="ml-3 text-lg">Anime</span>
+                        </label>
+                        <label class="flex items-center cursor-pointer">
+                            <input type="radio" name="tipo" id="musica" class="sr-only"
+                                onchange="toggleContentType('musica')" />
+                            <div class="radio-glass" id="musica-radio"></div>
+                            <span class="ml-3 text-lg">Música</span>
+                        </label>
+                        <label class="flex items-center cursor-pointer">
+                            <input type="radio" name="tipo" id="audiovisual" class="sr-only"
+                                onchange="toggleContentType('audiovisual')" />
+                            <div class="radio-glass" id="audiovisual-radio"></div>
+                            <span class="ml-3 text-lg">Audiovisual</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- =========================  ANIME  ========================= -->
+                <div id="anime-content" class="hidden space-y-6">
+
+                    <!-- Serie / Película -->
+                    <div class="vidrio-estatico p-4 aparecer">
+                        <h3 class="text-lg font-semibold mb-4">¿Es una serie o una película?</h3>
+                        <div class="flex space-x-6">
+                            <label class="flex items-center cursor-pointer">
+                                <input type="radio" name="tipo-obra" id="serie" class="sr-only"
+                                    onchange="toggleSeriePelicula('serie')" />
+                                <div class="radio-glass" id="serie-radio"></div>
+                                <span class="ml-3 text-lg">Serie</span>
+                            </label>
+                            <label class="flex items-center cursor-pointer">
+                                <input type="radio" name="tipo-obra" id="pelicula" class="sr-only"
+                                    onchange="toggleSeriePelicula('pelicula')" />
+                                <div class="radio-glass" id="pelicula-radio"></div>
+                                <span class="ml-3 text-lg">Película</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Enlace de la foto -->
+                    <div class="vidrio-estatico p-4 aparecer">
+                        <label class="block text-sm mb-2">Pegar enlace de la foto</label>
+                        <input type="url" class="w-full p-3 input-glass" placeholder="https://ejemplo.com/imagen.jpg" />
+                    </div>
+
+                    <!-- --------  CONTENIDO SERIE  -------- -->
+                    <div id="serie-content" class="hidden space-y-6">
+
+                        <!-- ¿En catálogo? -->
+                        <div class="vidrio-estatico p-4 aparecer">
+                            <h3 class="text-lg font-semibold mb-4">¿Esto es de un anime que ya está en el catálogo?</h3>
+                            <div class="flex space-x-6">
+                                <label class="flex items-center cursor-pointer">
+                                    <input type="radio" name="en-catalogo-serie" id="si-catalogo-serie" class="sr-only"
+                                        onchange="toggleCatalogoSerie(true)" />
+                                    <div class="radio-glass" id="si-catalogo-serie-radio"></div>
+                                    <span class="ml-3">Sí</span>
+                                </label>
+                                <label class="flex items-center cursor-pointer">
+                                    <input type="radio" name="en-catalogo-serie" id="no-catalogo-serie" class="sr-only"
+                                        onchange="toggleCatalogoSerie(false)" />
+                                    <div class="radio-glass" id="no-catalogo-serie-radio"></div>
+                                    <span class="ml-3">No</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Si está en catálogo (SERIE) -->
+                        <div id="catalogo-content-serie" class="hidden space-y-4">
+                            <div class="vidrio-estatico p-4 aparecer">
+                                <label class="block text-sm mb-2">Seleccione o escriba el anime</label>
+                                <input list="animes-catalogo" class="w-full p-3 input-glass"
+                                    placeholder="Buscar anime..." />
+                                <datalist id="animes-catalogo">
+                                    <option value="Attack on Titan">
+                                    <option value="Death Note">
+                                    <option value="Naruto">
+                                    <option value="One Piece">
+                                    <option value="Dragon Ball">
+                                    <option value="My Hero Academia">
+                                    <option value="Demon Slayer">
+                                    <option value="Tokyo Ghoul">
+                                    <option value="Fullmetal Alchemist">
+                                    <option value="Steins;Gate">
+                                </datalist>
+                            </div>
+
+                            <!-- OVA / Temporada -->
+                            <div class="vidrio-estatico p-4 aparecer">
+                                <h4 class="text-sm mb-3">Tipo de contenido</h4>
+                                <div class="flex space-x-6">
+                                    <label class="flex items-center cursor-pointer">
+                                        <input type="radio" name="tipo-contenido-serie" id="ova-serie" class="sr-only"
+                                            onchange="toggleTipoContenidoSerie('ova')" />
+                                        <div class="radio-glass" id="ova-serie-radio"></div>
+                                        <span class="ml-3">OVA</span>
+                                    </label>
+                                    <label class="flex items-center cursor-pointer">
+                                        <input type="radio" name="tipo-contenido-serie" id="temporada-serie"
+                                            class="sr-only" onchange="toggleTipoContenidoSerie('temporada')" />
+                                        <div class="radio-glass" id="temporada-serie-radio"></div>
+                                        <span class="ml-3">Temporada</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- Selector temporada (SERIE) -->
+                            <div id="temporada-selector-serie" class="hidden vidrio-estatico p-4 aparecer">
+                                <label class="block text-sm mb-2">Seleccione la temporada</label>
+                                <select class="w-full p-3 select-glass">
+                                    <option value="">Seleccionar temporada...</option>
+                                    <option value="1">Temporada 1</option>
+                                    <option value="2">Temporada 2</option>
+                                    <option value="3">Temporada 3</option>
+                                    <option value="4">Temporada 4</option>
+                                    <option value="5">Temporada 5</option>
+                                    <option value="6">Temporada 6</option>
+                                    <option value="7">Temporada 7</option>
+                                    <option value="8">Temporada 8</option>
+                                    <option value="9">Temporada 9</option>
+                                    <option value="10">Temporada 10</option>
+                                    <option value="11">Temporada 11</option>
+                                    <option value="12">Temporada 12</option>
+                                    <option value="13">Temporada 13</option>
+                                    <option value="14">Temporada 14</option>
+                                    <option value="15">Temporada 15</option>
+                                    <option value="16">Temporada 16</option>
+                                    <option value="17">Temporada 17</option>
+                                    <option value="18">Temporada 18</option>
+                                    <option value="19">Temporada 19</option>
+                                    <option value="20">Temporada 20</option>
+                                    <option value="21">Temporada 21</option>
+                                    <option value="22">Temporada 22</option>
+                                    <option value="23">Temporada 23</option>
+                                    <option value="24">Temporada 24</option>
+                                    <option value="25">Temporada 25</option>
+                                    <option value="26">Temporada 26</option>
+                                    <option value="27">Temporada 27</option>
+                                    <option value="28">Temporada 28</option>
+                                    <option value="29">Temporada 29</option>
+                                    <option value="30">Temporada 30</option>
+                                </select>
+                            </div>
+
+                            <!-- Capítulos (SERIE en catálogo) -->
+                            <div id="capitulos-serie-catalogo" class="hidden vidrio-estatico p-4 aparecer">
+                                <label class="block text-sm mb-2">¿Cuántos capítulos tiene?</label>
+                                <input type="number" min="1" max="9999" class="w-full p-3 input-glass"
+                                    placeholder="Ej: 12" />
+                            </div>
+
+                            <!-- Enlace de descarga (SERIE en catálogo) -->
+                            <div class="vidrio-estatico p-4 aparecer">
+                                <label class="block text-sm mb-2">Pegar enlace de descarga</label>
+                                <input type="url" class="w-full p-3 input-glass"
+                                    placeholder="https://ejemplo.com/descarga" />
+                            </div>
+                        </div>
+
+                        <!-- Si NO está en catálogo (SERIE) -->
+                        <div id="no-catalogo-content-serie" class="hidden space-y-4">
+                            <!-- Campos de nombre -->
+                            <div class="vidrio-estatico p-4 aparecer">
+                                <label class="block text-sm mb-2">Nombre en español</label>
+                                <input type="text" class="w-full p-3 input-glass"
+                                    placeholder="Ej: Shingeki no Kyojin" />
+                            </div>
+                            <div class="vidrio-estatico p-4 aparecer">
+                                <label class="block text-sm mb-2">Nombre en inglés</label>
+                                <input type="text" class="w-full p-3 input-glass" placeholder="Ej: Attack on Titan" />
+                            </div>
+                            <div class="vidrio-estatico p-4 aparecer">
+                                <label class="block text-sm mb-2">Nombre en japonés</label>
+                                <input type="text" class="w-full p-3 input-glass" placeholder="Ej: 進撃の巨人" />
+                            </div>
+
+                            <!-- Número de temporadas -->
+                            <div class="vidrio-estatico p-4 aparecer">
+                                <label class="block text-sm mb-2">Cantidad de temporadas</label>
+                                <input type="number" min="1" max="20" id="cantidad-temporadas"
+                                    class="w-full p-3 input-glass" placeholder="Ej: 3"
+                                    onchange="generarCamposTemporadas()" />
+                            </div>
+
+                            <!-- Campos capítulos por temporada -->
+                            <div id="temporadas-capitulos" class="space-y-3"></div>
+
+                            <!-- Enlace de descarga (SERIE no en catálogo) -->
+                            <div class="vidrio-estatico p-4 aparecer">
+                                <label class="block text-sm mb-2">Pegar enlace de descarga</label>
+                                <input type="url" class="w-full p-3 input-glass"
+                                    placeholder="https://ejemplo.com/descarga" />
+                            </div>
+                        </div>
+
+                        <!-- Géneros (SERIE no en catálogo) -->
+                        <div id="genres-section-serie" class="hidden vidrio-estatico p-4 aparecer">
+                            <h3 class="text-lg font-semibold mb-4">Seleccione el género</h3>
+
+                            <div id="selected-genres-serie" class="selected-genres-area mb-4 flex flex-wrap gap-2">
+                                <span class="text-white/50 text-sm">Los géneros seleccionados aparecerán aquí...</span>
+                            </div>
+
+                            <div class="max-h-96 overflow-y-auto custom-scrollbar space-y-6">
+
+                                <!-- Géneros principales -->
+                                <div>
+                                    <h4 class="text-sm font-semibold mb-2 text-white/80">Géneros principales</h4>
+                                    <div class="flex flex-wrap gap-2">
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'serie')">Acción</button>
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'serie')">Aventura</button>
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'serie')">Comedia</button>
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'serie')">Comedia romántica</button>
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'serie')">Comedia negra</button>
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'serie')">Comedia absurda</button>
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'serie')">Drama</button>
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'serie')">Romance</button>
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'serie')">Ciencia Ficción</button>
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'serie')">Cyberpunk</button>
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'serie')">Mecha</button>
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'serie')">Space Opera</button>
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'serie')">Fantasía</button>
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'serie')">Alta fantasía</button>
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'serie')">Fantasía urbana</button>
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'serie')">Terror</button>
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'serie')">Misterio</button>
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'serie')">Sobrenatural</button>
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'serie')">Suspense</button>
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'serie')">Thriller</button>
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'serie')">Deportes</button>
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'serie')">Musical</button>
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'serie')">Artes Marciales</button>
+                                    </div>
+                                </div>
+
+                                <!-- Géneros demográficos -->
+                                <div>
+                                    <h4 class="text-sm font-semibold mb-2 text-white/80">Géneros demográficos</h4>
+                                    <div class="flex flex-wrap gap-2">
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'serie')">Shonen</button>
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'serie')">Shojo</button>
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'serie')">Seinen</button>
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'serie')">Josei</button>
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'serie')">Kodomo</button>
+                                    </div>
+                                </div>
+
+                                <!-- Subgéneros y temáticas -->
+                                <div>
+                                    <h4 class="text-sm font-semibold mb-2 text-white/80">Subgéneros y temáticas</h4>
+                                    <div class="flex flex-wrap gap-2">
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'serie')">Isekai</button>
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'serie')">Reverse Isekai</button>
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'serie')">Harem</button>
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'serie')">Reverse Harem</button>
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'serie')">Ecchi</button>
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'serie')">Yuri</button>
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'serie')">Yaoi/BL</button>
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'serie')">Postapocalíptico</button>
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'serie')">Distopía</button>
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'serie')">Vampiros</button>
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'serie')">Zombies</button>
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'serie')">Histórico</button>
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'serie')">Jidaigeki</button>
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'serie')">Gore</button>
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'serie')">Psicológico</button>
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'serie')">Tragedia</button>
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'serie')">Recuentos de la vida</button>
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'serie')">Iyashikei</button>
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'serie')">Ciberpunk</button>
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'serie')">Steampunk</button>
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'serie')">Mahou Shoujo</button>
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'serie')">Tokusatsu</button>
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'serie')">Carreras</button>
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'serie')">Apuestas</button>
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'serie')">Culinario</button>
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'serie')">Metaverso/VR</button>
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'serie')">Reencarnación</button>
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'serie')">Superpoderes</button>
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'serie')">Vida escolar</button>
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'serie')">Trabajo adulto</button>
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'serie')">Música</button>
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'serie')">Parodia</button>
+                                    </div>
+                                </div>
+
+                                <!-- Estilos y formatos -->
+                                <div>
+                                    <h4 class="text-sm font-semibold mb-2 text-white/80">Estilos y formatos</h4>
+                                    <div class="flex flex-wrap gap-2">
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'serie')">Anthology</button>
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'serie')">Experimental</button>
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'serie')">Found Footage</button>
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'serie')">4-Koma</button>
+                                    </div>
+                                </div>
+
+                                <!-- Híbridos y emergentes -->
+                                <div>
+                                    <h4 class="text-sm font-semibold mb-2 text-white/80">Híbridos y géneros emergentes
+                                    </h4>
+                                    <div class="flex flex-wrap gap-2">
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'serie')">Isekai no Slow Life</button>
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'serie')">Villainess</button>
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'serie')">Crossover</button>
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'serie')">Survival Game</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> <!-- fin géneros serie -->
+                    </div> <!-- fin serie-content -->
+
+                    <!-- --------  CONTENIDO PELÍCULA  -------- -->
+                    <div id="pelicula-content" class="hidden space-y-6">
+
+                        <!-- ¿En catálogo? -->
+                        <div class="vidrio-estatico p-4 aparecer">
+                            <h3 class="text-lg font-semibold mb-4">¿Esto es de un anime que ya está en el catálogo?</h3>
+                            <div class="flex space-x-6">
+                                <label class="flex items-center cursor-pointer">
+                                    <input type="radio" name="en-catalogo-pelicula" id="si-catalogo-pelicula"
+                                        class="sr-only" onchange="toggleCatalogoPelicula(true)" />
+                                    <div class="radio-glass" id="si-catalogo-pelicula-radio"></div>
+                                    <span class="ml-3">Sí</span>
+                                </label>
+                                <label class="flex items-center cursor-pointer">
+                                    <input type="radio" name="en-catalogo-pelicula" id="no-catalogo-pelicula"
+                                        class="sr-only" onchange="toggleCatalogoPelicula(false)" />
+                                    <div class="radio-glass" id="no-catalogo-pelicula-radio"></div>
+                                    <span class="ml-3">No</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Si está en catálogo (PELÍCULA) -->
+                        <div id="catalogo-content-pelicula" class="hidden space-y-4">
+                            <div class="vidrio-estatico p-4 aparecer">
+                                <label class="block text-sm mb-2">Seleccione o escriba el anime</label>
+                                <input list="animes-catalogo-pel" class="w-full p-3 input-glass"
+                                    placeholder="Buscar anime..." />
+                                <datalist id="animes-catalogo-pel">
+                                    <option value="Attack on Titan">
+                                    <option value="Death Note">
+                                    <option value="Naruto">
+                                    <option value="One Piece">
+                                    <option value="Dragon Ball">
+                                    <option value="My Hero Academia">
+                                    <option value="Demon Slayer">
+                                    <option value="Tokyo Ghoul">
+                                    <option value="Fullmetal Alchemist">
+                                    <option value="Steins;Gate">
+                                </datalist>
+                            </div>
+
+                            <!-- OVA / Temporada -->
+                            <div class="vidrio-estatico p-4 aparecer">
+                                <h4 class="text-sm mb-3">Tipo de contenido</h4>
+                                <div class="flex space-x-6">
+                                    <label class="flex items-center cursor-pointer">
+                                        <input type="radio" name="tipo-contenido-pelicula" id="ova-pelicula"
+                                            class="sr-only" onchange="toggleTipoContenidoPelicula('ova')" />
+                                        <div class="radio-glass" id="ova-pelicula-radio"></div>
+                                        <span class="ml-3">OVA</span>
+                                    </label>
+                                    <label class="flex items-center cursor-pointer">
+                                        <input type="radio" name="tipo-contenido-pelicula" id="temporada-pelicula"
+                                            class="sr-only" onchange="toggleTipoContenidoPelicula('temporada')" />
+                                        <div class="radio-glass" id="temporada-pelicula-radio"></div>
+                                        <span class="ml-3">Temporada</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- Selector temporada (PELÍCULA) -->
+                            <div id="temporada-selector-pelicula" class="hidden vidrio-estatico p-4 aparecer">
+                                <label class="block text-sm mb-2">Seleccione a qué temporada pertenece</label>
+                                <select class="w-full p-3 select-glass">
+                                    <option value="">Seleccionar temporada...</option>
+                                    <option value="1">Temporada 1</option>
+                                    <option value="2">Temporada 2</option>
+                                    <option value="3">Temporada 3</option>
+                                    <option value="4">Temporada 4</option>
+                                    <option value="5">Temporada 5</option>
+                                    <option value="6">Temporada 6</option>
+                                    <option value="7">Temporada 7</option>
+                                    <option value="8">Temporada 8</option>
+                                    <option value="9">Temporada 9</option>
+                                    <option value="10">Temporada 10</option>
+                                    <option value="11">Temporada 11</option>
+                                    <option value="12">Temporada 12</option>
+                                    <option value="13">Temporada 13</option>
+                                    <option value="14">Temporada 14</option>
+                                    <option value="15">Temporada 15</option>
+                                    <option value="16">Temporada 16</option>
+                                    <option value="17">Temporada 17</option>
+                                    <option value="18">Temporada 18</option>
+                                    <option value="19">Temporada 19</option>
+                                    <option value="20">Temporada 20</option>
+                                    <option value="21">Temporada 21</option>
+                                    <option value="22">Temporada 22</option>
+                                    <option value="23">Temporada 23</option>
+                                    <option value="24">Temporada 24</option>
+                                    <option value="25">Temporada 25</option>
+                                    <option value="26">Temporada 26</option>
+                                    <option value="27">Temporada 27</option>
+                                    <option value="28">Temporada 28</option>
+                                    <option value="29">Temporada 29</option>
+                                    <option value="30">Temporada 30</option>
+                                </select>
+                            </div>
+
+                            <!-- Nombres para OVA (PELÍCULA) -->
+                            <div id="nombres-ova-pelicula" class="hidden space-y-4">
+                                <div class="vidrio-estatico p-4 aparecer">
+                                    <label class="block text-sm mb-2">Nombre en español</label>
+                                    <input type="text" class="w-full p-3 input-glass"
+                                        placeholder="Ej: El viaje de Chihiro" />
+                                </div>
+                                <div class="vidrio-estatico p-4 aparecer">
+                                    <label class="block text-sm mb-2">Nombre en inglés</label>
+                                    <input type="text" class="w-full p-3 input-glass" placeholder="Ej: Spirited Away" />
+                                </div>
+                                <div class="vidrio-estatico p-4 aparecer">
+                                    <label class="block text-sm mb-2">Nombre en japonés</label>
+                                    <input type="text" class="w-full p-3 input-glass" placeholder="Ej: 千と千尋の神隠し" />
+                                </div>
+                            </div>
+
+                            <!-- Enlace de descarga (PELÍCULA en catálogo) -->
+                            <div class="vidrio-estatico p-4 aparecer">
+                                <label class="block text-sm mb-2">Pegar enlace de descarga</label>
+                                <input type="url" class="w-full p-3 input-glass"
+                                    placeholder="https://ejemplo.com/descarga" />
+                            </div>
+                        </div>
+
+                        <!-- Si NO está en catálogo (PELÍCULA) -->
+                        <div id="no-catalogo-content-pelicula" class="hidden space-y-4">
+                            <!-- Campos de nombre -->
+                            <div class="vidrio-estatico p-4 aparecer">
+                                <label class="block text-sm mb-2">Nombre en español</label>
+                                <input type="text" class="w-full p-3 input-glass"
+                                    placeholder="Ej: El viaje de Chihiro" />
+                            </div>
+                            <div class="vidrio-estatico p-4 aparecer">
+                                <label class="block text-sm mb-2">Nombre en inglés</label>
+                                <input type="text" class="w-full p-3 input-glass" placeholder="Ej: Spirited Away" />
+                            </div>
+                            <div class="vidrio-estatico p-4 aparecer">
+                                <label class="block text-sm mb-2">Nombre en japonés</label>
+                                <input type="text" class="w-full p-3 input-glass" placeholder="Ej: 千と千尋の神隠し" />
+                            </div>
+
+                            <!-- Enlace de descarga (PELÍCULA no en catálogo) -->
+                            <div class="vidrio-estatico p-4 aparecer">
+                                <label class="block text-sm mb-2">Pegar enlace de descarga</label>
+                                <input type="url" class="w-full p-3 input-glass"
+                                    placeholder="https://ejemplo.com/descarga" />
+                            </div>
+                        </div>
+
+                        <!-- Géneros (PELÍCULA no en catálogo) -->
+                        <div id="genres-section-pelicula" class="hidden vidrio-estatico p-4 aparecer">
+                            <h3 class="text-lg font-semibold mb-4">Seleccione el género</h3>
+
+                            <div id="selected-genres-pelicula" class="selected-genres-area mb-4 flex flex-wrap gap-2">
+                                <span class="text-white/50 text-sm">Los géneros seleccionados aparecerán aquí...</span>
+                            </div>
+
+                            <div class="max-h-96 overflow-y-auto custom-scrollbar space-y-6">
+
+                                <!-- Géneros principales -->
+                                <div>
+                                    <h4 class="text-sm font-semibold mb-2 text-white/80">Géneros principales</h4>
+                                    <div class="flex flex-wrap gap-2">
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'pelicula')">Acción</button>
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'pelicula')">Aventura</button>
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'pelicula')">Comedia</button>
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'pelicula')">Comedia romántica</button>
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'pelicula')">Comedia negra</button>
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'pelicula')">Comedia absurda</button>
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'pelicula')">Drama</button>
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'pelicula')">Romance</button>
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'pelicula')">Ciencia Ficción</button>
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'pelicula')">Cyberpunk</button>
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'pelicula')">Mecha</button>
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'pelicula')">Space Opera</button>
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'pelicula')">Fantasía</button>
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'pelicula')">Alta fantasía</button>
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'pelicula')">Fantasía urbana</button>
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'pelicula')">Terror</button>
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'pelicula')">Misterio</button>
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'pelicula')">Sobrenatural</button>
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'pelicula')">Suspense</button>
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'pelicula')">Thriller</button>
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'pelicula')">Deportes</button>
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'pelicula')">Musical</button>
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'pelicula')">Artes Marciales</button>
+                                    </div>
+                                </div>
+
+                                <!-- Géneros demográficos -->
+                                <div>
+                                    <h4 class="text-sm font-semibold mb-2 text-white/80">Géneros demográficos</h4>
+                                    <div class="flex flex-wrap gap-2">
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'pelicula')">Shonen</button>
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'pelicula')">Shojo</button>
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'pelicula')">Seinen</button>
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'pelicula')">Josei</button>
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'pelicula')">Kodomo</button>
+                                    </div>
+                                </div>
+
+                                <!-- Subgéneros y temáticas -->
+                                <div>
+                                    <h4 class="text-sm font-semibold mb-2 text-white/80">Subgéneros y temáticas</h4>
+                                    <div class="flex flex-wrap gap-2">
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'pelicula')">Isekai</button>
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'pelicula')">Reverse Isekai</button>
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'pelicula')">Harem</button>
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'pelicula')">Reverse Harem</button>
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'pelicula')">Ecchi</button>
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'pelicula')">Yuri</button>
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'pelicula')">Yaoi/BL</button>
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'pelicula')">Postapocalíptico</button>
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'pelicula')">Distopía</button>
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'pelicula')">Vampiros</button>
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'pelicula')">Zombies</button>
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'pelicula')">Histórico</button>
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'pelicula')">Jidaigeki</button>
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'pelicula')">Gore</button>
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'pelicula')">Psicológico</button>
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'pelicula')">Tragedia</button>
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'pelicula')">Recuentos de la vida</button>
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'pelicula')">Iyashikei</button>
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'pelicula')">Ciberpunk</button>
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'pelicula')">Steampunk</button>
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'pelicula')">Mahou Shoujo</button>
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'pelicula')">Tokusatsu</button>
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'pelicula')">Carreras</button>
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'pelicula')">Apuestas</button>
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'pelicula')">Culinario</button>
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'pelicula')">Metaverso/VR</button>
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'pelicula')">Reencarnación</button>
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'pelicula')">Superpoderes</button>
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'pelicula')">Vida escolar</button>
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'pelicula')">Trabajo adulto</button>
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'pelicula')">Música</button>
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'pelicula')">Parodia</button>
+                                    </div>
+                                </div>
+
+                                <!-- Estilos y formatos -->
+                                <div>
+                                    <h4 class="text-sm font-semibold mb-2 text-white/80">Estilos y formatos</h4>
+                                    <div class="flex flex-wrap gap-2">
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'pelicula')">Anthology</button>
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'pelicula')">Experimental</button>
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'pelicula')">Found Footage</button>
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'pelicula')">4-Koma</button>
+                                    </div>
+                                </div>
+
+                                <!-- Híbridos y emergentes -->
+                                <div>
+                                    <h4 class="text-sm font-semibold mb-2 text-white/80">Híbridos y géneros emergentes
+                                    </h4>
+                                    <div class="flex flex-wrap gap-2">
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'pelicula')">Isekai no Slow Life</button>
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'pelicula')">Villainess</button>
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'pelicula')">Crossover</button>
+                                        <button type="button" class="genre-chip"
+                                            onclick="toggleGenre(this, 'pelicula')">Survival Game</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> <!-- fin géneros película -->
+                    </div> <!-- fin pelicula-content -->
+                </div> <!-- fin anime-content -->
+
+                <!-- Placeholders -->
+                <!-- =========================  MÚSICA  ========================= -->
+                <div id="musica-content" class="hidden space-y-6">
+
+                    <div class="vidrio-estatico p-4">
+                        <h3 class="text-lg font-semibold mb-4">¿Qué desea agregar?</h3>
+
+                        <!-- Tipo de agrupación -->
+                        <div class="mb-6">
+                            <label class="block text-sm mb-2">Nombre Oficial</label>
+                            <input type="text" class="w-full p-3 input-glass mb-4" placeholder="Nombre oficial">
+
+                            <label class="block text-sm mb-2">Tipo de formación</label>
+                            <select class="w-full p-3 select-glass">
+                                <option value="">Seleccione tipo…</option>
+                                <option>Solista</option>
+                                <option>Dúo</option>
+                                <option>Trio</option>
+                                <option>Cuarteto</option>
+                                <option>Quinteto</option>
+                                <option>Sexteto</option>
+                                <option>Septeto</option>
+                                <option>Octeto</option>
+                                <option>Noneto</option>
+                                <option>Decteto</option>
+                                <option>Banda</option>
+                                <option>Orquesta</option>
+                                <option>Coro</option>
+                                <option>Ensamble</option>
+                                <option>Big Band</option>
+                            </select>
+                        </div>
+
+                        <!-- Descripción -->
+                        <div class="mb-6">
+                            <label class="block text-sm mb-2">Descripción</label>
+                            <textarea rows="3" class="w-full p-3 input-glass" placeholder="Breve reseña"></textarea>
+                        </div>
+
+                        <!-- Integrantes dinámicos -->
+                        <div class="mb-6">
+                            <label class="block text-sm mb-2">¿Cuántos integrantes hay?</label>
+                            <input type="number" min="1" max="99" id="numIntegrantes" oninput="generarIntegrantes()"
+                                class="w-full p-3 input-glass" placeholder="Ej: 4">
+                            <div id="integrantes-container" class="mt-3 space-y-3"></div>
+                        </div>
+
+                        <!-- Género musical -->
+                        <div>
+                            <label class="block text-sm mb-2">Género musical principal</label>
+                            <select class="w-full p-3 select-glass">
+                                <option value="">Seleccione género…</option>
+                                <option>Música clásica occidental</option>
+                                <option>Jazz</option>
+                                <option>Blues</option>
+                                <option>Rock</option>
+                                <option>Metal</option>
+                                <option>Pop</option>
+                                <option>R&B / Soul / Funk</option>
+                                <option>Hip-hop / Rap</option>
+                                <option>Reggae y derivados</option>
+                                <option>Música electrónica (EDM)</option>
+                                <option>Música experimental / noise</option>
+                                <option>Música folk y tradicional occidental</option>
+                                <option>Músicas del mundo (World Music)</option>
+                                <option>Música religiosa y ceremonial</option>
+                                <option>Bandas sonoras y música funcional</option>
+                                <option>Géneros de cabaret / teatro musical</option>
+                                <option>Géneros de baile de salón y competición</option>
+                                <option>Géneros infantiles y didácticos</option>
+                                <option>Géneros emergentes y microgéneros</option>
+                            </select>
+                        </div>
+                    </div>
+
+                </div>
+
+                <script>
+                    /* -----  GENERAR CAMPOS DE INTEGRANTES (MÚSICA)  ----- */
+                    function generarIntegrantes() {
+                        const n = parseInt(document.getElementById('numIntegrantes').value) || 0;
+                        const container = document.getElementById('integrantes-container');
+                        container.innerHTML = '';
+
+                        for (let i = 1; i <= n; i++) {
+                            const div = document.createElement('div');
+                            div.className = 'vidrio-estatico p-3 aparecer';
+                            div.innerHTML = `
+      <label class="block text-xs mb-1">Integrante ${i}</label>
+      <input type="text" class="w-full p-2 input-glass" placeholder="Nombre / rol">
+    `;
+                            container.appendChild(div);
+                        }
+                    }
+                </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <div id="audiovisual-content" class="hidden">
+                    <div class="vidrio-estatico p-4 aparecer">
+                        <p class="text-center text-white/70">Formulario de audiovisual en desarrollo...</p>
+                    </div>
+                </div>
+
+                <!-- Botones -->
+                <div class="flex flex-col sm:flex-row gap-4 pt-4">
+                    <button type="button"
+                        class="flex-1 bg-white/30 hover:bg-white/50 text-white border border-white/50 px-6 py-3 rounded-xl transition-all duration-300 hover:scale-105 font-semibold">
+                        Cancelar
+                    </button>
+                    <button type="submit"
+                        class="flex-1 bg-green-500/30 hover:bg-green-500/50 text-white border border-green-400/50 px-6 py-3 rounded-xl transition-all duration-300 hover:scale-105 font-semibold">
+                        Subir
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- ---------------  SCRIPTS  --------------- -->
+    <script>
+        /* -----  ESTADO DE GÉNEROS  ----- */
+        const selectedGenresSerie = new Set();
+        const selectedGenresPelicula = new Set();
+
+        /* -----  TOGGLE PRINCIPAL  ----- */
+        function toggleContentType(type) {
+            ['anime', 'musica', 'audiovisual'].forEach(t => {
+                document.getElementById(`${t}-content`).classList.add('hidden');
+                document.getElementById(`${t}-radio`).classList.remove('checked');
+            });
+
+            document.getElementById(`${type}-content`).classList.remove('hidden');
+            document.getElementById(`${type}-radio`).classList.add('checked');
+
+            // Resetear selecciones al cambiar tipo
+            if (type === 'anime') {
+                document.getElementById('serie-content').classList.add('hidden');
+                document.getElementById('pelicula-content').classList.add('hidden');
+                document.getElementById('serie-radio').classList.remove('checked');
+                document.getElementById('pelicula-radio').classList.remove('checked');
+            }
+        }
+
+        /* -----  SERIE vs PELÍCULA  ----- */
+        function toggleSeriePelicula(tipo) {
+            ['serie', 'pelicula'].forEach(t => {
+                document.getElementById(`${t}-radio`).classList.remove('checked');
+                document.getElementById(`${t}-content`).classList.add('hidden');
+            });
+
+            document.getElementById(`${tipo}-radio`).classList.add('checked');
+            document.getElementById(`${tipo}-content`).classList.remove('hidden');
+
+            // Resetear selecciones al cambiar tipo
+            if (tipo === 'serie') {
+                document.getElementById('catalogo-content-serie').classList.add('hidden');
+                document.getElementById('no-catalogo-content-serie').classList.add('hidden');
+                document.getElementById('genres-section-serie').classList.add('hidden');
+                document.getElementById('si-catalogo-serie-radio').classList.remove('checked');
+                document.getElementById('no-catalogo-serie-radio').classList.remove('checked');
+            } else {
+                document.getElementById('catalogo-content-pelicula').classList.add('hidden');
+                document.getElementById('no-catalogo-content-pelicula').classList.add('hidden');
+                document.getElementById('genres-section-pelicula').classList.add('hidden');
+                document.getElementById('si-catalogo-pelicula-radio').classList.remove('checked');
+                document.getElementById('no-catalogo-pelicula-radio').classList.remove('checked');
+            }
+        }
+
+        /* -----  ¿EN CATÁLOGO? SERIE  ----- */
+        function toggleCatalogoSerie(enCatalogo) {
+            ['si', 'no'].forEach(op =>
+                document.getElementById(`${op}-catalogo-serie-radio`).classList.remove('checked')
+            );
+
+            document.getElementById(`${enCatalogo ? 'si' : 'no'}-catalogo-serie-radio`).classList.add('checked');
+            document.getElementById('catalogo-content-serie').classList.toggle('hidden', !enCatalogo);
+            document.getElementById('no-catalogo-content-serie').classList.toggle('hidden', enCatalogo);
+            document.getElementById('genres-section-serie').classList.toggle('hidden', enCatalogo);
+
+            // Resetear selecciones OVA/Temporada
+            if (enCatalogo) {
+                document.getElementById('temporada-selector-serie').classList.add('hidden');
+                document.getElementById('capitulos-serie-catalogo').classList.add('hidden');
+                document.getElementById('ova-serie-radio').classList.remove('checked');
+                document.getElementById('temporada-serie-radio').classList.remove('checked');
+            }
+        }
+
+        /* -----  OVA / TEMPORADA SERIE  ----- */
+        function toggleTipoContenidoSerie(tipoContenido) {
+            ['ova', 'temporada'].forEach(t =>
+                document.getElementById(`${t}-serie-radio`).classList.remove('checked')
+            );
+
+            document.getElementById(`${tipoContenido}-serie-radio`).classList.add('checked');
+            document.getElementById('temporada-selector-serie').classList.toggle('hidden', tipoContenido !== 'temporada');
+
+            // Mostrar campo de capítulos siempre
+            document.getElementById('capitulos-serie-catalogo').classList.remove('hidden');
+        }
+
+        /* -----  ¿EN CATÁLOGO? PELÍCULA  ----- */
+        function toggleCatalogoPelicula(enCatalogo) {
+            ['si', 'no'].forEach(op =>
+                document.getElementById(`${op}-catalogo-pelicula-radio`).classList.remove('checked')
+            );
+
+            document.getElementById(`${enCatalogo ? 'si' : 'no'}-catalogo-pelicula-radio`).classList.add('checked');
+            document.getElementById('catalogo-content-pelicula').classList.toggle('hidden', !enCatalogo);
+            document.getElementById('no-catalogo-content-pelicula').classList.toggle('hidden', enCatalogo);
+            document.getElementById('genres-section-pelicula').classList.toggle('hidden', enCatalogo);
+
+            // Resetear selecciones OVA/Temporada
+            if (enCatalogo) {
+                document.getElementById('temporada-selector-pelicula').classList.add('hidden');
+                document.getElementById('nombres-ova-pelicula').classList.add('hidden');
+                document.getElementById('ova-pelicula-radio').classList.remove('checked');
+                document.getElementById('temporada-pelicula-radio').classList.remove('checked');
+            }
+        }
+
+        /* -----  OVA / TEMPORADA PELÍCULA  ----- */
+        function toggleTipoContenidoPelicula(tipoContenido) {
+            ['ova', 'temporada'].forEach(t =>
+                document.getElementById(`${t}-pelicula-radio`).classList.remove('checked')
+            );
+
+            document.getElementById(`${tipoContenido}-pelicula-radio`).classList.add('checked');
+            document.getElementById('temporada-selector-pelicula').classList.toggle('hidden', tipoContenido !== 'temporada');
+            document.getElementById('nombres-ova-pelicula').classList.toggle('hidden', tipoContenido !== 'ova');
+        }
+
+        /* -----  GESTIÓN DE GÉNEROS  ----- */
+        function toggleGenre(chip, tipo) {
+            const name = chip.textContent.trim();
+            const set = tipo === 'serie' ? selectedGenresSerie : selectedGenresPelicula;
+            const areaId = tipo === 'serie' ? 'selected-genres-serie' : 'selected-genres-pelicula';
+
+            set.has(name) ? set.delete(name) : set.add(name);
+            renderGenres(set, areaId);
+        }
+
+        function renderGenres(genresSet, areaId) {
+            const area = document.getElementById(areaId);
+            area.innerHTML = genresSet.size === 0
+                ? '<span class="text-white/50 text-sm">Los géneros seleccionados aparecerán aquí...</span>'
+                : [...genresSet].map(g => `<span class="genre-chip selected" data-g="${g}">${g}</span>`).join('');
+        }
+
+        // Quitar chip desde contenedor (SERIE)
+        document.getElementById('selected-genres-serie')?.addEventListener('click', e => {
+            if (!e.target.matches('.genre-chip')) return;
+            selectedGenresSerie.delete(e.target.dataset.g);
+            renderGenres(selectedGenresSerie, 'selected-genres-serie');
+        });
+
+        // Quitar chip desde contenedor (PELÍCULA)
+        document.getElementById('selected-genres-pelicula')?.addEventListener('click', e => {
+            if (!e.target.matches('.genre-chip')) return;
+            selectedGenresPelicula.delete(e.target.dataset.g);
+            renderGenres(selectedGenresPelicula, 'selected-genres-pelicula');
+        });
+
+        /* -----  TEMPORADAS / CAPÍTULOS  ----- */
+        function generarCamposTemporadas() {
+            const n = parseInt(document.getElementById('cantidad-temporadas').value) || 0;
+            const container = document.getElementById('temporadas-capitulos');
+            container.innerHTML = '';
+
+            if (n > 0) {
+                const wrap = document.createElement('div');
+                wrap.className = 'vidrio-estatico p-4 aparecer';
+                wrap.innerHTML = '<h4 class="text-sm mb-3">Capítulos por temporada</h4>';
+
+                for (let i = 1; i <= n; i++) {
+                    wrap.insertAdjacentHTML('beforeend', `
+                        <div class="mb-3">
+                          <label class="block text-sm mb-1">Temporada ${i}</label>
+                          <input type="number" min="1" max="9999"
+                                 class="w-full p-2 input-glass"
+                                 placeholder="Cantidad de capítulos">
+                        </div>`);
+                }
+
+                container.appendChild(wrap);
+            }
+        }
+    </script>
+</body>
+
+</html>
