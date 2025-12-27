@@ -570,3 +570,29 @@ function toggleProject(card) {
         }, 300);
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// sw.js
+self.addEventListener('install', (event) => {
+    event.waitUntil(
+        caches.open('portfolio-v1').then((cache) => {
+            return cache.addAll([
+                '/',
+                '/src/css/Styles_Arbuz.css',
+                '/src/img/Foto.webp'
+            ]);
+        })
+    );
+});
