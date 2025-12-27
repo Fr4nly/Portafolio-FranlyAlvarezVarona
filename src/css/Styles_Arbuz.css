@@ -10,20 +10,6 @@ body {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /* Content for demo */
 .content-section {
   height: 100vh;
@@ -43,28 +29,6 @@ body {
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /* Add to existing CSS for consistent visual spacing */
 #quien-soy > div.container,
 #habilidades > div.container,
@@ -82,17 +46,6 @@ body {
   margin-top: 0.5rem !important;
   padding-top: 0.5rem !important;
 }
-
-
-
-
-
-
-
-
-
-
-
 
 
 /* ===== SCROLLBAR HIDE - COMPATIBLE CON TODOS LOS NAVEGADORES ===== */
@@ -192,29 +145,6 @@ main::-webkit-scrollbar,
 .container::-webkit-scrollbar {
     display: none;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 /* Si no tienes border-red-500 definido, usa border-red-400 */
