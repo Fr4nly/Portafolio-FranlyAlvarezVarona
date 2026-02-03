@@ -1,3 +1,6 @@
+@import "tailwindcss";
+
+
 body {
   font-family: "Expletus Sans", sans-serif;
   font-optical-sizing: auto;
