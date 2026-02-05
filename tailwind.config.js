@@ -44,6 +44,14 @@ export default {
     // sombras custom
     'shadow-xl',
     'shadow-2xl',
+
+    // ⭐ COLORES PURPLE PARA VITE ⭐
+    'border-purple-400',
+    'border-purple-500',
+    'border-purple-600',
+    'hover:border-purple-400',
+    'hover:border-purple-500',
+    'hover:border-purple-600',
   ],
 
   theme: {
@@ -120,6 +128,4 @@ export default {
   },
 
   plugins: [],
-
-  
 }
