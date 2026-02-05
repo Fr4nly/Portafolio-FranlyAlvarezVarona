@@ -3,6 +3,7 @@ export default {
   content: [
     "./index.html",
     "./src/**/*.{html,js}",
+    "./docs/**/*.{html,js}",
   ],
 
   safelist: [
