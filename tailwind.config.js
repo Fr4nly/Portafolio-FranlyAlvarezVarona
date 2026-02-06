@@ -45,13 +45,25 @@ export default {
     'shadow-xl',
     'shadow-2xl',
 
-    // ⭐ COLORES PURPLE PARA VITE ⭐
+    // ⭐ COLORES PURPLE PARA VITE - VERSIÓN MEJORADA
     'border-purple-400',
     'border-purple-500',
     'border-purple-600',
     'hover:border-purple-400',
     'hover:border-purple-500',
     'hover:border-purple-600',
+    'border-vite-purple',
+    'hover:border-vite-purple',
+    
+    // Pattern safelist para asegurar todas las variantes
+    {
+      pattern: /border-purple-(400|500|600)/,
+      variants: ['hover', 'focus', 'active'],
+    },
+    {
+      pattern: /border-vite-purple/,
+      variants: ['hover', 'focus', 'active'],
+    },
   ],
 
   theme: {
@@ -60,6 +72,8 @@ export default {
         'space-deep': '#05051a',
         'space-mid': '#0a0a2a',
         'space-light': '#1a1a4a',
+        // ⭐ COLOR OFICIAL DE VITE
+        'vite-purple': '#646cff',
       },
 
       backgroundImage: {
