@@ -613,7 +613,7 @@ self.addEventListener('install', (event) => {
             return cache.addAll([
                 '/',
                 '/src/css/Styles_Arbuz.css',
-                '/src/img/Foto.webp'
+                '/Foto.webp'
             ]);
         })
     );
