@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Distrito Japones</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .vidrio-estatico {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        /* Estilo para enlaces que se ven como botones */
+        .btn-link {
+            display: block;
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        /* Mejoras para hover y active */
+        .btn-link:hover {
+            transform: scale(1.05);
+        }
+        
+        .btn-link:active {
+            transform: scale(0.95);
+        }
+    </style>
+</head>
+
+<body class="min-h-screen bg-cover bg-center bg-fixed relative"
+    style="background-image: url('https://w.wallhaven.cc/full/1k/wallhaven-1k6ljv.jpg');">
+
+    <div class="min-h-screen flex items-center justify-center p-4">
+
+        <div class="vidrio-estatico p-6">
+            <!-- Genre Filter Section -->
+
+            <div class=" p-4 ">
+                <h3 class="text-white font-semibold text-2xl mb-4 text-center">
+                    Ver vista de:
+                </h3>
+            </div>
+
+            <div class="flex flex-col items-center gap-6 sm:gap-8 max-w-4xl mx-auto">
+
+                <!-- 1ra cuadrícula 3x3 -->
+                <div class="w-full">
+
+                    <div class="grid grid-cols-3 gap-2 sm:gap-3">
+                        <!-- Botón Login - Ahora es un enlace con estilo de botón -->
+                        <a href="Distrito Japones Login.html" 
+                            class="btn-link nav-link active px-4 py-3 sm:px-6 sm:py-3 rounded-xl text-white font-medium text-sm sm:text-base transition-all duration-300 hover:bg-white/30 hover:scale-105 hover:shadow-lg border-2 vidrio-estatico active:scale-95 focus:outline-none focus:ring-2 focus:ring-white/50 focus:ring-offset-2 focus:ring-offset-transparent text-center whitespace-nowrap bg-white/25 border-white/30">
+                            <span class="flex flex-col items-center justify-center gap-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="lucide lucide-log-in">
+                                    <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4" />
+                                    <polyline points="10 17 15 12 10 7" />
+                                    <line x1="15" y1="12" x2="3" y2="12" />
+                                </svg>
+                                <span class="text-xs sm:text-sm" data-en="Login" data-es="Login" data-jp="ログイン">Login</span>
+                            </span>
+                        </a>
+
+                        <!-- Botón Register - Ahora es un enlace con estilo de botón -->
+                        <a href="Distrito Japones Register.html" 
+                            class="btn-link nav-link active px-4 py-3 sm:px-6 sm:py-3 rounded-xl text-white font-medium text-sm sm:text-base transition-all duration-300 hover:bg-white/30 hover:scale-105 hover:shadow-lg border-2 vidrio-estatico active:scale-95 focus:outline-none focus:ring-2 focus:ring-white/50 focus:ring-offset-2 focus:ring-offset-transparent text-center whitespace-nowrap bg-white/25 border-white/30">
+                            <span class="flex flex-col items-center justify-center gap-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="lucide lucide-user-plus">
+                                    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                                    <circle cx="9" cy="7" r="4" />
+                                    <path d="M19 8v6" />
+                                    <path d="M22 11h-6" />
+                                </svg>
+                                <span class="text-xs sm:text-sm" data-en="Register" data-es="Register"
+                                    data-jp="登録">Register</span>
+                            </span>
+                        </a>
+
+                        <!-- Botón Perfil - Ahora es un enlace con estilo de botón -->
+                        <a href="Distrito Japones Perfil.html" 
+                            class="btn-link nav-link active px-4 py-3 sm:px-6 sm:py-3 rounded-xl text-white font-medium text-sm sm:text-base transition-all duration-300 hover:bg-white/30 hover:scale-105 hover:shadow-lg border-2 vidrio-estatico active:scale-95 focus:outline-none focus:ring-2 focus:ring-white/50 focus:ring-offset-2 focus:ring-offset-transparent text-center whitespace-nowrap bg-white/25 border-white/30">
+                            <span class="flex flex-col items-center justify-center gap-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="lucide lucide-user">
+                                    <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+                                    <circle cx="12" cy="7" r="4" />
+                                </svg>
+                                <span class="text-xs sm:text-sm" data-en="Profile" data-es="Perfil"
+                                    data-jp="プロファイル">Perfil</span>
+                            </span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Segunda cuadrícula 3x3 -->
+                <div class="w-full">
+                    <div class="grid grid-cols-3 gap-2 sm:gap-3">
+                        <!-- Botón Inicio - Ahora es un enlace con estilo de botón -->
+                        <a href="Distrito Japones Inicio.html" 
+                            class="btn-link nav-link active px-4 py-3 sm:px-6 sm:py-3 rounded-xl text-white font-medium text-sm sm:text-base transition-all duration-300 hover:bg-white/30 hover:scale-105 hover:shadow-lg border-2 vidrio-estatico active:scale-95 focus:outline-none focus:ring-2 focus:ring-white/50 focus:ring-offset-2 focus:ring-offset-transparent text-center whitespace-nowrap bg-white/25 border-white/30">
+                            <span class="flex flex-col items-center justify-center gap-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                    fill="none" stroke="#ffffff" stroke-width="1.75" stroke-linecap="round"
+                                    stroke-linejoin="round" class="lucide lucide-house-icon lucide-house">
+                                    <path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8" />
+                                    <path
+                                        d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                                </svg>
+                                <span class="text-xs sm:text-sm" data-en="Home" data-es="Inicio" data-jp="ホーム">Inicio</span>
+                            </span>
+                        </a>
+
+                        <!-- Botón Admin - Ahora es un enlace con estilo de botón -->
+                        <a href="Distrito Japones Admin.html" 
+                            class="btn-link nav-link active px-4 py-3 sm:px-6 sm:py-3 rounded-xl text-white font-medium text-sm sm:text-base transition-all duration-300 hover:bg-white/30 hover:scale-105 hover:shadow-lg border-2 vidrio-estatico active:scale-95 focus:outline-none focus:ring-2 focus:ring-white/50 focus:ring-offset-2 focus:ring-offset-transparent text-center whitespace-nowrap bg-white/25 border-white/30">
+                            <span class="flex flex-col items-center justify-center gap-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="lucide lucide-settings-icon lucide-settings">
+                                    <path
+                                        d="M9.671 4.136a2.34 2.34 0 0 1 4.659 0 2.34 2.34 0 0 0 3.319 1.915 2.34 2.34 0 0 1 2.33 4.033 2.34 2.34 0 0 0 0 3.831 2.34 2.34 0 0 1-2.33 4.033 2.34 2.34 0 0 0-3.319 1.915 2.34 2.34 0 0 1-4.659 0 2.34 2.34 0 0 0-3.32-1.915 2.34 2.34 0 0 1-2.33-4.033 2.34 2.34 0 0 0 0-3.831A2.34 2.34 0 0 1 6.35 6.051a2.34 2.34 0 0 0 3.319-1.915" />
+                                    <circle cx="12" cy="12" r="3" />
+                                </svg>
+                                <span class="text-xs sm:text-sm" data-en="Admin" data-es="Admin" data-jp="管理">Admin</span>
+                            </span>
+                        </a>
+
+                        <!-- Botón Añadir - Ahora es un enlace con estilo de botón -->
+                        <a href="Distrito Japones Añadir.html" 
+                            class="btn-link nav-link active px-4 py-3 sm:px-6 sm:py-3 rounded-xl text-white font-medium text-sm sm:text-base transition-all duration-300 hover:bg-white/30 hover:scale-105 hover:shadow-lg border-2 vidrio-estatico active:scale-95 focus:outline-none focus:ring-2 focus:ring-white/50 focus:ring-offset-2 focus:ring-offset-transparent text-center whitespace-nowrap bg-white/25 border-white/30">
+                            <span class="flex flex-col items-center justify-center gap-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="lucide lucide-plus-icon lucide-plus">
+                                    <path d="M5 12h14" />
+                                    <path d="M12 5v14" />
+                                </svg>
+                                <span class="text-xs sm:text-sm" data-en="Add" data-es="Añadir" data-jp="追加">Añadir</span>
+                            </span>
+                        </a>
+
+                        <!-- Botón Descargar - Ahora es un enlace con estilo de botón -->
+                        <a href="Distrito Japones Descargar.html" 
+                            class="btn-link nav-link active px-4 py-3 sm:px-6 sm:py-3 rounded-xl text-white font-medium text-sm sm:text-base transition-all duration-300 hover:bg-white/30 hover:scale-105 hover:shadow-lg border-2 vidrio-estatico active:scale-95 focus:outline-none focus:ring-2 focus:ring-white/50 focus:ring-offset-2 focus:ring-offset-transparent text-center whitespace-nowrap bg-white/25 border-white/30">
+                            <span class="flex flex-col items-center justify-center gap-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="lucide lucide-download-icon lucide-download">
+                                    <path d="M12 15V3" />
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                                    <path d="m7 10 5 5 5-5" />
+                                </svg>
+                                <span class="text-xs sm:text-sm" data-en="Download" data-es="Descargar"
+                                    data-jp="ダウンロード">Descargar</span>
+                            </span>
+                        </a>
+
+                        <!-- Botón Pedido - Ahora es un enlace con estilo de botón -->
+                        <a href="Distrito Japones Pedido.html" 
+                            class="btn-link nav-link active px-4 py-3 sm:px-6 sm:py-3 rounded-xl text-white font-medium text-sm sm:text-base transition-all duration-300 hover:bg-white/30 hover:scale-105 hover:shadow-lg border-2 vidrio-estatico active:scale-95 focus:outline-none focus:ring-2 focus:ring-white/50 focus:ring-offset-2 focus:ring-offset-transparent text-center whitespace-nowrap bg-white/25 border-white/30">
+                            <span class="flex flex-col items-center justify-center gap-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="lucide lucide-shopping-cart">
+                                    <circle cx="8" cy="21" r="1" />
+                                    <circle cx="19" cy="21" r="1" />
+                                    <path
+                                        d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12" />
+                                </svg>
+                                <span class="text-xs sm:text-sm" data-en="Order" data-es="Pedido" data-jp="注文">Pedido</span>
+                            </span>
+                        </a>
+
+                        <!-- Botón Moneda - Ahora es un enlace con estilo de botón -->
+                        <a href="Distrito Japones Moneda.html" 
+                            class="btn-link nav-link active px-4 py-3 sm:px-6 sm:py-3 rounded-xl text-white font-medium text-sm sm:text-base transition-all duration-300 hover:bg-white/30 hover:scale-105 hover:shadow-lg border-2 vidrio-estatico active:scale-95 focus:outline-none focus:ring-2 focus:ring-white/50 focus:ring-offset-2 focus:ring-offset-transparent text-center whitespace-nowrap bg-white/25 border-white/30">
+                            <span class="flex flex-col items-center justify-center gap-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="lucide lucide-japanese-yen">
+                                    <path d="M12 9.5V21m0-11.5L6 3m6 6.5L18 3" />
+                                    <path d="M6 15h12" />
+                                    <path d="M6 11h12" />
+                                </svg>
+                                <span class="text-xs sm:text-sm" data-en="Currency" data-es="Moneda"
+                                    data-jp="通貨">Moneda</span>
+                            </span>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
