@@ -1,0 +1,31 @@
+---
+import Layout from '../layouts/Layout.astro';
+import SobreMi from '../components/sobre-mi.astro';  
+import Habilidades from '../components/habilidades.astro';
+import Proyectos from '../components/proyectos.astro';
+import Contacto from '../components/contacto.astro';
+---
+
+<Layout>
+    <SobreMi />  
+    <Habilidades />  
+    <Proyectos />
+    <Contacto />	   
+</Layout>
+
+<style is:global>
+  /* Ocultar scrollbar en navegadores WebKit (Chrome, Safari, Edge) */
+  html::-webkit-scrollbar {
+    display: none;
+  }
+  
+  /* Ocultar scrollbar en Firefox */
+  html {
+    scrollbar-width: none;
+  }
+  
+  /* Ocultar scrollbar en IE/Edge legacy */
+  html {
+    -ms-overflow-style: none;
+  }
+</style>

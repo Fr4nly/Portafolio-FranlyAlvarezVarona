@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Iglesia Otavalo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background-image: url('https://w.wallhaven.cc/full/ym/wallhaven-ymokrl.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        /* Personalización del scrollbar */
+        ::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(59, 130, 246, 0.5);
+            border-radius: 2px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(59, 130, 246, 0.8);
+        }
+    </style>
+</head>
+
+<body class="min-h-screen flex items-center justify-center p-3">
+    <div class="relative w-full max-w-[280px] px-2">
+        <!-- Logo -->
+        <div class="absolute -top-10 left-1/2 -translate-x-1/2 z-20">
+            <img src="https://images.unsplash.com/photo-1562883676-8c7feb83f09b?auto=format&fit=crop&w=200&q=80"
+                alt="Logo Iglesia" class="w-16 h-16 rounded-full border-3 border-white shadow-lg object-cover">
+        </div>
+
+        <!-- Card -->
+        <div class="bg-white/90 backdrop-blur rounded-xl shadow-lg p-3 pt-12 relative z-10">
+            <h1 class="text-center text-lg font-bold text-gray-800 mb-1">Iglesia OTAVALO</h1>
+            <p class="text-center text-xs text-gray-600 mb-3">Por favor, proporcione sus datos</p>
+
+            <form id="loginForm" class="space-y-2">
+                <!-- Usuario -->
+                <div class="relative">
+                    <input type="text" id="usuario" placeholder="Usuario" required
+                        class="w-full h-9 px-3 pr-9 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400 text-gray-800 text-xs">
+                    <span class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 pointer-events-none">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+                            <circle cx="12" cy="7" r="4" />
+                        </svg>
+                    </span>
+                </div>
+
+                <!-- Contraseña + toggle -->
+                <div class="relative">
+                    <input type="password" id="password" placeholder="Contraseña" required
+                        class="w-full h-9 px-3 pr-18 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400 text-gray-800 text-xs">
+                    <!-- Íconos a la derecha -->
+                    <div class="absolute right-3 top-1/2 -translate-y-1/2 flex items-center space-x-1">
+                        <!-- Botón ojo -->
+                        <button type="button" id="togglePassword" class="text-gray-600 hover:text-blue-600 transition">
+                            <!-- SVG ojo cerrado (contraseña NO visible) -->
+                            <svg id="eyeClosed" xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <path d="m15 18-.722-3.25" />
+                                <path d="M2 8a10.645 10.645 0 0 0 20 0" />
+                                <path d="m20 15-1.726-2.05" />
+                                <path d="m4 15 1.726-2.05" />
+                                <path d="m9 18 .722-3.25" />
+                            </svg>
+                            <!-- SVG ojo abierto (contraseña visible) -->
+                            <svg id="eyeOpen" xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                                stroke-linecap="round" stroke-linejoin="round" class="hidden">
+                                <path
+                                    d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0" />
+                                <circle cx="12" cy="12" r="3" />
+                            </svg>
+                        </button>
+                        <!-- Candado -->
+                        <span class="text-gray-500 pointer-events-none">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <rect width="18" height="11" x="3" y="11" rx="2" ry="2" />
+                                <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                            </svg>
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Zona Pastoral -->
+                <div>
+                    <label class="block font-semibold text-gray-700 mb-1 text-xs">Zona Pastoral:</label>
+                    <select id="zonaPastoral" required
+                        class="w-full h-9 px-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400 text-gray-800 appearance-none bg-white text-xs">
+                        <option value="">Seleccione una zona</option>
+                        <option value="norte">Norte</option>
+                        <option value="sur">Sur</option>
+                        <option value="este">Este</option>
+                        <option value="oeste">Oeste</option>
+                    </select>
+                </div>
+
+                <!-- Parroquia -->
+                <div>
+                    <label class="block font-semibold text-gray-700 mb-1 text-xs">Parroquia:</label>
+                    <select id="parroquia" required
+                        class="w-full h-9 px-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400 text-gray-800 appearance-none bg-white text-xs">
+                        <option value="">Seleccione una parroquia</option>
+                        <option value="parroquia1">Parroquia 1</option>
+                        <option value="parroquia2">Parroquia 2</option>
+                        <option value="parroquia3">Parroquia 3</option>
+                    </select>
+                </div>
+
+                <!-- Enlaces y botón -->
+                <div class="text-right mt-1">
+                    <a href="#" class="text-xs font-bold text-gray-700 hover:underline">¿Ha olvidado su contraseña?</a>
+                </div>
+
+                <button type="submit"
+                    class="w-full h-9 rounded-lg bg-blue-600 text-white font-semibold hover:bg-blue-700 transition text-xs mt-1">
+                    Iniciar Sesión
+                </button>
+
+                <div class="text-center mt-1">
+                    <a href="Cate-SIS Register.html" class="text-xs font-bold text-gray-700 hover:underline">Crear usuario</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Toggle visibilidad contraseña
+        const toggleBtn = document.getElementById('togglePassword');
+        const passwordInput = document.getElementById('password');
+        const eyeOpen = document.getElementById('eyeOpen');
+        const eyeClosed = document.getElementById('eyeClosed');
+
+        toggleBtn.addEventListener('click', () => {
+            const isHidden = passwordInput.type === 'password';
+            passwordInput.type = isHidden ? 'text' : 'password';
+            eyeOpen.classList.toggle('hidden', !isHidden);
+            eyeClosed.classList.toggle('hidden', isHidden);
+        });
+
+        // Simular login
+        document.getElementById('loginForm').addEventListener('submit', e => {
+            e.preventDefault();
+            alert('Simulación de inicio de sesión');
+        });
+
+        // Dependencia entre Zona Pastoral y Parroquia
+        document.getElementById('zonaPastoral').addEventListener('change', function () {
+            const zonaPastoral = this.value;
+            const parroquiaSelect = document.getElementById('parroquia');
+
+            // Limpiar opciones actuales excepto la primera
+            parroquiaSelect.innerHTML = '<option value="">Seleccione una parroquia</option>';
+
+            // Añadir opciones según la zona pastoral seleccionada
+            if (zonaPastoral === 'norte') {
+                parroquiaSelect.innerHTML += '<option value="san_jose">San José</option>';
+                parroquiaSelect.innerHTML += '<option value="santa_ana">Santa Ana</option>';
+                parroquiaSelect.innerHTML += '<option value="sagrado_corazon">Sagrado Corazón</option>';
+            } else if (zonaPastoral === 'sur') {
+                parroquiaSelect.innerHTML += '<option value="san_pedro">San Pedro</option>';
+                parroquiaSelect.innerHTML += '<option value="san_juan_bautista">San Juan Bautista</option>';
+                parroquiaSelect.innerHTML += '<option value="virgen_de_fatima">Virgen de Fátima</option>';
+            } else if (zonaPastoral === 'este') {
+                parroquiaSelect.innerHTML += '<option value="san_miguel">San Miguel</option>';
+                parroquiaSelect.innerHTML += '<option value="san_jorge">San Jorge</option>';
+                parroquiaSelect.innerHTML += '<option value="santa_teresita">Santa Teresita</option>';
+            } else if (zonaPastoral === 'oeste') {
+                parroquiaSelect.innerHTML += '<option value="san_francisco">San Francisco</option>';
+                parroquiaSelect.innerHTML += '<option value="santa_rosa">Santa Rosa</option>';
+                parroquiaSelect.innerHTML += '<option value="san_antonio">San Antonio</option>';
+            }
+        });
+    </script>
+</body>
+
+</html>

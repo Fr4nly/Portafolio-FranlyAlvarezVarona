@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Panel de Administración - Distrito Japonés</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/css/flag-icon.min.css" />
+    <!-- CSS para vidrio estatico -->
+    <style>
+        .vidrio-estatico {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .line-clamp-1 {
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 1;
+        }
+
+        .line-clamp-2 {
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+        }
+
+        .search-input {
+            transition: all 0.3s ease;
+        }
+
+        .search-input.hidden {
+            width: 0;
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .search-input.visible {
+            width: 16rem;
+            opacity: 1;
+            visibility: visible;
+        }
+
+        @media (max-width: 640px) {
+            .search-input.visible {
+                width: 8rem;
+            }
+        }
+
+        .modal-overlay {
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+        }
+
+        .volume-slider {
+            -webkit-appearance: none;
+            appearance: none;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 2px;
+            outline: none;
+        }
+
+        .volume-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 16px;
+            height: 16px;
+            background: white;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .volume-slider::-moz-range-thumb {
+            width: 16px;
+            height: 16px;
+            background: white;
+            border-radius: 50%;
+            cursor: pointer;
+            border: none;
+        }
+
+        .admin-card {
+            transition: all 0.3s ease;
+        }
+
+        .admin-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .table-container {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 0.75rem 1rem;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        th {
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.9);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        tr:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .badge-success {
+            background: rgba(72, 187, 120, 0.2);
+            color: #48bb78;
+        }
+
+        .badge-warning {
+            background: rgba(246, 173, 85, 0.2);
+            color: #f6ad55;
+        }
+
+        .badge-danger {
+            background: rgba(245, 101, 101, 0.2);
+            color: #f56565;
+        }
+
+        .badge-info {
+            background: rgba(102, 126, 234, 0.2);
+            color: #667eea;
+        }
+
+        .chart-container {
+            position: relative;
+            height: 300px;
+        }
+    </style>
+</head>
+
+<body class="min-h-screen bg-cover bg-center bg-fixed relative" style="
+      background-image: url('https://w.wallhaven.cc/full/1k/wallhaven-1k6ljv.jpg');
+    ">
+    <!-- Navbar -->
+    <nav class="fixed top-0 right-0 z-50">
+        <div
+            class="flex items-center space-x-1 sm:space-x-2 lg:space-x-3 vidrio-estatico rounded-none rounded-bl-2xl sm:rounded-bl-3xl px-2 sm:px-3 lg:px-4 shadow-lg max-w-[95vw] overflow-hidden">
+            <!-- Search -->
+            <div class="flex items-center space-x-1 sm:space-x-2">
+                <button id="searchBtn"
+                    class="bg-transparent hover:bg-white/10 border-0 p-1.5 sm:p-2 h-auto rounded transition-colors flex-shrink-0">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="#ffffff" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"
+                        class="lucide lucide-search-icon lucide-search">
+                        <path d="m21 21-4.34-4.34" />
+                        <circle cx="11" cy="11" r="8" />
+                    </svg>
+                </button>
+                <input type="text" id="searchInput"
+                    class="search-input hidden h-6 sm:h-8 px-1 sm:px-2 py-1 text-xs sm:text-sm bg-transparent border border-white/30 text-white placeholder-white/70 focus:ring-1 focus:ring-white/50 focus:border-white/50 focus:outline-none rounded" />
+            </div>
+
+            <!-- Chat -->
+            <button id="chatBtn"
+                class="bg-transparent hover:bg-white/10 border-0 p-1.5 sm:p-2 h-auto rounded transition-colors flex-shrink-0">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                    stroke="#ffffff" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"
+                    class="lucide lucide-messages-square-icon lucide-messages-square">
+                    <path d="M14 9a2 2 0 0 1-2 2H6l-4 4V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2z" />
+                    <path d="M18 9h2a2 2 0 0 1 2 2v11l-4-4h-6a2 2 0 0 1-2-2v-1" />
+                </svg>
+            </button>
+
+            <!-- Radio/Music Player -->
+            <button id="musicBtn"
+                class="bg-transparent hover:bg-white/10 border-0 p-1.5 sm:p-2 h-auto rounded transition-colors flex-shrink-0"
+                aria-label="Abrir opciones de música">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                    stroke="#ffffff" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"
+                    class="lucide lucide-radio-tower-icon lucide-radio-tower">
+                    <path d="M4.9 16.1C1 12.2 1 5.8 4.9 1.9" />
+                    <path d="M7.8 4.7a6.14 6.14 0 0 0-.8 7.5" />
+                    <circle cx="12" cy="9" r="2" />
+                    <path d="M16.2 4.8c2 2 2.26 5.11.8 7.47" />
+                    <path d="M19.1 1.9a9.96 9.96 0 0 1 0 14.1" />
+                    <path d="M9.5 18h5" />
+                    <path d="m8 22 4-11 4 11" />
+                </svg>
+            </button>
+
+            <!-- Orders -->
+            <button id="orderBtn"
+                class="bg-transparent hover:bg-white/10 border-0 p-1.5 sm:p-2 h-auto rounded transition-colors flex-shrink-0">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                    stroke="#ffffff" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"
+                    class="lucide lucide-shopping-basket-icon lucide-shopping-basket">
+                    <path d="m15 11-1 9" />
+                    <path d="m19 11-4-7" />
+                    <path d="M2 11h20" />
+                    <path d="m3.5 11 1.6 7.4a2 2 0 0 0 2 1.6h9.8a2 2 0 0 0 2-1.6l1.7-7.4" />
+                    <path d="M4.5 15.5h15" />
+                    <path d="m5 11 4-7" />
+                    <path d="m9 11 1 9" />
+                </svg>
+            </button>
+
+            <!-- Language -->
+            <button id="languageBtn"
+                class="bg-transparent hover:bg-white/10 border-0 p-1.5 sm:p-2 h-auto rounded transition-colors flex-shrink-0">
+                <span id="langCode" class="flag-icon flag-icon-es"></span>
+            </button>
+
+            <!-- Profile -->
+            <button
+                class="bg-transparent hover:bg-white/10 border-0 p-1 sm:p-2 h-auto flex items-center space-x-1 rounded transition-colors flex-shrink-0">
+                <div
+                    class="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-gradient-to-r from-purple-600 to-cyan-200 flex items-center justify-center">
+                    <i class="fas fa-user-cog text-white text-sm"></i>
+                </div>
+                <span class="hidden sm:inline text-white font-medium text-xs sm:text-sm" data-en="Admin"
+                    data-es="Administrador" data-jp="管理者">Administrador</span>
+            </button>
+
+            <!-- Coins -->
+            <div class="flex items-center space-x-0.5 sm:space-x-1 flex-shrink-0">
+                <div class="w-5 h-5 sm:w-6 sm:h-6 rounded-full overflow-hidden flex items-center justify-center">
+                    <img src="../../src/img/Moneda.webp" alt="Moneda" class="h-6 w-6 object-cover" />
+                </div>
+                <span class="text-white font-medium text-xs sm:text-sm">100</span>
+                <button
+                    class="relative w-5 h-5 sm:w-6 sm:h-6 flex items-center justify-center rounded-full vidrio-estatico shadow-lg hover:bg-white/20 transition p-0">
+                    <svg class="w-3 h-3 sm:w-4 sm:h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="pt-20 px-6 pb-8">
+        <!-- Page Title -->
+        <div class="max-w-7xl mx-auto mb-8">
+            <div class="flex items-center justify-between">
+                <h1 class="text-3xl font-bold text-white">Panel de Administración</h1>
+                <div class="flex space-x-2">
+                    <button class="vidrio-estatico text-white px-4 py-2 rounded-lg flex items-center space-x-2 hover:bg-white/20 transition">
+                        <i class="fas fa-sync-alt"></i>
+                        <span>Actualizar</span>
+                    </button>
+                    <button class="bg-purple-500/80 text-white px-4 py-2 rounded-lg flex items-center space-x-2 hover:bg-purple-600/80 transition">
+                        <i class="fas fa-plus"></i>
+                        <span>Nuevo</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Stats Overview -->
+        <div class="max-w-7xl mx-auto mb-8">
+            <div class="stats-grid">
+                <!-- Users Card -->
+                <div class="vidrio-estatico p-6 text-white admin-card">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-white/70">Usuarios Totales</p>
+                            <h3 class="text-3xl font-bold mt-1">12,548</h3>
+                            <div class="flex items-center mt-2">
+                                <span class="text-green-400 text-sm flex items-center">
+                                    <i class="fas fa-arrow-up mr-1"></i> 12.5%
+                                </span>
+                                <span class="text-white/70 text-sm ml-2">desde el mes pasado</span>
+                            </div>
+                        </div>
+                        <div class="bg-blue-500/20 p-3 rounded-full">
+                            <i class="fas fa-users text-blue-400 text-2xl"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Orders Card -->
+                <div class="vidrio-estatico p-6 text-white admin-card">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-white/70">Pedidos Totales</p>
+                            <h3 class="text-3xl font-bold mt-1">3,218</h3>
+                            <div class="flex items-center mt-2">
+                                <span class="text-green-400 text-sm flex items-center">
+                                    <i class="fas fa-arrow-up mr-1"></i> 8.2%
+                                </span>
+                                <span class="text-white/70 text-sm ml-2">desde el mes pasado</span>
+                            </div>
+                        </div>
+                        <div class="bg-green-500/20 p-3 rounded-full">
+                            <i class="fas fa-shopping-cart text-green-400 text-2xl"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Revenue Card -->
+                <div class="vidrio-estatico p-6 text-white admin-card">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-white/70">Ingresos</p>
+                            <h3 class="text-3xl font-bold mt-1">$42,865</h3>
+                            <div class="flex items-center mt-2">
+                                <span class="text-green-400 text-sm flex items-center">
+                                    <i class="fas fa-arrow-up mr-1"></i> 15.3%
+                                </span>
+                                <span class="text-white/70 text-sm ml-2">desde el mes pasado</span>
+                            </div>
+                        </div>
+                        <div class="bg-yellow-500/20 p-3 rounded-full">
+                            <i class="fas fa-dollar-sign text-yellow-400 text-2xl"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Products Card -->
+                <div class="vidrio-estatico p-6 text-white admin-card">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-white/70">Productos</p>
+                            <h3 class="text-3xl font-bold mt-1">856</h3>
+                            <div class="flex items-center mt-2">
+                                <span class="text-green-400 text-sm flex items-center">
+                                    <i class="fas fa-arrow-up mr-1"></i> 3.1%
+                                </span>
+                                <span class="text-white/70 text-sm ml-2">desde el mes pasado</span>
+                            </div>
+                        </div>
+                        <div class="bg-red-500/20 p-3 rounded-full">
+                            <i class="fas fa-box text-red-400 text-2xl"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Charts and Data Section -->
+        <div class="max-w-7xl mx-auto mb-8 grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <!-- Revenue Chart -->
+            <div class="vidrio-estatico p-6">
+                <h3 class="text-white font-semibold text-lg mb-4">Ingresos Mensuales</h3>
+                <div class="chart-container">
+                    <canvas id="revenueChart"></canvas>
+                </div>
+            </div>
+
+            <!-- User Acquisition Chart -->
+            <div class="vidrio-estatico p-6">
+                <h3 class="text-white font-semibold text-lg mb-4">Adquisición de Usuarios</h3>
+                <div class="chart-container">
+                    <canvas id="userChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent Orders Table -->
+        <div class="max-w-7xl mx-auto mb-8">
+            <div class="vidrio-estatico p-6">
+                <div class="flex items-center justify-between mb-6">
+                    <h3 class="text-white font-semibold text-lg">Pedidos Recientes</h3>
+                    <button class="text-purple-300 hover:text-purple-200 text-sm flex items-center">
+                        <span>Ver todos</span>
+                        <i class="fas fa-chevron-right ml-1 text-xs"></i>
+                    </button>
+                </div>
+                
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID Pedido</th>
+                                <th>Cliente</th>
+                                <th>Fecha</th>
+                                <th>Monto</th>
+                                <th>Estado</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-white/80">
+                            <tr>
+                                <td>#ORD-7852</td>
+                                <td>María Rodríguez</td>
+                                <td>12 Nov 2023</td>
+                                <td>$125.00</td>
+                                <td><span class="badge badge-success">Completado</span></td>
+                                <td>
+                                    <div class="flex space-x-2">
+                                        <button class="text-blue-400 hover:text-blue-300">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="text-green-400 hover:text-green-300">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="text-red-400 hover:text-red-300">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>#ORD-7851</td>
+                                <td>Carlos Sánchez</td>
+                                <td>12 Nov 2023</td>
+                                <td>$89.50</td>
+                                <td><span class="badge badge-warning">Pendiente</span></td>
+                                <td>
+                                    <div class="flex space-x-2">
+                                        <button class="text-blue-400 hover:text-blue-300">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="text-green-400 hover:text-green-300">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="text-red-400 hover:text-red-300">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>#ORD-7850</td>
+                                <td>Ana Martínez</td>
+                                <td>11 Nov 2023</td>
+                                <td>$215.75</td>
+                                <td><span class="badge badge-success">Completado</span></td>
+                                <td>
+                                    <div class="flex space-x-2">
+                                        <button class="text-blue-400 hover:text-blue-300">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="text-green-400 hover:text-green-300">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="text-red-400 hover:text-red-300">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>#ORD-7849</td>
+                                <td>Javier López</td>
+                                <td>11 Nov 2023</td>
+                                <td>$62.30</td>
+                                <td><span class="badge badge-danger">Cancelado</span></td>
+                                <td>
+                                    <div class="flex space-x-2">
+                                        <button class="text-blue-400 hover:text-blue-300">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="text-green-400 hover:text-green-300">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="text-red-400 hover:text-red-300">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>#ORD-7848</td>
+                                <td>Laura García</td>
+                                <td>10 Nov 2023</td>
+                                <td>$178.90</td>
+                                <td><span class="badge badge-info">Enviado</span></td>
+                                <td>
+                                    <div class="flex space-x-2">
+                                        <button class="text-blue-400 hover:text-blue-300">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="text-green-400 hover:text-green-300">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="text-red-400 hover:text-red-300">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent Users Table -->
+        <div class="max-w-7xl mx-auto mb-8">
+            <div class="vidrio-estatico p-6">
+                <div class="flex items-center justify-between mb-6">
+                    <h3 class="text-white font-semibold text-lg">Usuarios Recientes</h3>
+                    <button class="text-purple-300 hover:text-purple-200 text-sm flex items-center">
+                        <span>Ver todos</span>
+                        <i class="fas fa-chevron-right ml-1 text-xs"></i>
+                    </button>
+                </div>
+                
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Usuario</th>
+                                <th>Email</th>
+                                <th>Registro</th>
+                                <th>Estado</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-white/80">
+                            <tr>
+                                <td>
+                                    <div class="flex items-center">
+                                        <div class="w-8 h-8 rounded-full bg-purple-500/20 flex items-center justify-center mr-3">
+                                            <i class="fas fa-user text-purple-400"></i>
+                                        </div>
+                                        <span>María Rodríguez</span>
+                                    </div>
+                                </td>
+                                <td>maria@ejemplo.com</td>
+                                <td>12 Nov 2023</td>
+                                <td><span class="badge badge-success">Activo</span></td>
+                                <td>
+                                    <div class="flex space-x-2">
+                                        <button class="text-blue-400 hover:text-blue-300">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="text-green-400 hover:text-green-300">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="text-red-400 hover:text-red-300">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="flex items-center">
+                                        <div class="w-8 h-8 rounded-full bg-blue-500/20 flex items-center justify-center mr-3">
+                                            <i class="fas fa-user text-blue-400"></i>
+                                        </div>
+                                        <span>Carlos Sánchez</span>
+                                    </div>
+                                </td>
+                                <td>carlos@ejemplo.com</td>
+                                <td>11 Nov 2023</td>
+                                <td><span class="badge badge-success">Activo</span></td>
+                                <td>
+                                    <div class="flex space-x-2">
+                                        <button class="text-blue-400 hover:text-blue-300">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="text-green-400 hover:text-green-300">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="text-red-400 hover:text-red-300">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="flex items-center">
+                                        <div class="w-8 h-8 rounded-full bg-green-500/20 flex items-center justify-center mr-3">
+                                            <i class="fas fa-user text-green-400"></i>
+                                        </div>
+                                        <span>Ana Martínez</span>
+                                    </div>
+                                </td>
+                                <td>ana@ejemplo.com</td>
+                                <td>10 Nov 2023</td>
+                                <td><span class="badge badge-warning">Inactivo</span></td>
+                                <td>
+                                    <div class="flex space-x-2">
+                                        <button class="text-blue-400 hover:text-blue-300">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="text-green-400 hover:text-green-300">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="text-red-400 hover:text-red-300">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="flex items-center">
+                                        <div class="w-8 h-8 rounded-full bg-yellow-500/20 flex items-center justify-center mr-3">
+                                            <i class="fas fa-user text-yellow-400"></i>
+                                        </div>
+                                        <span>Javier López</span>
+                                    </div>
+                                </td>
+                                <td>javier@ejemplo.com</td>
+                                <td>9 Nov 2023</td>
+                                <td><span class="badge badge-success">Activo</span></td>
+                                <td>
+                                    <div class="flex space-x-2">
+                                        <button class="text-blue-400 hover:text-blue-300">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="text-green-400 hover:text-green-300">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="text-red-400 hover:text-red-300">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="flex items-center">
+                                        <div class="w-8 h-8 rounded-full bg-red-500/20 flex items-center justify-center mr-3">
+                                            <i class="fas fa-user text-red-400"></i>
+                                        </div>
+                                        <span>Laura García</span>
+                                    </div>
+                                </td>
+                                <td>laura@ejemplo.com</td>
+                                <td>8 Nov 2023</td>
+                                <td><span class="badge badge-danger">Suspendido</span></td>
+                                <td>
+                                    <div class="flex space-x-2">
+                                        <button class="text-blue-400 hover:text-blue-300">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="text-green-400 hover:text-green-300">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="text-red-400 hover:text-red-300">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Script for Charts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Revenue Chart
+            const revenueCtx = document.getElementById('revenueChart').getContext('2d');
+            const revenueChart = new Chart(revenueCtx, {
+                type: 'line',
+                data: {
+                    labels: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov'],
+                    datasets: [{
+                        label: 'Ingresos en $',
+                        data: [12500, 19000, 18000, 22000, 19500, 24000, 26000, 31000, 28500, 31200, 34500],
+                        borderColor: 'rgb(139, 92, 246)',
+                        backgroundColor: 'rgba(139, 92, 246, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            labels: {
+                                color: 'rgba(255, 255, 255, 0.7)'
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            },
+                            ticks: {
+                                color: 'rgba(255, 255, 255, 0.7)'
+                            }
+                        },
+                        x: {
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            },
+                            ticks: {
+                                color: 'rgba(255, 255, 255, 0.7)'
+                            }
+                        }
+                    }
+                }
+            });
+
+            // User Acquisition Chart
+            const userCtx = document.getElementById('userChart').getContext('2d');
+            const userChart = new Chart(userCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov'],
+                    datasets: [{
+                        label: 'Nuevos Usuarios',
+                        data: [320, 450, 520, 580, 630, 710, 820, 780, 850, 920, 980],
+                        backgroundColor: 'rgba(74, 222, 128, 0.5)',
+                        borderColor: 'rgb(74, 222, 128)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            labels: {
+                                color: 'rgba(255, 255, 255, 0.7)'
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            },
+                            ticks: {
+                                color: 'rgba(255, 255, 255, 0.7)'
+                            }
+                        },
+                        x: {
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            },
+                            ticks: {
+                                color: 'rgba(255, 255, 255, 0.7)'
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Language switching functionality
+            const languages = ["es", "en", "jp"];
+            const flags = {
+                es: "flag-icon-es",
+                en: "flag-icon-gb",
+                jp: "flag-icon-jp",
+            };
+
+            let currentIndex = 0;
+            const $btn = document.getElementById("languageBtn");
+            const $flag = document.getElementById("langCode");
+
+            setLanguage(languages[currentIndex]);
+
+            $btn.addEventListener("click", () => {
+                currentIndex = (currentIndex + 1) % languages.length;
+                const lang = languages[currentIndex];
+                setLanguage(lang);
+            });
+
+            function setLanguage(lang) {
+                $flag.className = `flag-icon ${flags[lang]}`;
+                const traducibles = document.querySelectorAll(
+                    "[data-es],[data-en],[data-jp]"
+                );
+                traducibles.forEach((node) => {
+                    const txt = node.getAttribute(`data-${lang}`);
+                    if (txt === null) return;
+
+                    if (node.tagName === "INPUT" || node.tagName === "TEXTAREA") {
+                        if (node.hasAttribute("placeholder")) node.placeholder = txt;
+                        if (node.type !== "password") node.value = txt;
+                    } else {
+                        node.textContent = txt;
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>

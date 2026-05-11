@@ -1,0 +1,96 @@
+---
+
+---
+
+<!-- Contact Me Section -->
+    <section id="contactame" class="py-16 w-full">
+      <div class="container mx-auto px-4 max-w-4xl">
+        <div class="text-center mb-12">
+          <h2 class="text-4xl md:text-4xl font-bold text-white mb-3">Contáctame</h2>
+        </div>
+
+        <!-- Contact Form -->
+        <div
+          class="bg-slate-900/70 backdrop-blur-sm border border-slate-900 hover:border-cyan-800 transition-all duration-300 text-white rounded-2xl p-8 md:p-10 shadow-2xl mb-10">
+          <form id="contactForm" class="space-y-6" novalidate>
+
+            <!-- Bot spam honeypot (hidden para usuarios reales) -->
+            <div class="hidden" aria-hidden="true">
+              <label for="website">Website</label>
+              <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
+            </div>
+
+            <!-- Name Field -->
+            <div>
+              <label for="name" class="block text-white mb-2 font-medium">
+                <div class="flex items-center gap-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                    <circle cx="12" cy="7" r="4" />
+                  </svg>
+                  <span>Nombre completo</span>
+                </div>
+              </label>
+              <input type="text" id="name" name="name" required
+                class="w-full px-4 py-3 bg-slate-800 border border-transparent rounded-full text-white placeholder-text-gray-400 focus:outline-none focus:border-cyan-600 focus:ring-1 focus:ring-cyan-600 transition-all duration-200"
+                placeholder="Escriba su nombre" aria-required="true" minlength="2" maxlength="100">
+              <div id="name-error" class="hidden mt-1 text-sm text-cyan-400"></div>
+            </div>
+
+            <!-- Email Field -->
+            <div>
+              <label for="email" class="block text-text-light mb-2 font-medium">
+                <div class="flex items-center gap-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect width="20" height="16" x="2" y="4" rx="2" />
+                    <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+                  </svg>
+                  <span>Correo electrónico</span>
+                </div>
+              </label>
+              <input type="email" id="email" name="email" required
+                class="w-full px-4 py-3 bg-slate-800 border border-transparent rounded-full text-white placeholder-text-gray-400 focus:outline-none focus:border-cyan-600 focus:ring-1 focus:ring-cyan-600 transition-all duration-200"
+                placeholder="tu.correo@empresa.com" aria-required="true"
+                pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$" maxlength="255">
+              <div id="email-error" class="hidden mt-1 text-sm text-cyan-400"></div>
+            </div>
+
+            <!-- Message Field -->
+            <div>
+              <label for="message" class="block text-text-light mb-2 font-medium">
+                <div class="flex items-center gap-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+                  </svg>
+                  <span>Mensaje</span>
+                </div>
+              </label>
+              <textarea id="message" name="message" rows="5" required
+                class="w-full px-4 py-3 bg-slate-800 border border-transparent rounded-2xl text-white placeholder-text-gray-400 focus:outline-none focus:border-cyan-600 focus:ring-1 focus:ring-cyan-600 transition-all duration-200 resize-none"
+                placeholder="Hola Franly" aria-required="true" minlength="10" maxlength="2000"></textarea>
+              <div id="message-error" class="hidden mt-1 text-sm text-cyan-400"></div>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="pt-4">
+              <button type="submit"
+                class="w-full bg-cyan-500 hover:bg-cyan-800 text-white font-semibold py-3 px-6 rounded-full transition-all duration-300 hover:scale-[1.02] active:scale-95 flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed disabled:hover:scale-100 cursor-pointer"
+                aria-label="Enviar mensaje de contacto">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M22 2 11 13" />
+                  <path d="m22 2-7 20-4-9-9-4 20-7z" />
+                </svg>
+                <span>Enviar mensaje</span>
+              </button>
+            </div>
+          </form>
+
+          <!-- Success/Error Messages (hidden by default) -->
+          <div id="formMessage" class="hidden mt-4 p-4 rounded-lg text-center" role="alert" aria-live="polite"></div>
+        </div>
+      </div>
+    </section>

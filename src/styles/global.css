@@ -1,0 +1,89 @@
+@import "tailwindcss";
+
+
+/* Establece Expletus Sans como fuente base para todo el documento */
+@layer base {
+  body {
+    font-family: "Expletus Sans", sans-serif;
+  }
+}
+
+
+
+/* ANIMACIONES PARA EL FONDO ESPACIAL */
+@keyframes stars-drift-x {
+  0% { background-position: 0% 0%; }
+  100% { background-position: 200% 0%; }
+}
+@keyframes stars-drift-y {
+  0% { background-position: 0% 0%; }
+  100% { background-position: 0% 200%; }
+}
+@keyframes nebula-glow {
+  0%, 100% { opacity: 0.15; transform: scale(1); }
+  50% { opacity: 0.25; transform: scale(1.05); }
+}
+@keyframes star-twinkle-slow {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.2); }
+}
+@keyframes star-twinkle-medium {
+  0%, 100% { opacity: 0.4; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.5); }
+}
+@keyframes star-twinkle-fast {
+  0%, 100% { opacity: 0.5; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.8); }
+}
+@keyframes star-twinkle-pulse {
+  0%, 100% { opacity: 0.6; transform: scale(1); box-shadow: 0 0 8px white; }
+  50% { opacity: 1; transform: scale(1.4); box-shadow: 0 0 25px white; }
+}
+@keyframes star-twinkle-random {
+  0% { opacity: 0.4; transform: scale(1); }
+  30% { opacity: 1; transform: scale(1.6); }
+  70% { opacity: 0.6; transform: scale(1.2); }
+  100% { opacity: 0.4; transform: scale(1); }
+}
+@keyframes atmosphere-pulse {
+  0%, 100% { opacity: 0.1; }
+  50% { opacity: 0.2; }
+}
+
+/* CLASES PARA USAR LAS ANIMACIONES */
+.animate-stars-drift-x {
+  animation: stars-drift-x 80s linear infinite;
+}
+.animate-stars-drift-y {
+  animation: stars-drift-y 120s linear infinite;
+}
+.animate-nebula-glow {
+  animation: nebula-glow 12s ease-in-out infinite;
+}
+.animate-star-twinkle-slow {
+  animation: star-twinkle-slow 4s ease-in-out infinite;
+}
+.animate-star-twinkle-medium {
+  animation: star-twinkle-medium 3s ease-in-out infinite;
+}
+.animate-star-twinkle-fast {
+  animation: star-twinkle-fast 2s ease-in-out infinite;
+}
+.animate-star-twinkle-pulse {
+  animation: star-twinkle-pulse 2.5s ease-in-out infinite;
+}
+.animate-star-twinkle-random {
+  animation: star-twinkle-random 3.5s ease-in-out infinite;
+}
+.animate-atmosphere-pulse {
+  animation: atmosphere-pulse 8s ease-in-out infinite;
+}
+
+/* EL FONDO NO INTERFIERE CON CLICS */
+.space-bg {
+  pointer-events: none;
+}
+
+.space-bg * {
+  pointer-events: none;
+}
