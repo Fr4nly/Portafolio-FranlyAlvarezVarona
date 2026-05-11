@@ -148,9 +148,3 @@
 
 
 
-
-/* FIX MÓVIL: bloquea el alto del fondo al valor inicial del viewport.
-   Evita el salto/negro cuando la barra del navegador aparece/desaparece. */
-.space-bg {
-  height: calc(var(--vh-initial, 1vh) * 100) !important;
-}
