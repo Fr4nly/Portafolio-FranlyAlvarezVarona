@@ -124,6 +124,9 @@
   pointer-events: none;
 }
 
+.space-bg {
+  height: 100dvh; /* dvh = Dynamic Viewport Height, se adapta cuando la barra del nav aparece/desaparece */
+}
 
 /* Wrapper necesario para que translateX/Y funcionen en los starfields */
 /* El div hijo mide 200% de ancho/alto para que el translate tenga recorrido */
