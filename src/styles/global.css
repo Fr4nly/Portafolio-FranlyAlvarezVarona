@@ -11,73 +11,105 @@
 
 
 /* ANIMACIONES PARA EL FONDO ESPACIAL */
+/* Solo se usan transform y opacity — propiedades compuestas por la GPU */
+/* Se eliminó box-shadow de los keyframes (causaba repaint) */
+
 @keyframes stars-drift-x {
-  0% { background-position: 0% 0%; }
-  100% { background-position: 200% 0%; }
-}
-@keyframes stars-drift-y {
-  0% { background-position: 0% 0%; }
-  100% { background-position: 0% 200%; }
-}
-@keyframes nebula-glow {
-  0%, 100% { opacity: 0.15; transform: scale(1); }
-  50% { opacity: 0.25; transform: scale(1.05); }
-}
-@keyframes star-twinkle-slow {
-  0%, 100% { opacity: 0.3; transform: scale(1); }
-  50% { opacity: 1; transform: scale(1.2); }
-}
-@keyframes star-twinkle-medium {
-  0%, 100% { opacity: 0.4; transform: scale(1); }
-  50% { opacity: 1; transform: scale(1.5); }
-}
-@keyframes star-twinkle-fast {
-  0%, 100% { opacity: 0.5; transform: scale(1); }
-  50% { opacity: 1; transform: scale(1.8); }
-}
-@keyframes star-twinkle-pulse {
-  0%, 100% { opacity: 0.6; transform: scale(1); box-shadow: 0 0 8px white; }
-  50% { opacity: 1; transform: scale(1.4); box-shadow: 0 0 25px white; }
-}
-@keyframes star-twinkle-random {
-  0% { opacity: 0.4; transform: scale(1); }
-  30% { opacity: 1; transform: scale(1.6); }
-  70% { opacity: 0.6; transform: scale(1.2); }
-  100% { opacity: 0.4; transform: scale(1); }
-}
-@keyframes atmosphere-pulse {
-  0%, 100% { opacity: 0.1; }
-  50% { opacity: 0.2; }
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
 }
 
+@keyframes stars-drift-y {
+  0%   { transform: translateY(0); }
+  100% { transform: translateY(-50%); }
+}
+
+@keyframes nebula-glow {
+  0%, 100% { opacity: 0.15; transform: scale(1); }
+  50%       { opacity: 0.25; transform: scale(1.05); }
+}
+
+@keyframes star-twinkle-slow {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50%       { opacity: 1;   transform: scale(1.2); }
+}
+
+@keyframes star-twinkle-medium {
+  0%, 100% { opacity: 0.4; transform: scale(1); }
+  50%       { opacity: 1;   transform: scale(1.5); }
+}
+
+@keyframes star-twinkle-fast {
+  0%, 100% { opacity: 0.5; transform: scale(1); }
+  50%       { opacity: 1;   transform: scale(1.8); }
+}
+
+/* box-shadow eliminado — era la causa principal de animaciones no compuestas */
+@keyframes star-twinkle-pulse {
+  0%, 100% { opacity: 0.6; transform: scale(1); }
+  50%       { opacity: 1;   transform: scale(1.4); }
+}
+
+@keyframes star-twinkle-random {
+  0%   { opacity: 0.4; transform: scale(1); }
+  30%  { opacity: 1;   transform: scale(1.6); }
+  70%  { opacity: 0.6; transform: scale(1.2); }
+  100% { opacity: 0.4; transform: scale(1); }
+}
+
+@keyframes atmosphere-pulse {
+  0%, 100% { opacity: 0.1; }
+  50%       { opacity: 0.2; }
+}
+
+
 /* CLASES PARA USAR LAS ANIMACIONES */
+
 .animate-stars-drift-x {
   animation: stars-drift-x 80s linear infinite;
+  will-change: transform;
 }
+
 .animate-stars-drift-y {
   animation: stars-drift-y 120s linear infinite;
+  will-change: transform;
 }
+
 .animate-nebula-glow {
   animation: nebula-glow 12s ease-in-out infinite;
+  will-change: transform, opacity;
 }
+
 .animate-star-twinkle-slow {
   animation: star-twinkle-slow 4s ease-in-out infinite;
+  will-change: transform, opacity;
 }
+
 .animate-star-twinkle-medium {
   animation: star-twinkle-medium 3s ease-in-out infinite;
+  will-change: transform, opacity;
 }
+
 .animate-star-twinkle-fast {
   animation: star-twinkle-fast 2s ease-in-out infinite;
+  will-change: transform, opacity;
 }
+
 .animate-star-twinkle-pulse {
   animation: star-twinkle-pulse 2.5s ease-in-out infinite;
+  will-change: transform, opacity;
 }
+
 .animate-star-twinkle-random {
   animation: star-twinkle-random 3.5s ease-in-out infinite;
+  will-change: transform, opacity;
 }
+
 .animate-atmosphere-pulse {
   animation: atmosphere-pulse 8s ease-in-out infinite;
+  will-change: opacity;
 }
+
 
 /* EL FONDO NO INTERFIERE CON CLICS */
 .space-bg {
@@ -86,4 +118,23 @@
 
 .space-bg * {
   pointer-events: none;
+}
+
+
+/* Wrapper necesario para que translateX/Y funcionen en los starfields */
+/* El div hijo mide 200% de ancho/alto para que el translate tenga recorrido */
+.starfield-wrapper {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.starfield-1 {
+  width: 200%;
+  height: 100%;
+}
+
+.starfield-2 {
+  width: 100%;
+  height: 200%;
 }
