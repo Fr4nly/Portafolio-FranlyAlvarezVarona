@@ -3,6 +3,9 @@
 
 /* Establece Expletus Sans como fuente base para todo el documento */
 @layer base {
+  html {
+    background-color: #0a0a1a; /* ← color tope del gradiente espacial */
+  }
   body {
     font-family: "Expletus Sans", sans-serif;
   }
