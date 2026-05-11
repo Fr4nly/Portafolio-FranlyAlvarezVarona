@@ -125,11 +125,7 @@
 }
 
 .space-bg {
-  position: fixed;
-top: 0;
-left: 0;
-width: 100%;
-height: 100%;
+  height: 100dvh; /* dvh = Dynamic Viewport Height, se adapta cuando la barra del nav aparece/desaparece */
 }
 
 /* Wrapper necesario para que translateX/Y funcionen en los starfields */
@@ -148,17 +144,4 @@ height: 100%;
 .starfield-2 {
   width: 100%;
   height: 200%;
-}
-
-
-
-html {
-  overflow-x: hidden;
-  overscroll-behavior: none;
-}
-
-body {
-  overflow-x: hidden;
-  overscroll-behavior: none;
-  -webkit-overflow-scrolling: touch;
 }
