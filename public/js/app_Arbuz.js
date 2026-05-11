@@ -1,8 +1,19 @@
-// src/js/app_Arbuz.js - Agrega al INICIO del archivo
-
 ////////////////////////////////////////////////////////////////////////
 ///// DETECCIÓN Y OPTIMIZACIÓN PARA MÓVILES/TABLETS ////////////////////
 ////////////////////////////////////////////////////////////////////////
+
+
+////////////////////////////////////////////////////////////////////////
+///// FIX: FONDO ESTÁTICO EN MÓVIL (evita resize al hacer scroll) //////
+////////////////////////////////////////////////////////////////////////
+
+(function fijarAltoBg() {
+  // Se ejecuta una sola vez al cargar — nunca en scroll ni en resize.
+  // Congela el alto real del viewport en ese instante.
+  const vh = window.innerHeight * 0.01;
+  document.documentElement.style.setProperty('--vh-initial', `${vh}px`);
+})();
+
 
 (function optimizarParaMoviles() {
     // Detecta si es un dispositivo táctil o con pantalla pequeña
@@ -32,23 +43,6 @@
         }, 1000); // Pequeño delay para no interferir con la carga
     }
 })();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // sw.js
 self.addEventListener('install', (event) => {
