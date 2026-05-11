@@ -3,9 +3,8 @@
 
 /* Establece Expletus Sans como fuente base para todo el documento */
 @layer base {
-  html, body {
+  body {
     font-family: "Expletus Sans", sans-serif;
-    overscroll-behavior: none; /* ← ESTO es el fix real */
   }
 }
 
