@@ -25,10 +25,7 @@ import Navbar from '../components/navbar.astro';
     <!-- EmailJS (opcional) -->
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js" defer></script>
 
-    <script src={`${import.meta.env.BASE_URL}js/app_Arbuz.js`}></script>
-<script src={`${import.meta.env.BASE_URL}js/email-js.js`}></script>
-<script src={`${import.meta.env.BASE_URL}js/navbar-scroll.js`}></script>
-<script src={`${import.meta.env.BASE_URL}js/proyectos.js`}></script>
+    
   </head>
 
   <body class="bg-black text-white pt-20 relative overflow-x-hidden overflow-y-auto scrollbar-hide">
@@ -107,6 +104,11 @@ import Navbar from '../components/navbar.astro';
     <!-- Contenido principal -->
     <Navbar />
     <slot />
+
+    <script src={`${import.meta.env.BASE_URL}js/app_Arbuz.js`}></script>
+    <script src={`${import.meta.env.BASE_URL}js/email-js.js`}></script>
+    <script src={`${import.meta.env.BASE_URL}js/navbar-scroll.js`}></script>
+    <script src={`${import.meta.env.BASE_URL}js/proyectos.js`}></script>
   </body>
 </html>
 
