@@ -125,7 +125,8 @@
 }
 
 .space-bg {
-  height: 100dvh; /* dvh = Dynamic Viewport Height, se adapta cuando la barra del nav aparece/desaparece */
+  height: 100vh;
+  min-height: 100dvh;
 }
 
 /* Wrapper necesario para que translateX/Y funcionen en los starfields */
@@ -144,4 +145,32 @@
 .starfield-2 {
   width: 100%;
   height: 200%;
+}
+
+
+/* =========================================
+   FIX OVERSCROLL MOBILE
+   Evita el espacio negro en móviles
+========================================= */
+
+html,
+body {
+  overscroll-behavior-y: none;
+  background: #0a0a1a;
+}
+
+/* Fondo real detrás del documento */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -99999;
+
+  background:
+    linear-gradient(
+      to bottom,
+      #0a0a1a,
+      #0f1a3a,
+      #1a2b5a
+    );
 }
