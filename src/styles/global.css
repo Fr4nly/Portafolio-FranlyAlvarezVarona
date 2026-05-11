@@ -29,32 +29,36 @@
   50%       { opacity: 0.25; transform: scale(1.05); }
 }
 
+/* Las estrellas quietas tienen blur base (1px) que se reduce al brillar,
+   dando la sensación de profundidad / lejanía sin penalizar rendimiento.
+   filter es compositable en GPU igual que opacity y transform. */
+
 @keyframes star-twinkle-slow {
-  0%, 100% { opacity: 0.3; transform: scale(1); }
-  50%       { opacity: 1;   transform: scale(1.2); }
+  0%, 100% { opacity: 0.3; transform: scale(1);   filter: blur(1.8px); }
+  50%       { opacity: 1;   transform: scale(1.2); filter: blur(1px); }
 }
 
 @keyframes star-twinkle-medium {
-  0%, 100% { opacity: 0.4; transform: scale(1); }
-  50%       { opacity: 1;   transform: scale(1.5); }
+  0%, 100% { opacity: 0.4; transform: scale(1);   filter: blur(1px); }
+  50%       { opacity: 1;   transform: scale(1.5); filter: blur(1px); }
 }
 
 @keyframes star-twinkle-fast {
-  0%, 100% { opacity: 0.5; transform: scale(1); }
-  50%       { opacity: 1;   transform: scale(1.8); }
+  0%, 100% { opacity: 0.5; transform: scale(1);   filter: blur(1.8px); }
+  50%       { opacity: 1;   transform: scale(1.8); filter: blur(1px); }
 }
 
 /* box-shadow eliminado — era la causa principal de animaciones no compuestas */
 @keyframes star-twinkle-pulse {
-  0%, 100% { opacity: 0.6; transform: scale(1); }
-  50%       { opacity: 1;   transform: scale(1.4); }
+  0%, 100% { opacity: 0.6; transform: scale(1);   filter: blur(1.2px); }
+  50%       { opacity: 1;   transform: scale(1.4); filter: blur(0px); }
 }
 
 @keyframes star-twinkle-random {
-  0%   { opacity: 0.4; transform: scale(1); }
-  30%  { opacity: 1;   transform: scale(1.6); }
-  70%  { opacity: 0.6; transform: scale(1.2); }
-  100% { opacity: 0.4; transform: scale(1); }
+  0%   { opacity: 0.4; transform: scale(1);   filter: blur(1.5px); }
+  30%  { opacity: 1;   transform: scale(1.6); filter: blur(0.8px); }
+  70%  { opacity: 0.6; transform: scale(1.2); filter: blur(1px); }
+  100% { opacity: 0.4; transform: scale(1);   filter: blur(1px); }
 }
 
 @keyframes atmosphere-pulse {
@@ -82,27 +86,27 @@
 
 .animate-star-twinkle-slow {
   animation: star-twinkle-slow 4s ease-in-out infinite;
-  will-change: transform, opacity;
+  will-change: transform, opacity, filter;
 }
 
 .animate-star-twinkle-medium {
   animation: star-twinkle-medium 3s ease-in-out infinite;
-  will-change: transform, opacity;
+  will-change: transform, opacity, filter;
 }
 
 .animate-star-twinkle-fast {
   animation: star-twinkle-fast 2s ease-in-out infinite;
-  will-change: transform, opacity;
+  will-change: transform, opacity, filter;
 }
 
 .animate-star-twinkle-pulse {
   animation: star-twinkle-pulse 2.5s ease-in-out infinite;
-  will-change: transform, opacity;
+  will-change: transform, opacity, filter;
 }
 
 .animate-star-twinkle-random {
   animation: star-twinkle-random 3.5s ease-in-out infinite;
-  will-change: transform, opacity;
+  will-change: transform, opacity, filter;
 }
 
 .animate-atmosphere-pulse {
