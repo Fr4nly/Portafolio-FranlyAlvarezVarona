@@ -142,10 +142,11 @@ import Navbar from '../components/navbar.astro';
       Scripts movidos al final de <body> para no bloquear el render.
       defer garantiza que se ejecutan tras parsear el HTML completo.
     -->
-    <script src={`${import.meta.env.BASE_URL}js/app_Arbuz.js`} defer></script>
+    <script src={`${import.meta.env.BASE_URL}js/background-mobiles.js`} defer></script>
     <script src={`${import.meta.env.BASE_URL}js/email-js.js`} defer></script>
     <script src={`${import.meta.env.BASE_URL}js/navbar-scroll.js`} defer></script>
     <script src={`${import.meta.env.BASE_URL}js/proyectos.js`} defer></script>
+    <script src={`${import.meta.env.BASE_URL}js/traduccion.js`} defer></script>
   </body>
 </html>
 

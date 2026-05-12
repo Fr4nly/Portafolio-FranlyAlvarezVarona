@@ -1,6 +1,9 @@
 @import "tailwindcss";
 
 
+
+
+
 /* Establece Expletus Sans como fuente base para todo el documento */
 @layer base {
   body {
