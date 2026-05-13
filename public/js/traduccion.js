@@ -190,7 +190,7 @@
 
   // ---------- TOAST DE IDIOMA CON BANDERAS ----------
   let toastTimeout = null;
-  const toastBaseUrl = '/Portafolio-FranlyAlvarezVarona/icons.svg'; // Ruta del sprite
+  const toastBaseUrl = '/icons.svg'; // Ruta del sprite
 
   // Crear el contenedor del toast si no existe
   if (!document.getElementById('language-toast')) {
