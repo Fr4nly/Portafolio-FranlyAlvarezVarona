@@ -205,11 +205,14 @@
     if (toastTimeout) clearTimeout(toastTimeout);
     const iconId = lang === 'es' ? 'icon-espana' : 'icon-uk';
     toast.innerHTML = `
-      <svg width="28" height="28">
-        <use href="${toastBaseUrl}#${iconId}" />
-      </svg>
-      <span>${lang === 'es' ? 'Idioma cambiado a Español' : 'Language changed to English'}</span>
-    `;
+  <svg width="28" height="28" viewBox="0 0 64 64">
+    <use href="${toastBaseUrl}#${iconId}"></use>
+  </svg>
+  <span>${lang === 'es'
+    ? 'Idioma cambiado a Español'
+    : 'Language changed to English'}
+  </span>
+`;
     toast.classList.remove('show');
     void toast.offsetWidth;
     toast.classList.add('show');
