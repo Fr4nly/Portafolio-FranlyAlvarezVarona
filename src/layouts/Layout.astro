@@ -1,7 +1,7 @@
 ---
 import '../styles/global.css';
 import Navbar from '../components/navbar.astro';
-
+import icons from '../assets/icons.svg?raw';
 ---
 
 <!doctype html>
@@ -41,6 +41,9 @@ import Navbar from '../components/navbar.astro';
   </head>
 
   <body class="bg-transparent text-white pt-20 relative overflow-x-hidden overflow-y-auto scrollbar-hide">
+
+    <!-- Sprite SVG inlineado (invisible) -->
+  <div style="display:none" set:html={icons} />
 
     <!-- ============================================================
          FONDO ESPACIAL OPTIMIZADO PARA GPU
