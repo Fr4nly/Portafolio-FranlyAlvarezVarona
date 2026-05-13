@@ -68,7 +68,7 @@
       aboutme: "Sobre mí",
       skills: "Habilidades",
       projects: "Proyectos",
-      contactme: "Contacto",
+      contactme: "Contáctame",
       // Sobre Mí
       profTitle: "Desarrollador Web Frontend",
       intro: "Desarrollador web con <strong class='font-semibold text-cyan-400'>más de 1 año de experiencia</strong> en proyectos empresariales. Especializado en sistemas privados y soluciones escalables para empresas. Comprometido con el aprendizaje continuo y las mejores prácticas tecnológicas.",

@@ -17,9 +17,13 @@
               <h3 id="tiempoModaTittle" class="text-xl sm:text-2xl font-bold text-white mb-4 sm:mb-6 text-center">Tiempo Moda</h3>
               <h4 id="tiempoModaDate" class="text-sm sm:text-base font-bold text-white mb-4 sm:mb-6 text-center">Enero 2026 - Abril 2026</h4>
               <div class="animate-pulse transition-all duration-800">
-                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 640 640" class="text-cyan-500">
-                  <path d="M256 128C256 119.2 263.2 112 272 112C280.8 112 288 119.2 288 128L288 264C288 274.3 294.6 283.5 304.4 286.8C314.2 290.1 325 286.7 331.2 278.5C334.2 274.6 338.8 272.1 344 272.1C352.8 272.1 360 279.3 360 288.1C360 298.4 366.6 307.6 376.4 310.9C386.2 314.2 397 310.8 403.2 302.6C406.2 298.7 410.8 296.2 416 296.2C423.8 296.2 430.3 301.8 431.7 309.2C433.3 317.4 439 324.3 446.8 327.2C454.6 330.1 463.5 328.8 470.1 323.6C472.8 321.5 476.2 320.2 480 320.2C488.8 320.2 496 327.4 496 336.2L496 456.2C496 496 463.8 528.2 424 528.2L307.4 528.2C270 528.2 235 509.5 214.2 478.3L146.7 376.9C141.8 369.5 143.8 359.6 151.1 354.7C158.4 349.8 168.4 351.8 173.3 359.1L212 417.2C217.9 426 228.8 429.9 238.9 426.9C249 423.9 255.9 414.5 255.9 403.9L256 128zM272 64C236.7 64 208 92.7 208 128L208 325.7C187.2 302 151.5 296.8 124.5 314.7C95.1 334.4 87.1 374.1 106.8 403.5L174.3 504.8C204 549.3 253.9 576 307.4 576L424 576C490.3 576 544 522.3 544 456L544 336C544 300.7 515.3 272 480 272C475.5 272 471.2 272.5 467 273.3C455.3 257.9 436.8 248 416 248C409.1 248 402.5 249.1 396.3 251.1C384.7 234.7 365.6 224 344 224C341.3 224 338.6 224.2 336 224.5L336 128C336 92.7 307.3 64 272 64zM320 368C320 359.2 312.8 352 304 352C295.2 352 288 359.2 288 368L288 464C288 472.8 295.2 480 304 480C312.8 480 320 472.8 320 464L320 368zM368 352C359.2 352 352 359.2 352 368L352 464C352 472.8 359.2 480 368 480C376.8 480 384 472.8 384 464L384 368C384 359.2 376.8 352 368 352zM448 368C448 359.2 440.8 352 432 352C423.2 352 416 359.2 416 368L416 464C416 472.8 423.2 480 432 480C440.8 480 448 472.8 448 464L448 368z" fill="currentColor" />
+                
+                <!-- Cursor Click -->
+                <svg width="32" height="32" class="text-cyan-500"> 
+                  <use href="/Portafolio-FranlyAlvarezVarona/icons.svg#icon-cursor-click" />
                 </svg>
+
+
               </div>
             </div>
             <div class="expanded-view hidden opacity-0 transition-opacity duration-300 min-h-70 sm:min-h-80 h-full">
@@ -28,14 +32,31 @@
                   <div class="h-32 sm:h-40 rounded-xl overflow-hidden border border-gray-600/40">
                     <img src={`${import.meta.env.BASE_URL}TiempoModa.webp`} alt="TiempoModa" class="w-full h-full object-cover hover:scale-110 transition-transform duration-700" />
                   </div>
+
                   <div class="flex flex-wrap gap-2">
                     <div class="flex items-center gap-1.5 px-2.5 py-1 bg-slate-900 text-white text-xs font-medium rounded-full border border-gray-800 hover:scale-105 hover:border-white transition-all duration-200">
-                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 85 107" class="w-3.5 h-3.5"><path fill="#fff" d="M27.59 91.136c-4.834-4.418-6.246-13.703-4.232-20.429 3.492 4.241 8.33 5.584 13.342 6.343 7.737 1.17 15.336.732 22.523-2.804.822-.405 1.582-.943 2.48-1.489.675 1.957.85 3.932.615 5.943-.573 4.896-3.01 8.678-6.885 11.545-1.55 1.147-3.19 2.172-4.79 3.253-4.917 3.323-6.247 7.22-4.4 12.888.044.139.084.277.183.614-2.51-1.124-4.344-2.76-5.742-4.911-1.475-2.27-2.177-4.78-2.214-7.498-.019-1.322-.019-2.656-.197-3.96-.434-3.178-1.926-4.601-4.737-4.683-2.884-.084-5.166 1.699-5.771 4.507-.046.216-.113.429-.18.68l.004.001Z"/><path fill="url(#a)" d="M27.59 91.136c-4.834-4.418-6.246-13.703-4.232-20.429 3.492 4.241 8.33 5.584 13.342 6.343 7.737 1.17 15.336.732 22.523-2.804.822-.405 1.582-.943 2.48-1.489.675 1.957.85 3.932.615 5.943-.573 4.896-3.01 8.678-6.885 11.545-1.55 1.147-3.19 2.172-4.79 3.253-4.917 3.323-6.247 7.22-4.4 12.888.044.139.084.277.183.614-2.51-1.124-4.344-2.76-5.742-4.911-1.475-2.27-2.177-4.78-2.214-7.498-.019-1.322-.019-2.656-.197-3.96-.434-3.178-1.926-4.601-4.737-4.683-2.884-.084-5.166 1.699-5.771 4.507-.046.216-.113.429-.18.68l.004.001Z"/><path fill="#fff" d="M0 69.587s14.314-6.973 28.668-6.973L39.49 29.12c.405-1.62 1.588-2.72 2.924-2.72 1.335 0 2.518 1.1 2.924 2.72L56.16 62.614c17 0 28.668 6.973 28.668 6.973S60.514 3.352 60.467 3.219C59.769 1.261 58.591 0 57.003 0H27.827c-1.588 0-2.718 1.261-3.464 3.22C24.311 3.35 0 69.586 0 69.586Z"/><defs><linearGradient id="a" x1="22.47" x2="69.145" y1="107" y2="84.947" gradientUnits="userSpaceOnUse"><stop stop-color="#D83333"/><stop offset="1" stop-color="#F041FF"/></linearGradient></defs></svg>
-                      <span>Astro</span></div>
+                      <!-- SVG Astro -->
+                      <svg width="15" height="15"> 
+                        <use href="/Portafolio-FranlyAlvarezVarona/icons.svg#icon-astro" />
+                      </svg>
+                      <span>Astro</span>
+                    </div>
                     
-                    <div class="flex items-center gap-1.5 px-2.5 py-1 bg-slate-900 text-white text-xs font-medium rounded-full border border-gray-800 hover:scale-105 hover:border-cyan-400 transition-all duration-200"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" class="w-3.5 h-3.5"><path d="M64.004 25.602c-17.067 0-27.73 8.53-32 25.597 6.398-8.531 13.867-11.73 22.398-9.597 4.871 1.214 8.352 4.746 12.207 8.66C72.883 56.629 80.145 64 96.004 64c17.066 0 27.73-8.531 32-25.602-6.399 8.536-13.867 11.735-22.399 9.602-4.87-1.215-8.347-4.746-12.207-8.66-6.27-6.367-13.53-13.738-29.394-13.738zM32.004 64c-17.066 0-27.73 8.531-32 25.602C6.402 81.066 13.87 77.867 22.402 80c4.871 1.215 8.352 4.746 12.207 8.66 6.274 6.367 13.536 13.738 29.395 13.738 17.066 0 27.73-8.53 32-25.597-6.399 8.531-13.867 11.73-22.399 9.597-4.87-1.214-8.347-4.746-12.207-8.66C55.128 71.371 47.868 64 32.004 64zm0 0" fill="#38bdf8" /></svg><span>Tailwind</span></div>
+                    <div class="flex items-center gap-1.5 px-2.5 py-1 bg-slate-900 text-white text-xs font-medium rounded-full border border-gray-800 hover:scale-105 hover:border-cyan-400 transition-all duration-200">
+                      <!-- SVG Tailwind -->
+                      <svg width="15" height="15"> 
+                        <use href="/Portafolio-FranlyAlvarezVarona/icons.svg#icon-tailwind" />
+                      </svg>
+                      <span>Tailwind</span>
+                    </div>
                     
-                    <div class="flex items-center gap-1.5 px-2.5 py-1 bg-slate-900 text-white text-xs font-medium rounded-full border border-gray-800 hover:scale-105 hover:border-yellow-300 transition-all duration-200"><svg viewBox="0 0 1052 1052" class="w-3.5 h-3.5"><path fill="#f0db4f" d="M0 0h1052v1052H0z" /><path d="M965.9 801.1c-7.7-48-39-88.3-131.7-125.9-32.2-14.8-68.1-25.399-78.8-49.8-3.8-14.2-4.3-22.2-1.9-30.8 6.9-27.9 40.2-36.6 66.6-28.6 17 5.7 33.1 18.801 42.8 39.7 45.4-29.399 45.3-29.2 77-49.399-11.6-18-17.8-26.301-25.4-34-27.3-30.5-64.5-46.2-124-45-10.3 1.3-20.699 2.699-31 4-29.699 7.5-58 23.1-74.6 44-49.8 56.5-35.6 155.399 25 196.1 59.7 44.8 147.4 55 158.6 96.9 10.9 51.3-37.699 67.899-86 62-35.6-7.4-55.399-25.5-76.8-58.4-39.399 22.8-39.399 22.8-79.899 46.1 9.6 21 19.699 30.5 35.8 48.7 76.2 77.3 266.899 73.5 301.1-43.5 1.399-4.001 10.6-30.801 3.199-72.101zm-394-317.6h-98.4c0 85-.399 169.4-.399 254.4 0 54.1 2.8 103.7-6 118.9-14.4 29.899-51.7 26.2-68.7 20.399-17.3-8.5-26.1-20.6-36.3-37.699-2.8-4.9-4.9-8.7-5.601-9-26.699 16.3-53.3 32.699-80 49 13.301 27.3 32.9 51 58 66.399 37.5 22.5 87.9 29.4 140.601 17.3 34.3-10 63.899-30.699 79.399-62.199 22.4-41.3 17.6-91.3 17.4-146.6.5-90.2 0-180.4 0-270.9z" fill="#323330" /></svg><span>JavaScript</span></div>
+                    <div class="flex items-center gap-1.5 px-2.5 py-1 bg-slate-900 text-white text-xs font-medium rounded-full border border-gray-800 hover:scale-105 hover:border-yellow-300 transition-all duration-200">
+                      <!-- SVG JavaScript -->
+                      <svg width="15" height="15"> 
+                        <use href="/Portafolio-FranlyAlvarezVarona/icons.svg#icon-javascript" />
+                      </svg>
+                      <span>JavaScript</span>
+                    </div>
                   </div>
 
                 </div>
@@ -44,7 +65,13 @@
                   <p id="tiempoModaDataExpanded" class="text-gray-200 text-xs sm:text-sm leading-relaxed flex-1 mb-0">E-commerce hecho en colaboración con un equipo de desarrollo. Este proyecto se desarrollo en base a las espectativas y requisitos del cliente junto a la libertad creativa que se me ha dado para crear la interfaz de la página.</p>
                   <a href="https://tiempomoda.com.ec/" target="_blank" class="inline-flex items-center justify-center gap-2 px-4 py-2 bg-transparent hover:bg-blue-500/10 text-blue-400 hover:text-blue-300 rounded-full border border-blue-500/50 hover:border-blue-400 transition-all duration-200 hover:scale-[1.02] active:scale-95 mt-auto text-sm">
                     <span id="tiempoModaLinkExpanded" class="font-medium">Abrir Proyecto</span>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h6"/><path d="m21 3-9 9"/><path d="M15 3h6v6"/></svg>
+                    
+                      <!-- SVG Open -->
+                      <svg width="16" height="16"> 
+                        <use href="/Portafolio-FranlyAlvarezVarona/icons.svg#icon-open" />
+                      </svg>
+
+                    
                   </a>
                 </div>
               </div>
@@ -70,9 +97,12 @@
               <h3 id="distritoJaponesTittle" class="text-xl sm:text-2xl font-bold text-white mb-4 sm:mb-6 text-center">Distrito Japones</h3>
               <h4 id="distritoJaponesDate" class="text-sm sm:text-base font-bold text-white mb-4 sm:mb-6 text-center">Agostoh4025 - Septiembre 2025</h4>
               <div class="animate-pulse transition-all duration-800">
-                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 640 640" class="text-cyan-500">
-                  <path d="M256 128C256 119.2 263.2 112 272 112C280.8 112 288 119.2 288 128L288 264C288 274.3 294.6 283.5 304.4 286.8C314.2 290.1 325 286.7 331.2 278.5C334.2 274.6 338.8 272.1 344 272.1C352.8 272.1 360 279.3 360 288.1C360 298.4 366.6 307.6 376.4 310.9C386.2 314.2 397 310.8 403.2 302.6C406.2 298.7 410.8 296.2 416 296.2C423.8 296.2 430.3 301.8 431.7 309.2C433.3 317.4 439 324.3 446.8 327.2C454.6 330.1 463.5 328.8 470.1 323.6C472.8 321.5 476.2 320.2 480 320.2C488.8 320.2 496 327.4 496 336.2L496 456.2C496 496 463.8 528.2 424 528.2L307.4 528.2C270 528.2 235 509.5 214.2 478.3L146.7 376.9C141.8 369.5 143.8 359.6 151.1 354.7C158.4 349.8 168.4 351.8 173.3 359.1L212 417.2C217.9 426 228.8 429.9 238.9 426.9C249 423.9 255.9 414.5 255.9 403.9L256 128zM272 64C236.7 64 208 92.7 208 128L208 325.7C187.2 302 151.5 296.8 124.5 314.7C95.1 334.4 87.1 374.1 106.8 403.5L174.3 504.8C204 549.3 253.9 576 307.4 576L424 576C490.3 576 544 522.3 544 456L544 336C544 300.7 515.3 272 480 272C475.5 272 471.2 272.5 467 273.3C455.3 257.9 436.8 248 416 248C409.1 248 402.5 249.1 396.3 251.1C384.7 234.7 365.6 224 344 224C341.3 224 338.6 224.2 336 224.5L336 128C336 92.7 307.3 64 272 64zM320 368C320 359.2 312.8 352 304 352C295.2 352 288 359.2 288 368L288 464C288 472.8 295.2 480 304 480C312.8 480 320 472.8 320 464L320 368zM368 352C359.2 352 352 359.2 352 368L352 464C352 472.8 359.2 480 368 480C376.8 480 384 472.8 384 464L384 368C384 359.2 376.8 352 368 352zM448 368C448 359.2 440.8 352 432 352C423.2 352 416 359.2 416 368L416 464C416 472.8 423.2 480 432 480C440.8 480 448 472.8 448 464L448 368z" fill="currentColor" />
+
+                <!-- Cursor Click -->
+                <svg width="32" height="32" class="text-cyan-500"> 
+                  <use href="/Portafolio-FranlyAlvarezVarona/icons.svg#icon-cursor-click" />
                 </svg>
+
               </div>
             </div>
             <div class="expanded-view hidden opacity-0 transition-opacity duration-300 min-h-70 sm:min-h-80 h-full">
@@ -81,10 +111,37 @@
                   <div class="h-32 sm:h-40 rounded-xl overflow-hidden border border-gray-600/40">
                     <img src={`${import.meta.env.BASE_URL}Distrito Japones.webp`} alt="Distrito Japones" class="w-full h-full object-cover hover:scale-110 transition-transform duration-700" />
                   </div>
+
                   <div class="flex flex-wrap gap-2">
-                    <div class="flex items-center gap-1.5 px-2.5 py-1 bg-slate-900 text-white text-xs font-medium rounded-full border border-gray-800 hover:scale-105 hover:border-orange-500 transition-all duration-200"><svg viewBox="0 0 452 520" class="w-3.5 h-3.5"><path fill="#e34f26" d="M41 460L0 0h451l-41 460-185 52" /><path fill="#ef652a" d="M226 472l149-41 35-394H226" /><path fill="#ecedee" d="M226 208h-75l-5-58h80V94H84l15 171h127zm0 147l-64-17-4-45h-56l7 89 117 32z" /><path fill="#fff" d="M226 265h69l-7 73-62 17v59l115-32 16-174H226zm0-171v56h136l5-56z" /></svg><span>HTML</span></div>
-                    <div class="flex items-center gap-1.5 px-2.5 py-1 bg-slate-900 text-white text-xs font-medium rounded-full border border-gray-800 hover:scale-105 hover:border-cyan-400 transition-all duration-200"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" class="w-3.5 h-3.5"><path d="M64.004 25.602c-17.067 0-27.73 8.53-32 25.597 6.398-8.531 13.867-11.73 22.398-9.597 4.871 1.214 8.352 4.746 12.207 8.66C72.883 56.629 80.145 64 96.004 64c17.066 0 27.73-8.531 32-25.602-6.399 8.536-13.867 11.735-22.399 9.602-4.87-1.215-8.347-4.746-12.207-8.66-6.27-6.367-13.53-13.738-29.394-13.738zM32.004 64c-17.066 0-27.73 8.531-32 25.602C6.402 81.066 13.87 77.867 22.402 80c4.871 1.215 8.352 4.746 12.207 8.66 6.274 6.367 13.536 13.738 29.395 13.738 17.066 0 27.73-8.53 32-25.597-6.399 8.531-13.867 11.73-22.399 9.597-4.87-1.214-8.347-4.746-12.207-8.66C55.128 71.371 47.868 64 32.004 64zm0 0" fill="#38bdf8" /></svg><span>Tailwind</span></div>
-                    <div class="flex items-center gap-1.5 px-2.5 py-1 bg-slate-900 text-white text-xs font-medium rounded-full border border-gray-800 hover:scale-105 hover:border-yellow-300 transition-all duration-200"><svg viewBox="0 0 1052 1052" class="w-3.5 h-3.5"><path fill="#f0db4f" d="M0 0h1052v1052H0z" /><path d="M965.9 801.1c-7.7-48-39-88.3-131.7-125.9-32.2-14.8-68.1-25.399-78.8-49.8-3.8-14.2-4.3-22.2-1.9-30.8 6.9-27.9 40.2-36.6 66.6-28.6 17 5.7 33.1 18.801 42.8 39.7 45.4-29.399 45.3-29.2 77-49.399-11.6-18-17.8-26.301-25.4-34-27.3-30.5-64.5-46.2-124-45-10.3 1.3-20.699 2.699-31 4-29.699 7.5-58 23.1-74.6 44-49.8 56.5-35.6 155.399 25 196.1 59.7 44.8 147.4 55 158.6 96.9 10.9 51.3-37.699 67.899-86 62-35.6-7.4-55.399-25.5-76.8-58.4-39.399 22.8-39.399 22.8-79.899 46.1 9.6 21 19.699 30.5 35.8 48.7 76.2 77.3 266.899 73.5 301.1-43.5 1.399-4.001 10.6-30.801 3.199-72.101zm-394-317.6h-98.4c0 85-.399 169.4-.399 254.4 0 54.1 2.8 103.7-6 118.9-14.4 29.899-51.7 26.2-68.7 20.399-17.3-8.5-26.1-20.6-36.3-37.699-2.8-4.9-4.9-8.7-5.601-9-26.699 16.3-53.3 32.699-80 49 13.301 27.3 32.9 51 58 66.399 37.5 22.5 87.9 29.4 140.601 17.3 34.3-10 63.899-30.699 79.399-62.199 22.4-41.3 17.6-91.3 17.4-146.6.5-90.2 0-180.4 0-270.9z" fill="#323330" /></svg><span>JavaScript</span></div>
+                    <div class="flex items-center gap-1.5 px-2.5 py-1 bg-slate-900 text-white text-xs font-medium rounded-full border border-gray-800 hover:scale-105 hover:border-orange-500 transition-all duration-200">
+                      
+
+                      <!-- SVG HTML -->
+                      <svg width="15" height="15"> 
+                        <use href="/Portafolio-FranlyAlvarezVarona/icons.svg#icon-html" />
+                      </svg>
+                      
+                      <span>HTML</span>
+                    </div>
+
+                    <div class="flex items-center gap-1.5 px-2.5 py-1 bg-slate-900 text-white text-xs font-medium rounded-full border border-gray-800 hover:scale-105 hover:border-cyan-400 transition-all duration-200">
+                      
+                      <!-- SVG Tailwind -->
+                      <svg width="15" height="15"> 
+                        <use href="/Portafolio-FranlyAlvarezVarona/icons.svg#icon-tailwind" />
+                      </svg>
+                      <span>Tailwind</span>
+                    </div>
+
+                    <div class="flex items-center gap-1.5 px-2.5 py-1 bg-slate-900 text-white text-xs font-medium rounded-full border border-gray-800 hover:scale-105 hover:border-yellow-300 transition-all duration-200">
+                      
+                      <!-- SVG JavaScript -->
+                      <svg width="15" height="15"> 
+                        <use href="/Portafolio-FranlyAlvarezVarona/icons.svg#icon-javascript" />
+                      </svg>
+                      <span>JavaScript</span>
+                    </div>
+
                   </div>
                 </div>
                 <div class="w-full md:w-1/2 flex flex-col h-full">
@@ -92,7 +149,10 @@
                   <p id="distritoJaponesDataExpanded" class="text-gray-200 text-xs sm:text-sm leading-relaxed flex-1 mb-0">Diseñé y desarrollé la interfaz de una plataforma de comercio electrónico moderna desarrollada para la venta digital de contenido japonés oficial como anime, música y videografía mediante cangeo de monedas virtuales. <br> <span id="distritoJaponesSpanExpanded" class="text-cyan-400 font-semibold">PROYECTO DE PRÁCTICA</span></p>
                   <a href={`${import.meta.env.BASE_URL}Distrito Japones.html`} target="_blank" class="inline-flex items-center justify-center gap-2 px-4 py-2 bg-transparent hover:bg-blue-500/10 text-blue-400 hover:text-blue-300 rounded-full border border-blue-500/50 hover:border-blue-400 transition-all duration-200 hover:scale-[1.02] active:scale-95 mt-auto text-sm">
                     <span id="distritoJaponesLinkExpanded" class="font-medium">Abrir Proyecto</span>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h6"/><path d="m21 3-9 9"/><path d="M15 3h6v6"/></svg>
+                    <!-- SVG Open -->
+                      <svg width="16" height="16"> 
+                        <use href="/Portafolio-FranlyAlvarezVarona/icons.svg#icon-open" />
+                      </svg>
                   </a>
                 </div>
               </div>
@@ -124,9 +184,12 @@
               <h3 class="text-xl sm:text-2xl font-bold text-white mb-4 sm:mb-6 text-center">Cate-SIS</h3>
               <h4 id="cateSISDate" class="text-sm sm:text-base font-bold text-white mb-4 sm:mb-6 text-center">Octubre 2025 - Diciembre 2025</h4>
               <div class="animate-pulse transition-transform duration-800">
-                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 640 640" class="text-cyan-500">
-                  <path d="M256 128C256 119.2 263.2 112 272 112C280.8 112 288 119.2 288 128L288 264C288 274.3 294.6 283.5 304.4 286.8C314.2 290.1 325 286.7 331.2 278.5C334.2 274.6 338.8 272.1 344 272.1C352.8 272.1 360 279.3 360 288.1C360 298.4 366.6 307.6 376.4 310.9C386.2 314.2 397 310.8 403.2 302.6C406.2 298.7 410.8 296.2 416 296.2C423.8 296.2 430.3 301.8 431.7 309.2C433.3 317.4 439 324.3 446.8 327.2C454.6 330.1 463.5 328.8 470.1 323.6C472.8 321.5 476.2 320.2 480 320.2C488.8 320.2 496 327.4 496 336.2L496 456.2C496 496 463.8 528.2 424 528.2L307.4 528.2C270 528.2 235 509.5 214.2 478.3L146.7 376.9C141.8 369.5 143.8 359.6 151.1 354.7C158.4 349.8 168.4 351.8 173.3 359.1L212 417.2C217.9 426 228.8 429.9 238.9 426.9C249 423.9 255.9 414.5 255.9 403.9L256 128zM272 64C236.7 64 208 92.7 208 128L208 325.7C187.2 302 151.5 296.8 124.5 314.7C95.1 334.4 87.1 374.1 106.8 403.5L174.3 504.8C204 549.3 253.9 576 307.4 576L424 576C490.3 576 544 522.3 544 456L544 336C544 300.7 515.3 272 480 272C475.5 272 471.2 272.5 467 273.3C455.3 257.9 436.8 248 416 248C409.1 248 402.5 249.1 396.3 251.1C384.7 234.7 365.6 224 344 224C341.3 224 338.6 224.2 336 224.5L336 128C336 92.7 307.3 64 272 64zM320 368C320 359.2 312.8 352 304 352C295.2 352 288 359.2 288 368L288 464C288 472.8 295.2 480 304 480C312.8 480 320 472.8 320 464L320 368zM368 352C359.2 352 352 359.2 352 368L352 464C352 472.8 359.2 480 368 480C376.8 480 384 472.8 384 464L384 368C384 359.2 376.8 352 368 352zM448 368C448 359.2 440.8 352 432 352C423.2 352 416 359.2 416 368L416 464C416 472.8 423.2 480 432 480C440.8 480 448 472.8 448 464L448 368z" fill="currentColor" />
+                
+                <!-- Cursor Click -->
+                <svg width="32" height="32" class="text-cyan-500"> 
+                  <use href="/Portafolio-FranlyAlvarezVarona/icons.svg#icon-cursor-click" />
                 </svg>
+
               </div>
             </div>
             <div class="expanded-view hidden opacity-0 transition-opacity duration-300 min-h-70 sm:min-h-80 h-full">
@@ -136,9 +199,35 @@
                     <img src={`${import.meta.env.BASE_URL}Cate-SIS.webp`} alt="Cate-SIS" class="w-full h-full object-cover hover:scale-110 transition-transform duration-700" />
                   </div>
                   <div class="flex flex-wrap gap-2">
-                    <div class="flex items-center gap-1.5 px-2.5 py-1 bg-slate-900 text-white text-xs font-medium rounded-full border border-gray-800 hover:scale-105 hover:border-orange-500 transition-all duration-200"><svg viewBox="0 0 452 520" class="w-3.5 h-3.5"><path fill="#e34f26" d="M41 460L0 0h451l-41 460-185 52" /><path fill="#ef652a" d="M226 472l149-41 35-394H226" /><path fill="#ecedee" d="M226 208h-75l-5-58h80V94H84l15 171h127zm0 147l-64-17-4-45h-56l7 89 117 32z" /><path fill="#fff" d="M226 265h69l-7 73-62 17v59l115-32 16-174H226zm0-171v56h136l5-56z" /></svg><span>HTML</span></div>
-                    <div class="flex items-center gap-1.5 px-2.5 py-1 bg-slate-900 text-white text-xs font-medium rounded-full border border-gray-800 hover:scale-105 hover:border-cyan-400 transition-all duration-200"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" class="w-3.5 h-3.5"><path d="M64.004 25.602c-17.067 0-27.73 8.53-32 25.597 6.398-8.531 13.867-11.73 22.398-9.597 4.871 1.214 8.352 4.746 12.207 8.66C72.883 56.629 80.145 64 96.004 64c17.066 0 27.73-8.531 32-25.602-6.399 8.536-13.867 11.735-22.399 9.602-4.87-1.215-8.347-4.746-12.207-8.66-6.27-6.367-13.53-13.738-29.394-13.738zM32.004 64c-17.066 0-27.73 8.531-32 25.602C6.402 81.066 13.87 77.867 22.402 80c4.871 1.215 8.352 4.746 12.207 8.66 6.274 6.367 13.536 13.738 29.395 13.738 17.066 0 27.73-8.53 32-25.597-6.399 8.531-13.867 11.73-22.399 9.597-4.87-1.214-8.347-4.746-12.207-8.66C55.128 71.371 47.868 64 32.004 64zm0 0" fill="#38bdf8" /></svg><span>Tailwind</span></div>
-                    <div class="flex items-center gap-1.5 px-2.5 py-1 bg-slate-900 text-white text-xs font-medium rounded-full border border-gray-800 hover:scale-105 hover:border-yellow-300 transition-all duration-200"><svg viewBox="0 0 1052 1052" class="w-3.5 h-3.5"><path fill="#f0db4f" d="M0 0h1052v1052H0z" /><path d="M965.9 801.1c-7.7-48-39-88.3-131.7-125.9-32.2-14.8-68.1-25.399-78.8-49.8-3.8-14.2-4.3-22.2-1.9-30.8 6.9-27.9 40.2-36.6 66.6-28.6 17 5.7 33.1 18.801 42.8 39.7 45.4-29.399 45.3-29.2 77-49.399-11.6-18-17.8-26.301-25.4-34-27.3-30.5-64.5-46.2-124-45-10.3 1.3-20.699 2.699-31 4-29.699 7.5-58 23.1-74.6 44-49.8 56.5-35.6 155.399 25 196.1 59.7 44.8 147.4 55 158.6 96.9 10.9 51.3-37.699 67.899-86 62-35.6-7.4-55.399-25.5-76.8-58.4-39.399 22.8-39.399 22.8-79.899 46.1 9.6 21 19.699 30.5 35.8 48.7 76.2 77.3 266.899 73.5 301.1-43.5 1.399-4.001 10.6-30.801 3.199-72.101zm-394-317.6h-98.4c0 85-.399 169.4-.399 254.4 0 54.1 2.8 103.7-6 118.9-14.4 29.899-51.7 26.2-68.7 20.399-17.3-8.5-26.1-20.6-36.3-37.699-2.8-4.9-4.9-8.7-5.601-9-26.699 16.3-53.3 32.699-80 49 13.301 27.3 32.9 51 58 66.399 37.5 22.5 87.9 29.4 140.601 17.3 34.3-10 63.899-30.699 79.399-62.199 22.4-41.3 17.6-91.3 17.4-146.6.5-90.2 0-180.4 0-270.9z" fill="#323330" /></svg><span>JavaScript</span></div>
+                    <div class="flex items-center gap-1.5 px-2.5 py-1 bg-slate-900 text-white text-xs font-medium rounded-full border border-gray-800 hover:scale-105 hover:border-orange-500 transition-all duration-200">
+                      
+
+                      <!-- SVG HTML -->
+                      <svg width="15" height="15"> 
+                        <use href="/Portafolio-FranlyAlvarezVarona/icons.svg#icon-html" />
+                      </svg>
+                      
+                      <span>HTML</span>
+                    </div>
+
+                    <div class="flex items-center gap-1.5 px-2.5 py-1 bg-slate-900 text-white text-xs font-medium rounded-full border border-gray-800 hover:scale-105 hover:border-cyan-400 transition-all duration-200">
+                      
+                      <!-- SVG Tailwind -->
+                      <svg width="15" height="15"> 
+                        <use href="/Portafolio-FranlyAlvarezVarona/icons.svg#icon-tailwind" />
+                      </svg>
+                      <span>Tailwind</span>
+                    </div>
+
+                    <div class="flex items-center gap-1.5 px-2.5 py-1 bg-slate-900 text-white text-xs font-medium rounded-full border border-gray-800 hover:scale-105 hover:border-yellow-300 transition-all duration-200">
+                      
+                      <!-- SVG JavaScript -->
+                      <svg width="15" height="15"> 
+                        <use href="/Portafolio-FranlyAlvarezVarona/icons.svg#icon-javascript" />
+                      </svg>
+                      <span>JavaScript</span>
+                    </div>
+                    
                   </div>
                 </div>
                 <div class="w-full md:w-1/2 flex flex-col h-full">
@@ -146,7 +235,10 @@
                   <p id="cateSISDataExpanded" class="text-gray-200 text-xs sm:text-sm leading-relaxed flex-1 mb-0">Diseñé y desarrollé la interfáz de un sistema web académico de catesismo para una escuela Católica en Otavalo, Ecuador. <br> <span id="cateSISSpanExpanded" class="text-cyan-400 font-semibold">SISTEMA PRIVADO</span></p>
                   <a href={`${import.meta.env.BASE_URL}Cate-SIS.html`} target="_blank" class="inline-flex items-center justify-center gap-2 px-4 py-2 bg-transparent hover:bg-blue-500/10 text-blue-400 hover:text-blue-300 rounded-full border border-blue-500/50 hover:border-blue-400 transition-all duration-200 hover:scale-[1.02] active:scale-95 mt-auto text-sm">
                     <span id="cateSISLinkExpanded" class="fontspanium">Abrir Proyecto</span>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h6"/><path d="m21 3-9 9"/><path d="M15 3h6v6"/></svg>
+                    <!-- SVG Open -->
+                      <svg width="16" height="16"> 
+                        <use href="/Portafolio-FranlyAlvarezVarona/icons.svg#icon-open" />
+                      </svg>
                   </a>
                 </div>
               </div>
@@ -175,9 +267,12 @@
               <h3 class="text-xl sm:text-2xl font-bold text-white mb-4 sm:mb-6 text-center">Statify</h3>
               <h4 id="statifyDate" class="text-sm sm:text-base font-bold text-white mb-4 sm:mb-6 text-center">Septiembre 2024 - Junio 2025</h4>
               <div class="animate-pulse transition-all duration-800">
-                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 640 640" class="text-cyan-500">
-                  <path d="M256 128C256 119.2 263.2 112 272 112C280.8 112 288 119.2 288 128L288 264C288 274.3 294.6 283.5 304.4 286.8C314.2 290.1 325 286.7 331.2 278.5C334.2 274.6 338.8 272.1 344 272.1C352.8 272.1 360 279.3 360 288.1C360 298.4 366.6 307.6 376.4 310.9C386.2 314.2 397 310.8 403.2 302.6C406.2 298.7 410.8 296.2 416 296.2C423.8 296.2 430.3 301.8 431.7 309.2C433.3 317.4 439 324.3 446.8 327.2C454.6 330.1 463.5 328.8 470.1 323.6C472.8 321.5 476.2 320.2 480 320.2C488.8 320.2 496 327.4 496 336.2L496 456.2C496 496 463.8 528.2 424 528.2L307.4 528.2C270 528.2 235 509.5 214.2 478.3L146.7 376.9C141.8 369.5 143.8 359.6 151.1 354.7C158.4 349.8 168.4 351.8 173.3 359.1L212 417.2C217.9 426 228.8 429.9 238.9 426.9C249 423.9 255.9 414.5 255.9 403.9L256 128zM272 64C236.7 64 208 92.7 208 128L208 325.7C187.2 302 151.5 296.8 124.5 314.7C95.1 334.4 87.1 374.1 106.8 403.5L174.3 504.8C204 549.3 253.9 576 307.4 576L424 576C490.3 576 544 522.3 544 456L544 336C544 300.7 515.3 272 480 272C475.5 272 471.2 272.5 467 273.3C455.3 257.9 436.8 248 416 248C409.1 248 402.5 249.1 396.3 251.1C384.7 234.7 365.6 224 344 224C341.3 224 338.6 224.2 336 224.5L336 128C336 92.7 307.3 64 272 64zM320 368C320 359.2 312.8 352 304 352C295.2 352 288 359.2 288 368L288 464C288 472.8 295.2 480 304 480C312.8 480 320 472.8 320 464L320 368zM368 352C359.2 352 352 359.2 352 368L352 464C352 472.8 359.2 480 368 480C376.8 480 384 472.8 384 464L384 368C384 359.2 376.8 352 368 352zM448 368C448 359.2 440.8 352 432 352C423.2 352 416 359.2 416 368L416 464C416 472.8 423.2 480 432 480C440.8 480 448 472.8 448 464L448 368z" fill="currentColor" />
+
+                <!-- Cursor Click -->
+                <svg width="32" height="32" class="text-cyan-500"> 
+                  <use href="/Portafolio-FranlyAlvarezVarona/icons.svg#icon-cursor-click" />
                 </svg>
+
               </div>
             </div>
             <div class="expanded-view hidden opacity-0 transition-opacity duration-300 min-h-70 sm:min-h-80 h-full">
@@ -188,33 +283,67 @@
                   </div>
                   <div class="flex flex-wrap gap-2">
                     <div class="flex items-center gap-1.5 px-2.5 py-1 bg-slate-900 text-white text-xs font-medium rounded-full border border-gray-800 hover:scale-105 hover:border-orange-500 transition-all duration-200">
-                      <svg viewBox="0 0 452 520" class="w-3.5 h-3.5"><path fill="#e34f26" d="M41 460L0 0h451l-41 460-185 52" /><path fill="#ef652a" d="M226 472l149-41 35-394H226" /><path fill="#ecedee" d="M226 208h-75l-5-58h80V94H84l15 171h127zm0 147l-64-17-4-45h-56l7 89 117 32z" /><path fill="#fff" d="M226 265h69l-7 73-62 17v59l115-32 16-174H226zm0-171v56h136l5-56z" /></svg>
+                      
+                      <!-- SVG HTML -->
+                      <svg width="15" height="15"> 
+                        <use href="/Portafolio-FranlyAlvarezVarona/icons.svg#icon-html" />
+                      </svg>
+
                       <span>HTML</span>
                     </div>
+
                     <div class="flex items-center gap-1.5 px-2.5 py-1 bg-slate-900 text-white text-xs font-medium rounded-full border border-gray-800 hover:scale-105 hover:border-blue-600 transition-all duration-200">
-                      <svg viewBox="0 0 512 512" class="w-3.5 h-3.5"><path fill="#264de4" d="M71.357 460.819 30.272 0h451.456l-41.129 460.746L255.724 512z"/><path fill="#2965f1" d="m405.388 431.408 35.148-393.73H256v435.146z"/><path fill="#ebebeb" d="m124.46 208.59 5.065 56.517H256V208.59zm-5.041-57.875H256V94.197H114.281zM256 355.372l-.248.066-62.944-16.996-4.023-45.076h-56.736l7.919 88.741 115.772 32.14.26-.073z"/><path fill="#fff" d="M255.805 208.59v56.517H325.4l-6.56 73.299-63.035 17.013v58.8l115.864-32.112.85-9.549 13.28-148.792 1.38-15.176 10.203-114.393H255.805v56.518h79.639L330.3 208.59z"/></svg>
+                      
+                      <!-- SVG CSS -->
+                      <svg width="15" height="15"> 
+                        <use href="/Portafolio-FranlyAlvarezVarona/icons.svg#icon-css" />
+                      </svg>
+
                       <span>CSS</span>
                     </div>
+
                     <div class="flex items-center gap-1.5 px-2.5 py-1 bg-slate-900 text-white text-xs font-medium rounded-full border border-gray-800 hover:scale-105 hover:border-violet-600 transition-all duration-200">
-                      <svg viewBox="0 0 256 204" class="w-3.5 h-3.5"><path fill="#7E13F8" d="M53.172 0C38.565 0 27.756 12.785 28.24 26.65c.465 13.32-.139 30.573-4.482 44.642C19.402 85.402 12.034 94.34 0 95.488v12.956c12.034 1.148 19.402 10.086 23.758 24.197 4.343 14.069 4.947 31.32 4.482 44.641-.484 13.863 10.325 26.65 24.934 26.65h149.673c14.608 0 25.414-12.785 24.93-26.65-.464-13.32.139-30.572 4.482-44.641 4.359-14.11 11.707-23.05 23.741-24.197V95.488c-12.034-1.148-19.382-10.086-23.74-24.196-4.344-14.067-4.947-31.321-4.483-44.642C228.261 12.787 217.455 0 202.847 0H53.17h.002ZM173.56 125.533c0 19.092-14.24 30.67-37.872 30.67h-40.23a4.339 4.339 0 0 1-4.338-4.339V52.068a4.339 4.339 0 0 1 4.339-4.34h39.999c19.705 0 32.637 10.675 32.637 27.063 0 11.503-8.7 21.801-19.783 23.604v.601c15.089 1.655 25.248 12.104 25.248 26.537Zm-42.26-64.05h-22.937v32.4h19.32c14.934 0 23.17-6.014 23.17-16.764 0-10.073-7.082-15.636-19.552-15.636Zm-22.937 45.256v35.705h23.782c15.548 0 23.786-6.239 23.786-17.965 0-11.728-8.467-17.742-24.786-17.742h-22.782v.002Z"/></svg>
+                      <!-- SVG Bootstrap -->
+                      <svg width="15" height="15"> 
+                        <use href="/Portafolio-FranlyAlvarezVarona/icons.svg#icon-bootstrap" />
+                      </svg>
                       <span>Bootstrap</span>
                     </div>
+
                     <div class="flex items-center gap-1.5 px-2.5 py-1 bg-slate-900 text-white text-xs font-medium rounded-full border border-gray-800 hover:scale-105 hover:border-yellow-300 transition-all duration-200">
-                      <svg viewBox="0 0 1052 1052" class="w-3.5 h-3.5"><path fill="#f0db4f" d="M0 0h1052v1052H0z" /><path d="M965.9 801.1c-7.7-48-39-88.3-131.7-125.9-32.2-14.8-68.1-25.399-78.8-49.8-3.8-14.2-4.3-22.2-1.9-30.8 6.9-27.9 40.2-36.6 66.6-28.6 17 5.7 33.1 18.801 42.8 39.7 45.4-29.399 45.3-29.2 77-49.399-11.6-18-17.8-26.301-25.4-34-27.3-30.5-64.5-46.2-124-45-10.3 1.3-20.699 2.699-31 4-29.699 7.5-58 23.1-74.6 44-49.8 56.5-35.6 155.399 25 196.1 59.7 44.8 147.4 55 158.6 96.9 10.9 51.3-37.699 67.899-86 62-35.6-7.4-55.399-25.5-76.8-58.4-39.399 22.8-39.399 22.8-79.899 46.1 9.6 21 19.699 30.5 35.8 48.7 76.2 77.3 266.899 73.5 301.1-43.5 1.399-4.001 10.6-30.801 3.199-72.101zm-394-317.6h-98.4c0 85-.399 169.4-.399 254.4 0 54.1 2.8 103.7-6 118.9-14.4 29.899-51.7 26.2-68.7 20.399-17.3-8.5-26.1-20.6-36.3-37.699-2.8-4.9-4.9-8.7-5.601-9-26.699 16.3-53.3 32.699-80 49 13.301 27.3 32.9 51 58 66.399 37.5 22.5 87.9 29.4 140.601 17.3 34.3-10 63.899-30.699 79.399-62.199 22.4-41.3 17.6-91.3 17.4-146.6.5-90.2 0-180.4 0-270.9z" fill="#323330"/></svg>
+                      <!-- SVG JavaScript -->
+                      <svg width="15" height="15"> 
+                        <use href="/Portafolio-FranlyAlvarezVarona/icons.svg#icon-javascript" />
+                      </svg>
+                      
                       <span>JavaScript</span>
                     </div>
+
                     <div class="flex items-center gap-1.5 px-2.5 py-1 bg-slate-900 text-white text-xs font-medium rounded-full border border-gray-800 hover:scale-105 hover:border-orange-500 transition-all duration-200">
-                      <svg width="800px" height="800px" viewBox="-24 0 304 304" xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5"><g><path d="M13.1040062,287.305758 C7.90005751,287.305758 6.38666428,284.276558 6.38666428,279.736378 C6.38666428,278.222985 6.577347,276.516495 6.81147641,274.718285 C7.95074533,266.866501 10.7337476,262.374596 17.4510895,262.374596 C21.9936829,262.374596 24.2094644,264.406936 24.2094644,268.097491 L24.2094644,269.895702 L28.7158522,269.895702 C28.76654,269.895702 28.76654,268.2399 28.76654,267.863362 C28.76654,262.471144 25.5007967,257.356502 17.4583306,257.356502 C6.52907289,257.356502 2.03475359,263.294217 0.378951735,274.933105 C0.142408614,276.494772 -1.77635684e-14,277.95265 -1.77635684e-14,279.50949 C-1.77635684e-14,286.36924 2.69852255,292.608669 12.3485164,292.608669 C19.6813532,292.608669 24.0356776,289.033971 26.5893778,284.633786 L22.2833275,281.734926 C19.4930842,286.135111 16.463884,287.305758 13.1040062,287.305758 L13.1040062,287.305758 Z M42.6743101,265.637925 C33.9198009,265.637925 30.1375246,270.129831 28.8606745,279.070195 C28.7158522,280.11533 28.6217177,281.201497 28.6217177,282.19353 C28.6217177,287.9647 31.3178265,292.555567 38.7906582,292.555567 C47.5451674,292.555567 51.3781315,287.870565 52.6549816,279.070195 C52.7973902,277.935754 52.8915247,276.895447 52.8915247,275.85514 C52.8939384,269.989836 50.103695,265.637925 42.6743101,265.637925 L42.6743101,265.637925 Z M46.3165914,279.072609 C45.3704189,285.555822 43.338079,287.542301 39.5027013,287.542301 C36.4300544,287.542301 34.9166612,286.265451 34.9166612,282.432487 C34.9166612,281.486314 35.0132094,280.351873 35.2014784,279.072609 C36.1476509,272.640084 38.0399959,270.653605 41.9188203,270.653605 C45.042155,270.653605 46.6014086,271.930455 46.6014086,275.80928 C46.6014086,276.755452 46.5048604,277.844033 46.3165914,279.072609 L46.3165914,279.072609 Z M74.8972761,257.827175 L73.432157,266.511687 C73.3380225,267.267176 73.3862966,267.016151 73.6711138,267.72578 C72.3001292,266.685473 69.8381497,265.997567 68.1823479,265.997567 C60.3281508,265.997567 55.9303797,269.552955 54.511121,279.487766 C54.3228519,280.670482 54.2745778,281.667342 54.2745778,282.659375 C54.2745778,289.900491 58.532354,292.599014 64.2552493,292.599014 C66.6713684,292.599014 69.0343859,292.649702 70.8784567,291.090448 L71.3491293,294.032755 L75.8917227,294.032755 L81.1898059,257.827175 L74.8972761,257.827175 L74.8972761,257.827175 Z M70.4029568,286.168903 C68.2764824,287.443339 66.1958684,287.73057 64.9190183,287.73057 C61.465006,287.73057 60.5188335,285.93236 60.5188335,283.047982 C60.5188335,281.959401 60.6612421,280.684964 60.8519248,279.309152 C61.9380922,271.788047 64.3517976,270.460509 67.4751322,270.460509 C69.5074721,270.460509 71.0667258,270.7936 72.5366723,271.599777 L70.4029568,286.168903 L70.4029568,286.168903 Z M95.0058551,265.637925 C86.3454804,265.637925 82.2808007,269.750879 80.9074023,279.070195 C80.76258,280.207051 80.6684455,281.295632 80.6684455,282.335939 C80.6684455,288.722603 83.9341888,292.555567 91.1222033,292.555567 C96.7051037,292.555567 100.871159,290.235996 103.094182,285.97822 L98.3150451,284.037601 C96.9440605,286.118215 95.0999896,287.537474 91.8342463,287.537474 C88.3343736,287.537474 86.9151149,286.596129 86.9151149,283.472794 C86.9151149,282.857299 86.963389,281.961814 87.0575235,281.961814 L104.134489,281.961814 C104.373445,279.548109 104.653435,277.841619 104.653435,276.427188 C104.653435,271.698739 102.857639,265.637925 95.0058551,265.637925 L95.0058551,265.637925 Z M98.2691847,277.136817 L87.8612874,277.136817 C88.9040081,274.723112 90.6515307,270.986696 94.2479517,270.986696 C97.038195,270.986696 98.4115933,272.618361 98.4115933,275.408604 C98.4091796,275.881691 98.3657329,277.136817 98.2691847,277.136817 L98.2691847,277.136817 Z M122.860015,265.068291 L123.427235,260.24088 L110.084272,260.24088 L109.519465,265.068291 L113.019338,265.068291 L109.237062,289.205344 L105.732362,289.205344 L105.167555,294.032755 L118.508104,294.032755 L119.077738,289.205344 L115.575452,289.205344 L119.357728,265.068291 L122.860015,265.068291 Z M149.970753,272.309407 L151.674829,267.481996 L147.086375,267.481996 L143.777185,268.165075 C141.9307,266.984773 139.42286,266.098943 137.059843,266.098943 C130.291813,266.098943 124.523057,269.3671 124.523057,276.796485 C124.523057,278.879513 125.278547,280.561865 126.176446,281.698721 C124.759601,282.45421 123.528611,283.718992 123.528611,285.425482 C123.528611,286.180971 123.811014,286.955771 124.380649,287.662986 C121.539718,289.369476 119.794609,292.195925 119.794609,295.505115 C119.794609,301.894193 126.463677,303.257936 131.573491,303.257936 C138.006015,303.257936 145.671944,301.78799 145.671944,293.603115 C145.671944,290.812872 143.922007,288.633296 138.860467,287.687123 L129.72942,285.980634 C128.689113,285.789951 128.45257,285.459273 128.45257,284.986187 C128.45257,284.276558 128.882209,283.90002 129.589425,283.90002 L130.20492,283.994154 C131.43591,284.276558 132.855168,284.42138 134.320287,284.42138 C140.897634,284.42138 146.762938,281.580449 146.762938,274.201752 C146.762938,273.159031 146.574669,272.454229 146.101583,271.317374 C146.905347,271.696326 147.948068,272.311821 148.370466,272.311821 L149.970753,272.311821 L149.970753,272.309407 Z M136.963295,291.891798 C138.759091,292.224889 139.372173,292.886245 139.372173,294.06896 C139.372173,297.901924 135.256805,298.375011 132.278293,298.375011 C127.735699,298.375011 126.034037,297.288843 126.034037,294.872724 C126.034037,292.743836 126.647118,291.751803 128.068791,290.235996 L136.963295,291.891798 L136.963295,291.891798 Z M135.020262,279.499835 C132.275879,279.499835 130.762486,278.507802 130.762486,276.139957 C130.762486,272.640084 132.797239,270.605331 136.345386,270.605331 C139.183904,270.605331 140.557302,271.788047 140.557302,274.10279 C140.557302,277.605076 138.568409,279.499835 135.020262,279.499835 L135.020262,279.499835 Z M166.777383,265.637925 C164.127134,265.637925 161.764117,266.938913 158.829051,269.253656 L158.404239,267.481996 L153.197877,267.481996 L149.555595,294.032755 L155.848125,294.032755 L158.592508,273.897625 C160.438993,272.763183 162.707876,271.114623 164.648495,271.114623 C167.011512,271.114623 167.865964,272.256305 167.865964,274.431054 C167.865964,274.952414 167.815276,276.494772 167.721142,277.061993 L165.406398,294.032755 L171.698928,294.032755 L174.013671,276.924411 C174.11022,276.123061 174.204354,274.805178 174.204354,274.049688 C174.206768,269.550542 172.075466,265.637925 166.777383,265.637925 L166.777383,265.637925 Z M186.157023,287.380583 L186.205297,286.731296 L188.947266,267.481996 L178.491095,267.481996 L177.832153,272.309407 L182.418193,272.309407 C182.039242,272.309407 181.802698,272.731805 181.756838,273.113171 L179.864493,285.93236 C179.770359,286.550268 179.724498,287.834359 179.724498,288.350892 C179.724498,291.662496 181.520295,294.032755 185.208437,294.032755 L188.425906,294.032755 L189.135535,289.205344 L187.103195,289.205344 C186.391152,289.205344 186.157023,287.947804 186.157023,287.380583 L186.157023,287.380583 Z M190.224116,257.827175 L184.073995,257.827175 C183.695043,257.827175 183.695043,256.434467 183.649183,256.907553 L182.794731,263.709375 C182.746457,264.136601 182.746457,265.068291 183.125409,265.068291 L189.277944,265.068291 C189.656896,265.068291 189.656896,263.414903 189.702756,262.985263 L190.557208,257.735454 C190.605482,257.262368 190.605482,257.827175 190.224116,257.827175 L190.224116,257.827175 Z M203.055374,287.542301 C201.49612,287.542301 200.738217,286.878532 200.738217,285.461687 L200.786491,285.365139 L202.77297,272.309407 L209.963398,272.309407 L212.138147,267.481996 L203.434326,267.481996 L204.899445,256.859279 L198.278651,258.976099 L197.093522,267.481996 L193.262971,267.481996 L192.601616,272.309407 L197.047661,272.309407 C196.622849,274.723112 196.195623,273.156617 196.149763,273.632117 L194.445687,285.080322 C194.351552,285.601682 194.351552,285.980634 194.351552,286.451306 C194.351552,290.945626 197.663156,292.627978 201.640942,292.627978 C205.329084,292.627978 208.31001,291.551466 210.629581,289.608433 L207.694515,285.99753 C206.224569,286.895428 205.232536,287.542301 203.055374,287.542301 L203.055374,287.542301 Z M226.142465,265.637925 C217.484504,265.637925 213.417411,269.750879 212.044012,279.070195 C211.901604,280.207051 211.807469,281.295632 211.807469,282.335939 C211.807469,288.722603 215.070799,292.555567 222.261227,292.555567 C227.844127,292.555567 232.010183,290.235996 234.230792,285.97822 L229.454069,284.037601 C228.083084,286.118215 226.2366,287.537474 222.970856,287.537474 C219.473397,287.537474 218.051725,286.596129 218.051725,283.472794 C218.051725,282.857299 218.102413,281.961814 218.196547,281.961814 L235.273512,281.961814 C235.510056,279.548109 235.794873,277.841619 235.794873,276.427188 C235.794873,271.698739 233.996662,265.637925 226.142465,265.637925 L226.142465,265.637925 Z M229.408208,277.136817 L219.000311,277.136817 C220.040618,274.723112 221.788141,270.986696 225.386975,270.986696 C228.177219,270.986696 229.550617,272.618361 229.550617,275.408604 C229.548203,275.881691 229.502343,277.136817 229.408208,277.136817 L229.408208,277.136817 Z M253.204929,265.637925 C250.933633,265.637925 248.804744,266.938913 246.675856,268.968839 L246.296905,267.481996 L241.09537,267.481996 L237.450675,294.032755 L243.791478,294.032755 L246.581722,273.472813 C248.237524,272.48078 250.129869,271.633569 251.928079,271.633569 C253.064934,271.633569 254.151102,271.452541 255.191409,271.59495 L256,266.108598 C255.049,265.920329 254.102828,265.637925 253.204929,265.637925 L253.204929,265.637925 Z M92.541462,238.809591 C78.2209483,232.62085 64.8200564,216.888319 64.7886782,200.791318 C64.7500589,183.241267 75.872413,168.341464 89.7053582,158.549061 C88.0423153,164.831936 87.1347621,170.578969 91.2549571,176.198075 C95.0855074,181.423747 101.793194,183.962965 108.126757,182.584739 C122.927598,179.345546 123.605849,163.074759 114.832031,153.596138 C106.157174,144.209238 97.7647203,133.605831 101.066669,119.992533 C102.720057,113.168988 106.91025,106.777496 112.217988,102.208352 C108.138826,112.930031 119.731852,123.504474 127.37123,128.771179 C140.622472,137.909467 155.160219,144.815078 167.344604,155.527102 C180.161379,166.784624 189.625517,182.007863 187.713863,199.661704 C185.642904,218.79756 170.43656,232.106731 153.381318,238.826487 C189.422766,230.870914 226.663826,202.898483 227.426556,162.925109 C228.058947,130.040788 205.500457,104.733088 177.554577,90.2436145 L176.094285,89.4470918 C176.861844,91.3080586 177.112869,92.8914493 177.083905,94.3082943 C177.33493,93.2631599 177.503889,92.189061 177.552163,91.0811703 C177.540095,92.459396 177.363894,93.7603832 177.040458,94.9817181 L177.083905,94.3082943 C176.66392,96.0823677 175.959118,97.7309284 175.015359,99.2394943 L175.425689,98.7977862 C169.85003,108.044691 154.75713,110.052894 147.301195,100.477725 C135.314734,85.0758714 147.55222,68.4695788 149.263537,52.160172 C151.406907,31.7185016 138.587718,11.8754302 122.693469,-1.42108547e-14 C131.447978,14.1612091 119.915294,32.8963898 110.687699,43.3694572 C101.740093,53.5239155 90.8591094,62.0008486 80.9822272,71.2260303 C70.3715786,81.1342906 60.1712599,91.5711525 51.4505426,103.200385 C34.009108,126.475745 23.3308756,155.749163 31.1778316,184.788452 C39.0199602,213.806017 64.1562874,232.278104 92.541462,238.809591 L92.541462,238.809591 Z" fill="#EE4323"></path></g></svg>
+                      <!-- SVG JavaScript -->
+                      <svg width="15" height="15"> 
+                        <use href="/Portafolio-FranlyAlvarezVarona/icons.svg#icon-codeigniter" />
+                      </svg>
                       <span>CodeIgniter</span>
                     </div>
+
                     <div class="flex items-center gap-1.5 px-2.5 py-1 bg-slate-900 text-white text-xs font-medium rounded-full border border-gray-800 hover:scale-105 hover:border-violet-300 transition-all duration-200">
-                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" class="w-3.5 h-3.5"><radialGradient id="a" cx="0" cy="0" r="1" gradientTransform="matrix(84.04136 0 0 84.04136 38.426 42.169)"><stop stop-color="#AEB2D5"/><stop offset=".3" stop-color="#AEB2D5"/><stop offset=".75" stop-color="#484C89"/><stop offset="1" stop-color="#484C89"/></radialGradient><path fill="url(#a)" d="M0 64c0 18.593 28.654 33.667 64 33.667 35.346 0 64-15.074 64-33.667 0-18.593-28.655-33.667-64-33.667C28.654 30.333 0 45.407 0 64Z"/><path fill="#777bb3" d="M64 95.167c33.965 0 61.5-13.955 61.5-31.167 0-17.214-27.535-31.167-61.5-31.167S2.5 46.786 2.5 64c0 17.212 27.535 31.167 61.5 31.167Z"/><path d="M34.772 67.864c2.793 0 4.877-.515 6.196-1.53 1.306-1.006 2.207-2.747 2.68-5.175.44-2.27.272-3.854-.5-4.71-.788-.874-2.493-1.317-5.067-1.317h-4.464l-2.473 12.732zM20.173 83.547a.694.694 0 0 1-.68-.828l6.557-33.738a.695.695 0 0 1 .68-.561h14.134c4.442 0 7.748 1.206 9.827 3.585 2.088 2.39 2.734 5.734 1.917 9.935-.333 1.711-.905 3.3-1.7 4.724a15.818 15.818 0 0 1-3.128 3.92c-1.531 1.432-3.264 2.472-5.147 3.083-1.852.604-4.232.91-7.07.91h-5.724l-1.634 8.408a.695.695 0 0 1-.682.562z"/><path fill="#fff" d="M34.19 55.826h3.891c3.107 0 4.186.682 4.553 1.089.607.674.723 2.097.331 4.112-.439 2.257-1.253 3.858-2.42 4.756-1.194.92-3.138 1.386-5.773 1.386h-2.786l2.205-11.342zm6.674-8.1H26.731a1.39 1.39 0 0 0-1.364 1.123L18.81 82.588a1.39 1.39 0 0 0 1.363 1.653h7.35a1.39 1.39 0 0 0 1.363-1.124l1.525-7.846h5.151c2.912 0 5.364-.318 7.287-.944 1.977-.642 3.796-1.731 5.406-3.237a16.522 16.522 0 0 0 3.259-4.087c.831-1.487 1.429-3.147 1.775-4.931.86-4.423.161-7.964-2.076-10.524-2.216-2.537-5.698-3.823-10.349-3.823zM30.301 68.557h4.471c2.963 0 5.17-.557 6.62-1.675 1.451-1.116 2.428-2.98 2.938-5.591.485-2.508.264-4.277-.665-5.308-.931-1.03-2.791-1.546-5.584-1.546h-5.036l-2.743 14.12m10.563-19.445c4.252 0 7.353 1.117 9.303 3.348 1.95 2.232 2.536 5.347 1.76 9.346-.322 1.648-.863 3.154-1.625 4.518-.764 1.366-1.76 2.614-2.991 3.747-1.468 1.373-3.097 2.352-4.892 2.935-1.794.584-4.08.875-6.857.875h-6.296l-1.743 8.97h-7.35l6.558-33.739h14.133"/><path d="M69.459 74.577a.694.694 0 0 1-.682-.827l2.9-14.928c.277-1.42.209-2.438-.19-2.87-.245-.263-.979-.704-3.15-.704h-5.256l-3.646 18.768a.695.695 0 0 1-.683.56h-7.29a.695.695 0 0 1-.683-.826l6.558-33.739a.695.695 0 0 1 .682-.561h7.29a.695.695 0 0 1 .683.826L64.41 48.42h5.653c4.307 0 7.227.758 8.928 2.321 1.733 1.593 2.275 4.14 1.608 7.573l-3.051 15.702a.695.695 0 0 1-.682.56h-7.407z"/><path fill="#fff" d="M65.31 38.755h-7.291a1.39 1.39 0 0 0-1.364 1.124l-6.557 33.738a1.39 1.39 0 0 0 1.363 1.654h7.291a1.39 1.39 0 0 0 1.364-1.124l3.537-18.205h4.682c2.168 0 2.624.463 2.641.484.132.14.305.795.019 2.264l-2.9 14.927a1.39 1.39 0 0 0 1.364 1.654h7.408a1.39 1.39 0 0 0 1.363-1.124l3.051-15.7c.715-3.686.103-6.45-1.82-8.217-1.836-1.686-4.91-2.505-9.398-2.505h-4.81l1.421-7.315a1.39 1.39 0 0 0-1.364-1.655zm0 1.39-1.743 8.968h6.496c4.087 0 6.907.714 8.457 2.14 1.553 1.426 2.017 3.735 1.398 6.93l-3.052 15.699h-7.407l2.901-14.928c.33-1.698.208-2.856-.365-3.474-.573-.617-1.793-.926-3.658-.926h-5.829l-3.756 19.327H51.46l6.558-33.739h7.292z"/><path d="M92.136 67.864c2.793 0 4.878-.515 6.198-1.53 1.304-1.006 2.206-2.747 2.679-5.175.44-2.27.273-3.854-.5-4.71-.788-.874-2.493-1.317-5.067-1.317h-4.463l-2.475 12.732zM77.54 83.547a.694.694 0 0 1-.682-.828l6.557-33.738a.695.695 0 0 1 .682-.561H98.23c4.442 0 7.748 1.206 9.826 3.585 2.089 2.39 2.734 5.734 1.917 9.935a15.878 15.878 0 0 1-1.699 4.724 15.838 15.838 0 0 1-3.128 3.92c-1.53 1.432-3.265 2.472-5.147 3.083-1.852.604-4.232.91-7.071.91h-5.723l-1.633 8.408a.695.695 0 0 1-.683.562z"/><path fill="#fff" d="M91.555 55.826h3.891c3.107 0 4.186.682 4.552 1.089.61.674.724 2.097.333 4.112-.44 2.257-1.254 3.858-2.421 4.756-1.195.92-3.139 1.386-5.773 1.386h-2.786l2.204-11.342zm6.674-8.1H84.096a1.39 1.39 0 0 0-1.363 1.123l-6.558 33.739a1.39 1.39 0 0 0 1.364 1.653h7.35a1.39 1.39 0 0 0 1.363-1.124l1.525-7.846h5.15c2.911 0 5.364-.318 7.286-.944 1.978-.642 3.797-1.731 5.408-3.238a16.52 16.52 0 0 0 3.258-4.086c.832-1.487 1.428-3.147 1.775-4.931.86-4.423.162-7.964-2.076-10.524-2.216-2.537-5.697-3.823-10.35-3.823zM87.666 68.557h4.47c2.964 0 5.17-.557 6.622-1.675 1.45-1.116 2.428-2.98 2.936-5.591.487-2.508.266-4.277-.665-5.308-.93-1.03-2.791-1.546-5.583-1.546h-5.035Zm10.563-19.445c4.251 0 7.354 1.117 9.303 3.348 1.95 2.232 2.537 5.347 1.759 9.346-.32 1.648-.862 3.154-1.624 4.518-.763 1.366-1.76 2.614-2.992 3.747-1.467 1.373-3.097 2.352-4.892 2.935-1.793.584-4.078.875-6.856.875h-6.295l-1.745 8.97h-7.35l6.558-33.739h14.133"/></svg>
+                      
+                      <!-- SVG PHP -->
+                      <svg width="15" height="15"> 
+                        <use href="/Portafolio-FranlyAlvarezVarona/icons.svg#icon-php" />
+                      </svg>
                       <span>PHP</span>
                     </div>
+
                     <div class="flex items-center gap-1.5 px-2.5 py-1 bg-slate-900 text-white text-xs font-medium rounded-full border border-gray-800 hover:scale-105 hover:border-gray-200 transition-all duration-200">
-                      <svg preserveAspectRatio="xMidYMid" viewBox="0 0 256 252" class="w-3.5 h-3.5"><path fill="#FFF" d="M236 194c-14 0-25 1-34 5-3 1-7 1-7 4l3 6c2 3 5 8 9 11l11 8 21 10 11 9 6 4-3-6-5-5c-5-7-11-13-18-18-6-3-18-9-20-15h-1l12-3 18-3 8-2v-2l-9-10c-8-8-18-15-28-22l-18-8c-2-1-6-2-7-4l-7-13-15-30-8-20c-18-30-38-48-68-65-6-4-14-5-22-7l-13-1-8-6C34 5 8-9 1 9c-5 11 7 22 11 28l9 13 3 9c3 8 5 17 9 24l6 10c2 2 4 3 5 6-3 4-3 9-4 13-7 20-4 44 5 59 2 4 9 14 18 10 8-3 6-13 8-22l1-4 8 14c5 9 14 18 22 24 4 3 8 8 13 10l-4-4-9-10c-8-10-14-21-20-32l-7-17-3-6c-3 4-7 7-9 12-3 7-3 17-4 26h-1c-6-1-8-7-10-12-5-12-6-32-1-46 1-4 6-15 4-19-1-3-4-5-6-7l-7-12-10-30-9-13c-3-5-7-8-10-14-1-2-2-5 0-7l2-2c2-2 9 0 11 1 6 3 12 5 17 9l8 6h4c6 1 12 0 17 2 9 3 18 7 25 12 23 14 42 35 54 59 3 4 3 8 5 12l12 26c4 8 7 16 12 23 3 4 14 6 18 8l12 4 18 12c2 2 11 7 12 10Z"/><path fill="#FFF" d="m58 43-7 1 6 7 4 9v-1c3-1 4-4 4-8l-2-4-5-4Z"/></svg>
+                      <!-- SVG MySQL -->
+                      <svg width="15" height="15"> 
+                        <use href="/Portafolio-FranlyAlvarezVarona/icons.svg#icon-mysql" />
+                      </svg>
                       <span>MySQL</span>
                     </div>
+                    
                   </div>
                 </div>
                 <div class="w-full md:w-1/2 flex flex-col h-full">
@@ -222,7 +351,10 @@
                   <p id="statifyDataExpanded" class="text-gray-200 text-xs sm:text-sm leading-relaxed flex-1 mb-0">Sistema Web de registro, reporte y visualización de datos estadísticos sobre incidentes y siniestros de la zona norte de la provincia Imbabura en Ecuador para la empresa de movilidad Movidelnor EP mediante gráficas interactivas.</p>
                   <a href="https://movidelnor.gob.ec/web/webepm/estadisticas/" target="_blank" class="inline-flex items-center justify-center gap-2 px-4 py-2 bg-transparent hover:bg-blue-500/10 text-blue-400 hover:text-blue-300 rounded-full border border-blue-500/50 hover:border-blue-400 transition-all duration-200 hover:scale-[1.02] active:scale-95 mt-auto text-sm">
                     <span id="statifyLinkExpanded" class="font-medium">Abrir Proyecto</span>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h6"/><path d="m21 3-9 9"/><path d="M15 3h6v6"/></svg>
+                    <!-- SVG Open -->
+                      <svg width="16" height="16"> 
+                        <use href="/Portafolio-FranlyAlvarezVarona/icons.svg#icon-open" />
+                      </svg>
                   </a>
                 </div>
               </div>
@@ -254,9 +386,12 @@
               <h3 id="contadorFallecidosTittle" class="text-xl sm:text-2xl font-bold text-white mb-4 sm:mb-6 text-center">Contador de fallecidos y lesionados</h3>
               <h4 id="contadorFallecidosDate" class="text-sm sm:text-base font-bold text-white mb-4 sm:mb-6 text-center">Marzo 2024 - Julio 2024</h4>
               <div class="animate-pulse transition-transform duration-800">
-                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 640 640" class="text-cyan-500">
-                  <path d="M256 128C256 119.2 263.2 112 272 112C280.8 112 288 119.2 288 128L288 264C288 274.3 294.6 283.5 304.4 286.8C314.2 290.1 325 286.7 331.2 278.5C334.2 274.6 338.8 272.1 344 272.1C352.8 272.1 360 279.3 360 288.1C360 298.4 366.6 307.6 376.4 310.9C386.2 314.2 397 310.8 403.2 302.6C406.2 298.7 410.8 296.2 416 296.2C423.8 296.2 430.3 301.8 431.7 309.2C433.3 317.4 439 324.3 446.8 327.2C454.6 330.1 463.5 328.8 470.1 323.6C472.8 321.5 476.2 320.2 480 320.2C488.8 320.2 496 327.4 496 336.2L496 456.2C496 496 463.8 528.2 424 528.2L307.4 528.2C270 528.2 235 509.5 214.2 478.3L146.7 376.9C141.8 369.5 143.8 359.6 151.1 354.7C158.4 349.8 168.4 351.8 173.3 359.1L212 417.2C217.9 426 228.8 429.9 238.9 426.9C249 423.9 255.9 414.5 255.9 403.9L256 128zM272 64C236.7 64 208 92.7 208 128L208 325.7C187.2 302 151.5 296.8 124.5 314.7C95.1 334.4 87.1 374.1 106.8 403.5L174.3 504.8C204 549.3 253.9 576 307.4 576L424 576C490.3 576 544 522.3 544 456L544 336C544 300.7 515.3 272 480 272C475.5 272 471.2 272.5 467 273.3C455.3 257.9 436.8 248 416 248C409.1 248 402.5 249.1 396.3 251.1C384.7 234.7 365.6 224 344 224C341.3 224 338.6 224.2 336 224.5L336 128C336 92.7 307.3 64 272 64zM320 368C320 359.2 312.8 352 304 352C295.2 352 288 359.2 288 368L288 464C288 472.8 295.2 480 304 480C312.8 480 320 472.8 320 464L320 368zM368 352C359.2 352 352 359.2 352 368L352 464C352 472.8 359.2 480 368 480C376.8 480 384 472.8 384 464L384 368C384 359.2 376.8 352 368 352zM448 368C448 359.2 440.8 352 432 352C423.2 352 416 359.2 416 368L416 464C416 472.8 423.2 480 432 480C440.8 480 448 472.8 448 464L448 368z" fill="currentColor" />
+
+                <!-- Cursor Click -->
+                <svg width="32" height="32" class="text-cyan-500"> 
+                  <use href="/Portafolio-FranlyAlvarezVarona/icons.svg#icon-cursor-click" />
                 </svg>
+
               </div>
             </div>
             <div class="expanded-view hidden opacity-0 transition-opacity duration-300 min-h-70 sm:min-h-80 h-full">
@@ -266,9 +401,35 @@
                     <img src={`${import.meta.env.BASE_URL}Contador de Fallecidos y Lesionados.webp`} alt="Captura de pantalla de la Página del Contador de fallecidos y lesionados" class="w-full h-full object-cover hover:scale-110 transition-transform duration-700" />
                   </div>
                   <div class="flex flex-wrap gap-2">
-                    <div class="flex items-center gap-1.5 px-2.5 py-1 bg-slate-900 text-white text-xs font-medium rounded-full border border-gray-800 hover:scale-105 hover:border-orange-500 transition-all duration-200"><svg viewBox="0 0 452 520" class="w-3.5 h-3.5"><path fill="#e34f26" d="M41 460L0 0h451l-41 460-185 52" /><path fill="#ef652a" d="M226 472l149-41 35-394H226" /><path fill="#ecedee" d="M226 208h-75l-5-58h80V94H84l15 171h127zm0 147l-64-17-4-45h-56l7 89 117 32z" /><path fill="#fff" d="M226 265h69l-7 73-62 17v59l115-32 16-174H226zm0-171v56h136l5-56z" /></svg><span>HTML</span></div>
-                    <div class="flex items-center gap-1.5 px-2.5 py-1 bg-slate-900 text-white text-xs font-medium rounded-full border border-gray-800 hover:scale-105 hover:border-blue-600 transition-all duration-200"><svg viewBox="0 0 512 512" class="w-3.5 h-3.5"><path fill="#264de4" d="M71.357 460.819 30.272 0h451.456l-41.129 460.746L255.724 512z"/><path fill="#2965f1" d="m405.388 431.408 35.148-393.73H256v435.146z"/><path fill="#ebebeb" d="m124.46 208.59 5.065 56.517H256V208.59zm-5.041-57.875H256V94.197H114.281zM256 355.372l-.248.066-62.944-16.996-4.023-45.076h-56.736l7.919 88.741 115.772 32.14.26-.073z"/><path fill="#fff" d="M255.805 208.59v56.517H325.4l-6.56 73.299-63.035 17.013v58.8l115.864-32.112.85-9.549 13.28-148.792 1.38-15.176 10.203-114.393H255.805v56.518h79.639L330.3 208.59z"/></svg><span>CSS</span></div>
-                    <div class="flex items-center gap-1.5 px-2.5 py-1 bg-slate-900 text-white text-xs font-medium rounded-full border border-gray-800 hover:scale-105 hover:border-yellow-300 transition-all duration-200"><svg viewBox="0 0 1052 1052" class="w-3.5 h-3.5"><path fill="#f0db4f" d="M0 0h1052v1052H0z" /><path d="M965.9 801.1c-7.7-48-39-88.3-131.7-125.9-32.2-14.8-68.1-25.399-78.8-49.8-3.8-14.2-4.3-22.2-1.9-30.8 6.9-27.9 40.2-36.6 66.6-28.6 17 5.7 33.1 18.801 42.8 39.7 45.4-29.399 45.3-29.2 77-49.399-11.6-18-17.8-26.301-25.4-34-27.3-30.5-64.5-46.2-124-45-10.3 1.3-20.699 2.699-31 4-29.699 7.5-58 23.1-74.6 44-49.8 56.5-35.6 155.399 25 196.1 59.7 44.8 147.4 55 158.6 96.9 10.9 51.3-37.699 67.899-86 62-35.6-7.4-55.399-25.5-76.8-58.4-39.399 22.8-39.399 22.8-79.899 46.1 9.6 21 19.699 30.5 35.8 48.7 76.2 77.3 266.899 73.5 301.1-43.5 1.399-4.001 10.6-30.801 3.199-72.101zm-394-317.6h-98.4c0 85-.399 169.4-.399 254.4 0 54.1 2.8 103.7-6 118.9-14.4 29.899-51.7 26.2-68.7 20.399-17.3-8.5-26.1-20.6-36.3-37.699-2.8-4.9-4.9-8.7-5.601-9-26.699 16.3-53.3 32.699-80 49 13.301 27.3 32.9 51 58 66.399 37.5 22.5 87.9 29.4 140.601 17.3 34.3-10 63.899-30.699 79.399-62.199 22.4-41.3 17.6-91.3 17.4-146.6.5-90.2 0-180.4 0-270.9z" fill="#323330"/></svg><span>Javascript</span></div>
+                    <div class="flex items-center gap-1.5 px-2.5 py-1 bg-slate-900 text-white text-xs font-medium rounded-full border border-gray-800 hover:scale-105 hover:border-orange-500 transition-all duration-200">
+                      
+
+                      <!-- SVG HTML -->
+                      <svg width="15" height="15"> 
+                        <use href="/Portafolio-FranlyAlvarezVarona/icons.svg#icon-html" />
+                      </svg>
+                      
+                      <span>HTML</span>
+                    </div>
+
+                    <div class="flex items-center gap-1.5 px-2.5 py-1 bg-slate-900 text-white text-xs font-medium rounded-full border border-gray-800 hover:scale-105 hover:border-cyan-400 transition-all duration-200">
+                      
+                      <!-- SVG CSS -->
+                      <svg width="15" height="15"> 
+                        <use href="/Portafolio-FranlyAlvarezVarona/icons.svg#icon-css" />
+                      </svg>
+                      <span>CSS</span>
+                    </div>
+
+                    <div class="flex items-center gap-1.5 px-2.5 py-1 bg-slate-900 text-white text-xs font-medium rounded-full border border-gray-800 hover:scale-105 hover:border-yellow-300 transition-all duration-200">
+                      
+                      <!-- SVG JavaScript -->
+                      <svg width="15" height="15"> 
+                        <use href="/Portafolio-FranlyAlvarezVarona/icons.svg#icon-javascript" />
+                      </svg>
+                      <span>JavaScript</span>
+                    </div>
+                    
                   </div>
                 </div>
                 <div class="w-full md:w-1/2 flex flex-col h-full">
@@ -276,7 +437,10 @@
                   <p id="contadorFallecidosDataExpanded" class="text-gray-200 text-xs sm:text-sm leading-relaxed flex-1 mb-0">Página web desarrollada para llevar un registro actualizado de fallecidos y lesionados en la provincia de Imbabura en Ecuador para la empresa de movilidad Movidelnor EP en Ibarra Ecuador mediante un promedio semanal calculado por la misma empresa.</p>
                   <a href="https://movidelnor.gob.ec/web/webepm/contador-de-muertes/" target="_blank" class="inline-flex items-center justify-center gap-2 px-4 py-2 bg-transparent hover:bg-blue-500/10 text-blue-400 hover:text-blue-300 rounded-full border border-blue-500/50 hover:border-blue-400 transition-all duration-200 hover:scale-[1.02] active:scale-95 mt-auto text-sm">
                     <span id="contadorFallecidosLinkExpanded" class="font-medium">Abrir Proyecto</span>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h6"/><path d="m21 3-9 9"/><path d="M15 3h6v6"/></svg>
+                    <!-- SVG Open -->
+                      <svg width="16" height="16"> 
+                        <use href="/Portafolio-FranlyAlvarezVarona/icons.svg#icon-open" />
+                      </svg>
                   </a>
                 </div>
               </div>
