@@ -2,6 +2,66 @@
   if (window.translationsLoaded) return;
   window.translationsLoaded = true;
 
+  // ---------- ESTILOS GLOBALES (fade + toast) ----------
+  if (!document.getElementById('lang-global-styles')) {
+    const style = document.createElement('style');
+    style.id = 'lang-global-styles';
+    style.textContent = `
+      /* Animación fade para los textos al cambiar idioma */
+      .lang-text-fade {
+        animation: langFadeAnimation 0.2s ease-in-out;
+      }
+      @keyframes langFadeAnimation {
+        0% { opacity: 1; }
+        50% { opacity: 0.5; }
+        100% { opacity: 1; }
+      }
+      /* Toast de notificación de idioma */
+      #language-toast {
+        position: fixed;
+        bottom: 30px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: rgba(0, 0, 0, 0.85);
+        backdrop-filter: blur(8px);
+        color: white;
+        padding: 12px 24px;
+        border-radius: 48px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-weight: 500;
+        z-index: 9999;
+        opacity: 0;
+        transition: opacity 0.3s ease-in-out;
+        pointer-events: none;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        border: 1px solid rgba(255,255,255,0.2);
+        font-size: 1rem;
+      }
+      #language-toast.show {
+        opacity: 1;
+      }
+      #language-toast svg {
+        width: 28px;
+        height: 28px;
+        display: block;
+      }
+      @media (max-width: 640px) {
+        #language-toast {
+          bottom: 20px;
+          padding: 8px 20px;
+        }
+        #language-toast svg {
+          width: 24px;
+          height: 24px;
+        }
+      }
+    `;
+    document.head.appendChild(style);
+  }
+
+  // ---------- TRADUCCIONES COMPLETAS ----------
   const translations = {
     es: {
       // Navbar
@@ -95,22 +155,70 @@
     }
   };
 
-  // Funciones seguras
+  // ---------- FUNCIONES CON ANIMACIÓN FADE ----------
+  const addFadeAnimation = (element) => {
+    if (!element) return;
+    element.classList.remove('lang-text-fade');
+    void element.offsetWidth;  // Forzar reflow
+    element.classList.add('lang-text-fade');
+    setTimeout(() => {
+      if (element) element.classList.remove('lang-text-fade');
+    }, 200);
+  };
+
   const setText = (id, value) => {
     const el = document.getElementById(id);
-    if (el) el.innerText = value;
+    if (el) {
+      el.innerText = value;
+      addFadeAnimation(el);
+    }
   };
   const setHtml = (id, value) => {
     const el = document.getElementById(id);
-    if (el) el.innerHTML = value;
+    if (el) {
+      el.innerHTML = value;
+      addFadeAnimation(el);
+    }
   };
   const setPlaceholder = (id, value) => {
     const el = document.getElementById(id);
     if (el) el.placeholder = value;
+    // No se aplica fade al placeholder (opcional)
   };
 
   let currentLang = localStorage.getItem("lang") || "es";
 
+  // ---------- TOAST DE IDIOMA CON BANDERAS ----------
+  let toastTimeout = null;
+  const toastBaseUrl = '/Portafolio-FranlyAlvarezVarona/icons.svg'; // Ruta del sprite
+
+  // Crear el contenedor del toast si no existe
+  if (!document.getElementById('language-toast')) {
+    const toastDiv = document.createElement('div');
+    toastDiv.id = 'language-toast';
+    document.body.appendChild(toastDiv);
+  }
+
+  function showLanguageToast(lang) {
+    const toast = document.getElementById('language-toast');
+    if (!toast) return;
+    if (toastTimeout) clearTimeout(toastTimeout);
+    const iconId = lang === 'es' ? 'icon-espana' : 'icon-uk';
+    toast.innerHTML = `
+      <svg width="28" height="28">
+        <use href="${toastBaseUrl}#${iconId}" />
+      </svg>
+      <span>${lang === 'es' ? 'Idioma cambiado a Español' : 'Language changed to English'}</span>
+    `;
+    toast.classList.remove('show');
+    void toast.offsetWidth;
+    toast.classList.add('show');
+    toastTimeout = setTimeout(() => {
+      toast.classList.remove('show');
+    }, 1500);
+  }
+
+  // ---------- APLICAR IDIOMA (con todas las actualizaciones) ----------
   function applyLanguage(lang) {
     // Navbar
     setText("aboutme", translations[lang].aboutme);
@@ -161,30 +269,36 @@
     setText("contactLabelMessage", translations[lang].contactLabelMessage);
     setText("contactbutton", translations[lang].contactbutton);
 
-    // Placeholders del formulario de contacto
+    // Placeholders del formulario
     setPlaceholder("name", translations[lang].contactNamePlaceholder);
     setPlaceholder("email", translations[lang].contactEmailPlaceholder);
     setPlaceholder("message", translations[lang].contactMessagePlaceholder);
 
-    // Indicador de idioma
+    // Indicador de idioma (si existe)
     const langIndicator = document.getElementById("lang-indicator");
-    if (langIndicator) langIndicator.innerText = lang.toUpperCase();
+    if (langIndicator) {
+      langIndicator.innerText = lang.toUpperCase();
+      addFadeAnimation(langIndicator);
+    }
 
+    // Guardar en localStorage
     localStorage.setItem("lang", lang);
     currentLang = lang;
 
-    // ─── NUEVO: refrescar instantáneamente cualquier alerta o mensaje visible
-    // del formulario de contacto al cambiar de idioma
+    // Actualizar mensajes visibles del formulario (alertas, éxito, error)
     if (typeof window.refreshVisibleMessages === 'function') {
       window.refreshVisibleMessages();
     }
   }
 
+  // ---------- TOGGLE + TOAST ----------
   function toggleLanguage() {
     const newLang = currentLang === "es" ? "en" : "es";
     applyLanguage(newLang);
+    showLanguageToast(newLang);   // Notificación con bandera
   }
 
+  // ---------- INICIALIZACIÓN ----------
   document.addEventListener("DOMContentLoaded", () => {
     const savedLang = localStorage.getItem("lang");
     if (savedLang === "es" || savedLang === "en") {
@@ -194,5 +308,6 @@
     }
   });
 
+  // Exponer la función para el botón (onclick="toggleLang()")
   window.toggleLang = toggleLanguage;
 })();
