@@ -172,6 +172,12 @@
 
     localStorage.setItem("lang", lang);
     currentLang = lang;
+
+    // ─── NUEVO: refrescar instantáneamente cualquier alerta o mensaje visible
+    // del formulario de contacto al cambiar de idioma
+    if (typeof window.refreshVisibleMessages === 'function') {
+      window.refreshVisibleMessages();
+    }
   }
 
   function toggleLanguage() {
